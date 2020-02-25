@@ -120,20 +120,25 @@ include_graphics("images/dino-saurus.gif")
 
 <!-- -- [Nick Tierney, WOMBAT2019](https://github.com/njtierney/wombat19) -->
 
+---
 
 class: center,middle
 
 <!-- SLIDE 4 -->
 
-##  **Problem** : How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behaviour? 
+#  Research aim 
 
-## **Solution** :  Visualize probability distributions over different time granularities.
+## **How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behaviour?**
 
-???
+<!-- ## **Solution** :  Visualize probability distributions over different time granularities. -->
+---
+#  Research objectives : 
 
-Developed by **John Tukey** as a way of _*systematically*_ using the tools of statistics on a problem before a hypotheses about the data were developed. This encourages to break the big problem into pieces and focusing on subsets. So the reduced goal that I set for myself is to look at time only and to provide ... . The smart meter example is the one that motivated me for this problem, how the idea is to provide the same for any temporal data following an hierarchy. 
+- ## **Visualize probability distributions over different time granularities for one or few individuals**
 
-The key terms are decontructing time and visualizing distribution. In the next couples of slides, we will talk about the strength and challenges for each of these. 
+- ## **Clustering temporal data across cyclic granularities based on probability distribution similarity**
+
+- ## **Study of Australian smart meter data**
 
 ---
 
