@@ -7,7 +7,7 @@ bgimg: "images/bg1.jpg"
 output:
   xaringan::moon_reader:
     after_body: ["libs/collapseoutput.js"]
-    css: ["libs/remark.css", "xaringan-themer.css", "libs/font-awesome/css/fontawesome-all.css"]
+    css: ["libs/font-awesome/css/fontawesome-all.css","libs/myremark.css", "xaringan-themer.css"]
     self_contained: false
     nature:
       ratio: 4:3
@@ -97,29 +97,72 @@ Just to give you some perspective I have this data from Department of Energy and
 ```
 
 ---
+class: center, middle
 <!-- class: hide-slide-number -->
 
 <!-- SLIDE 2 -->
 
-## Visualize the periodicities in half-hourly energy usage for 1 household from 2012 to 2014
+## Periodic behavior -  One household?
+
+<!-- in half-hourly energy usage for 1 household from 2012 to 2014 -->
+
+.pull-left[
+## **Linear scale** 
+<br>
+<br>
+<large> `r emo::ji("arrow_down")`
+<br>
+<br>
+## **Periodic scale**
+]
+
+.pull-right[
+`r par(mfrow = c(1, 2))`
+```{r motivation4}
+```
 
 ```{r motivation5}
 ```
+]
 
+## $Time\ restructuring \equiv Data \ restructuring$
 ---
 
-# Explorartory Data Analysis
+## Many households?
+
+```{r motivation6, out.height="100%"}
+```
+
+---
+# Summarizing data
 
 <!-- SLIDE 3 -->
 ```{r dino-saurus}
 include_graphics("images/dino-saurus.gif")
 ```
 
-
-### ["Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing"](https://www.autodeskresearch.com/publications/samestats)
+.footnote[
+["Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing"](https://www.autodeskresearch.com/publications/samestats)
+]
+<!-- -- [Nick Tierney, WOMBAT2019](https://github.com/njtierney/wombat19) -->
+---
+# Summarizing distributions
+.checked[
+<br>
+<br>
+* **Avoid loss of information due to aggregation**
+<br>
+<br>
+* **Dimension reduction**
+<br>
+<br>
+* **Capture shape and uncertainty**
+<br>
+<br>
+* **Alleviate the impact of outlier behavior (eg. different holidays)**
+]
 
 <!-- -- [Nick Tierney, WOMBAT2019](https://github.com/njtierney/wombat19) -->
-
 ---
 
 class: center,middle
