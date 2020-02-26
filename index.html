@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <script src="index_files/kePrint/kePrint.js"></script>
     <link rel="stylesheet" href="libs/font-awesome/css/fontawesome-all.css" type="text/css" />
-    <link rel="stylesheet" href="libs/myremark.css" type="text/css" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="libs/myremark.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -336,11 +336,8 @@ class: middle center
 ---
 &lt;!-- SLIDE 5 --&gt;
 
-#  Time granularities
-### abstractions of time based on calendar
-&lt;br&gt;
+#  Time granularities - abstractions of time
 .pull-left[
-
 ### Arrangement
 &lt;br&gt;
  &lt;i&gt; **Linear**&lt;/i&gt;  
@@ -355,13 +352,6 @@ class: middle center
 ]
 
 .pull-right[
-&lt;!-- # ```{r lineartime, out.width="260%", out.height="300%"} --&gt;
-&lt;!-- # ``` --&gt;
-&lt;!-- # &lt;br&gt; --&gt;
-&lt;!-- # ```{r circulartime, out.width = "100%", out.height="70%"} --&gt;
-&lt;!-- # ``` --&gt;
-&lt;!-- #  --&gt;
-
 ### Order 
 
 - &lt;i&gt;**Single-order-up**&lt;/i&gt; second-of-minute, hour-of-day  
@@ -375,54 +365,75 @@ class: middle center
 &lt;!-- # ``` --&gt;
 ]
 
+&lt;!-- --- --&gt;
+&lt;!-- class:  middle center --&gt;
+
+&lt;!-- # &lt;span style="color:DarkBlue"&gt; Linear time granularities &lt;br&gt; --&gt;
+
+&lt;!-- .pull-left[ --&gt;
+&lt;!-- ### Definition: Time Domain --&gt;
+&lt;!-- A **time domain** is a pair `\((T; \le)\)` where `\(T\)` is a non-empty set of time instants and `\(\le\)` is a total order on `\(T\)`. --&gt;
+
+&lt;!-- ### Definition: Linear Granularity --&gt;
+&lt;!-- A linear **granularity** is a mapping `\(G\)` from the integers to subsets of the time domain such that: --&gt;
+
+&lt;!--   (C1) if `\(i &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then each element of `\(G(i)\)` is less than all elements of `\(G(j)\)`, and   --&gt;
+&lt;!--   &lt;br&gt; --&gt;
+&lt;!--   (C2) if `\(i &lt; k &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then `\(G(k)\)` is non-empty.   --&gt;
+&lt;!-- ] --&gt;
+
+&lt;!-- .pull-right[ --&gt;
+
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- ```{r linear-time, echo=FALSE,out.width="100%"} --&gt;
+&lt;!-- knitr::include_graphics("linear-time-2.png") --&gt;
+&lt;!-- ``` --&gt;
+
+&lt;!-- &lt;span style="color:Crimson"&gt; (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order --&gt;
+
+&lt;!-- &lt;span style="color:Crimson"&gt;  These definitions inadequate for conceptualizing circular granularities  --&gt;
+
+&lt;!-- &lt;!-- since the linearity imposes a restriction on reflecting periodicity in time --&gt; --&gt;
+&lt;!-- .footnote[ --&gt;
+&lt;!-- _* "A Glossary of Time Granularity Concepts"* by Bettini et al." _ --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- ] --&gt;
+&lt;!-- --- --&gt;
+&lt;!-- class:  middle center --&gt;
+
+&lt;!-- &lt;!-- SLIDE 6 --&gt; --&gt;
+&lt;!-- ## Cyclic time granularities --&gt;
+
+&lt;!-- -  cyclic calendar algrebra --&gt;
+
+&lt;!-- --- --&gt;
+
 ---
 class:  middle center
+# Why look at multiple cyclic granularities?
+
+`\(multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)\)`
+.pull-left[
+&lt;br&gt;
+&lt;br&gt;
+### If certain hours of the day within a week are different?
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+### If certain days of the month are different for different months?
+]
 
 .pull-left[
-# &lt;span style="color:DarkBlue"&gt; Linear Time Granularities &lt;br&gt;
-
-_* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
-&lt;br&gt;
-&lt;br&gt;
-&lt;img src="images/linear-time-2.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-&lt;br&gt;
-&lt;br&gt;
-&lt;span style="color:Crimson"&gt;  These definitions for linear granularities are inadequate for conceptualizing circular granularities since the linearity imposes a restriction on reflecting periodicity in time
-
-]
-.pull-right[### Definition: Time Domain
-A **time domain** is a pair `\((T; \le)\)` where `\(T\)` is a non-empty set of time instants and `\(\le\)` is a total order on `\(T\)`.
-
-### Definition: Linear Granularity
-A linear **granularity** is a mapping `\(G\)` from the integers to subsets of the time domain such that:
-
-  (C1) if `\(i &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then each element of `\(G(i)\)` is less than all elements of `\(G(j)\)`, and  
-  &lt;br&gt;
-  (C2) if `\(i &lt; k &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then `\(G(k)\)` is non-empty.  
-&lt;br&gt;
-&lt;br&gt;
-The first condition implies that the granules in a linear granularity are non-overlapping and their index order is same as time order
-&lt;br&gt;
-&lt;br&gt;
+&lt;img src="figure/EDA1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="figure/EDA2-1.svg" style="display: block; margin: auto;" /&gt;
 ]
 
+&lt;!-- Exhaustive sets of visual representation required for multiple perspectives on data? --&gt;
 ---
 class:  middle center
 
-&lt;!-- SLIDE 6 --&gt;
-## Cyclic granularities
-
--  cyclic calendar algrebra
-
----
-&lt;!-- SLIDE 6 --&gt;
-##  How looking at multiple perspectives benefit us
-
----
-class:  middle center
-
-# Data Structure for exploration and graphical mapping
+# Graphical mapping with two cyclic granularities
 
 
 &lt;img src="images/datastructure.png", height = "400px"&gt;
@@ -474,16 +485,39 @@ class:  middle center
 class:  middle center
 
 &lt;!-- SLIDE 6 --&gt;
-##  Effect of number of levels
+# Effect of number of levels
+
+.pull-left[
+
+.x[
+* Ridge plot
+&lt;img src="figure/effectoflevel1-1.svg" style="display: block; margin: auto;" /&gt;
+
+* Violin plot
+&lt;img src="figure/effectoflevel2-1.svg" style="display: block; margin: auto;" /&gt;
+]
+]
+.pull-right[
+
+.checked[
+* box plot
+
+&lt;img src="figure/effectoflevel3-1.svg" style="display: block; margin: auto;" /&gt;
 
 
+* quantile plot
+
+&lt;img src="figure/effectoflevel4-1.svg" style="display: block; margin: auto;" /&gt;
+]
+]
 ---
 class:  middle center
 
 &lt;!-- SLIDE 6 --&gt;
 ##  Effect of interchanging the mapping
 
-
+&lt;img src="figure/effectofreverse1-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="figure/effectofreverse2-1.svg" style="display: block; margin: auto;" /&gt;
 ---
 class:  middle center
 

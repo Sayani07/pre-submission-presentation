@@ -7,7 +7,7 @@ bgimg: "images/bg1.jpg"
 output:
   xaringan::moon_reader:
     after_body: ["libs/collapseoutput.js"]
-    css: ["libs/font-awesome/css/fontawesome-all.css","libs/myremark.css", "xaringan-themer.css"]
+    css: ["libs/font-awesome/css/fontawesome-all.css", "xaringan-themer.css","libs/myremark.css"]
     self_contained: false
     nature:
       ratio: 4:3
@@ -40,10 +40,10 @@ library(xaringanthemer)
    # text_color = "#2b5797"
    # # header_color = "#00008B",
    # text_color = "#8B4513"
-  header_color = "#ffbb33",
+  header_color = "#000080",
   # text_color = "#FFDAB9",
-  text_color = "White",
-  background_color = "#555555",
+  #text_color = "White",
+  background_color = "White",
   #title_slide_background_color = " #D9D690"
  )
 ```
@@ -366,11 +366,8 @@ class: middle center
 ---
 <!-- SLIDE 5 -->
 
-#  Time granularities
-### abstractions of time based on calendar
-<br>
+#  Time granularities - abstractions of time
 .pull-left[
-
 ### Arrangement
 <br>
  <i> **Linear**</i>  
@@ -385,13 +382,6 @@ class: middle center
 ]
 
 .pull-right[
-<!-- # ```{r lineartime, out.width="260%", out.height="300%"} -->
-<!-- # ``` -->
-<!-- # <br> -->
-<!-- # ```{r circulartime, out.width = "100%", out.height="70%"} -->
-<!-- # ``` -->
-<!-- #  -->
-
 ### Order 
 
 - <i>**Single-order-up**</i> second-of-minute, hour-of-day  
@@ -405,56 +395,77 @@ class: middle center
 <!-- # ``` -->
 ]
 
+<!-- --- -->
+<!-- class:  middle center -->
+
+<!-- # <span style="color:DarkBlue"> Linear time granularities <br> -->
+
+<!-- .pull-left[ -->
+<!-- ### Definition: Time Domain -->
+<!-- A **time domain** is a pair $(T; \le)$ where $T$ is a non-empty set of time instants and $\le$ is a total order on $T$. -->
+
+<!-- ### Definition: Linear Granularity -->
+<!-- A linear **granularity** is a mapping $G$ from the integers to subsets of the time domain such that: -->
+
+<!--   (C1) if $i < j$ and $G(i)$ and $G(j)$ are non-empty, then each element of $G(i)$ is less than all elements of $G(j)$, and   -->
+<!--   <br> -->
+<!--   (C2) if $i < k < j$ and $G(i)$ and $G(j)$ are non-empty, then $G(k)$ is non-empty.   -->
+<!-- ] -->
+
+<!-- .pull-right[ -->
+
+<!-- <br> -->
+<!-- <br> -->
+<!-- ```{r linear-time, echo=FALSE,out.width="100%"} -->
+<!-- knitr::include_graphics("linear-time-2.png") -->
+<!-- ``` -->
+
+<!-- <span style="color:Crimson"> (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order -->
+
+<!-- <span style="color:Crimson">  These definitions inadequate for conceptualizing circular granularities  -->
+
+<!-- <!-- since the linearity imposes a restriction on reflecting periodicity in time --> -->
+<!-- .footnote[ -->
+<!-- _* "A Glossary of Time Granularity Concepts"* by Bettini et al." _ -->
+<!-- ] -->
+<!-- ] -->
+<!-- --- -->
+<!-- class:  middle center -->
+
+<!-- <!-- SLIDE 6 --> -->
+<!-- ## Cyclic time granularities -->
+
+<!-- -  cyclic calendar algrebra -->
+
+<!-- --- -->
+
 ---
 class:  middle center
+# Why look at multiple cyclic granularities?
+
+$multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$
+.pull-left[
+<br>
+<br>
+### If certain hours of the day within a week are different?
+<br>
+<br>
+<br>
+### If certain days of the month are different for different months?
+]
 
 .pull-left[
-# <span style="color:DarkBlue"> Linear Time Granularities <br>
-
-_* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
-<br>
-<br>
-```{r linear-time, echo=FALSE,out.width="100%"}
-knitr::include_graphics("linear-time-2.png")
+```{r EDA1}
 ```
-
-<br>
-<br>
-<span style="color:Crimson">  These definitions for linear granularities are inadequate for conceptualizing circular granularities since the linearity imposes a restriction on reflecting periodicity in time
-
-]
-.pull-right[### Definition: Time Domain
-A **time domain** is a pair $(T; \le)$ where $T$ is a non-empty set of time instants and $\le$ is a total order on $T$.
-
-### Definition: Linear Granularity
-A linear **granularity** is a mapping $G$ from the integers to subsets of the time domain such that:
-
-  (C1) if $i < j$ and $G(i)$ and $G(j)$ are non-empty, then each element of $G(i)$ is less than all elements of $G(j)$, and  
-  <br>
-  (C2) if $i < k < j$ and $G(i)$ and $G(j)$ are non-empty, then $G(k)$ is non-empty.  
-<br>
-<br>
-The first condition implies that the granules in a linear granularity are non-overlapping and their index order is same as time order
-<br>
-<br>
+```{r EDA2}
+```
 ]
 
+<!-- Exhaustive sets of visual representation required for multiple perspectives on data? -->
 ---
 class:  middle center
 
-<!-- SLIDE 6 -->
-## Cyclic granularities
-
--  cyclic calendar algrebra
-
----
-<!-- SLIDE 6 -->
-##  How looking at multiple perspectives benefit us
-
----
-class:  middle center
-
-# Data Structure for exploration and graphical mapping
+# Graphical mapping with two cyclic granularities
 
 
 <img src="images/datastructure.png", height = "400px">
@@ -509,16 +520,45 @@ class:  middle center
 class:  middle center
 
 <!-- SLIDE 6 -->
-##  Effect of number of levels
+# Effect of number of levels
+
+.pull-left[
+
+.x[
+* Ridge plot
+```{r effectoflevel1}
+```
+
+* Violin plot
+```{r effectoflevel2}
+```
+]
+]
+.pull-right[
+
+.checked[
+* box plot
+
+```{r effectoflevel3}
+```
 
 
+* quantile plot
+
+```{r effectoflevel4}
+```
+]
+]
 ---
 class:  middle center
 
 <!-- SLIDE 6 -->
 ##  Effect of interchanging the mapping
 
-
+```{r effectofreverse1, fig.height=4.5}
+```
+```{r effectofreverse2, fig.height=4.5}
+```
 ---
 class:  middle center
 

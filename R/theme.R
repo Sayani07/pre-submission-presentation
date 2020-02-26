@@ -2,11 +2,14 @@
 theme_remark <- function() {
   theme_grey() +
     theme(
-      axis.text = element_text(size = 12),
-      strip.text = element_text(size = 14),
-      axis.title = element_text(size = 14),
-      legend.title = element_text(size = 14),
-      legend.text = element_text(size = 14),
-      legend.position = "bottom"
+      axis.text = element_text(size = 24),
+      strip.text = element_text(size = 24),
+      axis.title = element_text(size = 24),
+      legend.title = element_text(size = 24),
+      legend.text = element_text(size = 24),
+      legend.position = "bottom",
+        strip.text = ggplot2::element_text(
+          size = 24
+        )) 
     )
 }

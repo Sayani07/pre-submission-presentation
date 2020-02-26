@@ -444,9 +444,146 @@ p5
 
 #ggarrange(p1, p2, p3, p4, p5, nrow = 2, ncol =3, labels = c("box", "violin", "lv", "decile", "ridge"))
 
-#----linear-time
+#----EDA1
 
-knitr::include_graphics("images/linear-time-2.png")
+smart_meter50 %>%
+  filter(customer_id %in% 10006414) %>% 
+  create_gran("day_week") %>% 
+  filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
+  prob_plot("day_week",
+            "hour_day",
+            plot_type = "boxplot") + 
+            ggtitle("") + 
+  theme(
+    legend.position = "bottom",
+    text = element_text(size = 24),
+    strip.text = ggplot2::element_text(
+      size = 24
+    )) +
+  scale_x_discrete(breaks = seq(0, 23, 2))
+
+
+#----EDA2
+
+smart_meter50 %>%
+  filter(customer_id %in% 10006414) %>% 
+  create_gran("month_year") %>% 
+  filter(month_year %in% c("Aug", "Dec")) %>% 
+  prob_plot("month_year",
+            "day_week",
+            plot_type = "quantile",
+            symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
+  theme(
+    legend.position = "bottom",
+    text = element_text(size = 24),
+    strip.text = ggplot2::element_text(
+      size = 24
+    )) 
+
+#----effectoflevel1
+
+smart_meter50 %>%
+  filter(customer_id %in% 10006414) %>% 
+  prob_plot("hhour_hour",
+            "hour_day",
+            plot_type = "ridge") + 
+  ggtitle("") + 
+  theme(
+    legend.position = "bottom",
+    text = element_text(size = 24),
+    strip.text = ggplot2::element_text(
+      size = 24
+    )) +
+  scale_x_discrete(breaks = seq(0, 23, 2))
+
+
+#----effectoflevel2
+
+smart_meter50 %>%
+  filter(customer_id %in% 10006414) %>% 
+  create_gran("month_year") %>% 
+  filter(month_year %in% c("Aug", "Dec")) %>% 
+  prob_plot("month_year",
+            "day_month",
+            plot_type = "violin",
+            symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
+  theme(
+    legend.position = "bottom",
+    text = element_text(size = 24),
+    strip.text = ggplot2::element_text(
+      size = 24
+    )) 
+
+
+#----effectoflevel3
+
+smart_meter50 %>%
+  filter(customer_id %in% 10006414) %>% 
+  prob_plot("hhour_hour",
+            "hour_day",
+            plot_type = "boxplot") + 
+  ggtitle("") + 
+  theme(
+    legend.position = "bottom",
+    text = element_text(size = 24),
+    strip.text = ggplot2::element_text(
+      size = 24
+    )) +
+  scale_x_discrete(breaks = seq(0, 23, 2))
+
+
+#----effectoflevel4
+
+smart_meter50 %>%
+  filter(customer_id %in% 10006414) %>% 
+  create_gran("month_year") %>% 
+  filter(month_year %in% c("Aug", "Dec")) %>% 
+  prob_plot("month_year",
+            "day_month",
+            plot_type = "quantile",
+            symmetric = FALSE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
+  theme(
+    legend.position = "bottom",
+    text = element_text(size = 24),
+    strip.text = ggplot2::element_text(
+      size = 24
+    )) 
+
+#----effectofreverse1
+
+smart_meter50 %>%
+  filter(customer_id %in% 10006414) %>% 
+  create_gran("day_week") %>% 
+  filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
+  prob_plot("day_week",
+            "hour_day",
+            plot_type = "boxplot") + 
+  ggtitle("") + 
+  theme(
+    legend.position = "bottom",
+    text = element_text(size = 24),
+    strip.text = ggplot2::element_text(
+      size = 24
+    )) +
+  scale_x_discrete(breaks = seq(0, 23, 2))
+
+#----effectofreverse2
+
+smart_meter50 %>%
+  filter(customer_id %in% 10006414) %>% 
+  create_gran("day_week") %>% 
+  filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
+  prob_plot("hour_day",
+            "day_week",
+            plot_type = "boxplot") + 
+  ggtitle("") + 
+  theme(
+    legend.position = "bottom",
+    text = element_text(size = 24),
+    strip.text = ggplot2::element_text(
+      size = 24
+    )) +
+  scale_x_discrete(breaks = seq(0, 23, 2))
 
 
 #----clash
