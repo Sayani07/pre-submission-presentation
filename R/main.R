@@ -42,30 +42,58 @@ smart_meter50 %>% filter(customer_id %in% c(10018254)) %>%  ggplot() + geom_line
 knitr::include_graphics("images/smart_allcust.gif")
 
 
+##----motivation4
+smart_meter50 %>% 
+  filter(customer_id %in% c(10018254)) %>%  
+  ggplot() + 
+  geom_line(aes(x =reading_datetime, 
+                y = general_supply_kwh, 
+                color = customer_id), color = "#D95F02") + 
+  theme(legend.position = "bottom")
+
+
 ##----motivation5
 smart_meter50 %>%
-  filter(customer_id %in% 10006414) %>%
+  filter(customer_id %in% 10018254) %>%
   mutate(hour_day = hour(reading_datetime)) %>% 
-  ggplot() + geom_point(aes(x = hour_day, y = general_supply_kwh)) + 
-  theme(legend.position = "bottom") + ggtitle("10006414")
+  ggplot() + geom_point(aes(x = hour_day, 
+                            y = general_supply_kwh)) + 
+  theme(legend.position = "bottom")  
+  #ggtitle("10018254")
 
 
 ##----motivation6
 
+# set.seed(1100)
+# 
+# sm_cust <- smart_meter50 %>% 
+#   distinct(customer_id) %>%
+#   .$customer_id %>% 
+#   sample(size= 10)
+# 
+# smart_meter50 %>%
+#   dplyr::filter(customer_id %in% sm_cust) %>% 
+#   mutate(hour_day = hour(reading_datetime)) %>%
+#   ggplot() +
+#   geom_point(aes(x = hour_day, y = general_supply_kwh, color = customer_id))  + 
+#   theme(legend.position = "None")
+
+knitr::include_graphics("images/all_households.png")
+
 # smart_p_period <- smart_meter50 %>%
-#   mutate(hour_day = hour(reading_datetime)) %>% 
+#   mutate(hour_day = hour(reading_datetime)) %>%
 #   ggplot() + geom_point(aes(x = hour_day, y = general_supply_kwh, color = customer_id))  +  theme(legend.position = "None")
 # 
+# # 
+# # 
+# # smart_anim_period <-  smart_p_period + gganimate::transition_states(customer_id)+ labs(title = "{closest_state}")
+# # 
+# # gganimate::animate(smart_anim_period, fps = 10, width = 1000, height = 600)
+# # 
+# # 
+# # anim_save("images/smart_allcust_period.gif")
 # 
-# 
-# smart_anim_period <-  smart_p_period + gganimate::transition_states(customer_id)+ labs(title = "{closest_state}")
-# 
-# gganimate::animate(smart_anim_period, fps = 10, width = 1000, height = 600)
-# 
-# 
-# anim_save("images/smart_allcust_period.gif")
-
-knitr::include_graphics("images/smart_allcust_period.gif")
+# knitr::include_graphics("images/smart_allcust_period.gif")
 
 
 ##----motivation7
@@ -416,6 +444,11 @@ p5
 
 #ggarrange(p1, p2, p3, p4, p5, nrow = 2, ncol =3, labels = c("box", "violin", "lv", "decile", "ridge"))
 
+#----linear-time
+
+knitr::include_graphics("images/linear-time-2.png")
+
+
 #----clash
 
 knitr::include_graphics("images/clash.png")
@@ -429,7 +462,6 @@ knitr::include_graphics("images/di.jpg")
 ##----rob
 
 knitr::include_graphics("images/rob.jpg")
-
 
 
 
