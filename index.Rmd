@@ -86,7 +86,7 @@ Just to give you some perspective I have this data from Department of Energy and
 <!-- class: hide-slide-number -->
 
 <!-- SLIDE 1 -->
-## Visualize the raw data from from 2012 - 2014 for 50 households
+## Explore the raw data from from 2012 - 2014 for 50 households
 
 ```{r load}
 
@@ -102,7 +102,7 @@ class: center, middle
 
 <!-- SLIDE 2 -->
 
-## Periodic behavior -  One household?
+### Raw data - Periodic behavior of one household?
 
 <!-- in half-hourly energy usage for 1 household from 2012 to 2014 -->
 
@@ -128,13 +128,13 @@ class: center, middle
 ## $Time\ restructuring \equiv Data \ restructuring$
 ---
 
-## Many households?
+### Raw data - Periodic behavior of many households?
 
 ```{r motivation6, out.height="100%"}
 ```
 
 ---
-# Summarizing data
+# Summarize data
 <br>
 <br>
 <!-- SLIDE 3 -->
@@ -151,16 +151,19 @@ include_graphics("images/dino-saurus.gif")
 .checked[
 <br>
 <br>
-* **Avoid loss of information due to excessive aggregation**
+* **Avoids loss of information due to excessive aggregation**
 <br>
 <br>
 * **Dimension reduction**
 <br>
 <br>
-* **Capture shape and uncertainty**
+* **Captures shape and uncertainty**
 <br>
 <br>
-* **Alleviate the impact of outlier behavior (eg. different holidays)**
+* **Alleviates the impact of outlier behavior (eg. different holidays)**
+<br>
+<br>
+* **Handles asynchronous and unequal time series**
 ]
 
 <!-- -- [Nick Tierney, WOMBAT2019](https://github.com/njtierney/wombat19) -->
@@ -451,11 +454,7 @@ class:  middle center
 ---
 class:  middle center
 
-<!-- SLIDE 6 -->
-# Data Structure for exploration 
-
-
-## Extension of a tsibble - data abstraction for tidy temporal data
+# Data Structure for exploration and graphical mapping
 
 
 <img src="images/datastructure.png", height = "400px">
