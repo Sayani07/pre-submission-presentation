@@ -135,7 +135,8 @@ class: center, middle
 
 ---
 # Summarizing data
-
+<br>
+<br>
 <!-- SLIDE 3 -->
 ```{r dino-saurus}
 include_graphics("images/dino-saurus.gif")
@@ -146,11 +147,11 @@ include_graphics("images/dino-saurus.gif")
 ]
 <!-- -- [Nick Tierney, WOMBAT2019](https://github.com/njtierney/wombat19) -->
 ---
-# Summarizing distributions
+# Summarize distributions induced by multiple observations
 .checked[
 <br>
 <br>
-* **Avoid loss of information due to aggregation**
+* **Avoid loss of information due to excessive aggregation**
 <br>
 <br>
 * **Dimension reduction**
@@ -400,9 +401,50 @@ class: middle center
 <!-- #  -->
 <!-- # ``` -->
 ]
+
 ---
 class:  middle center
 
+.pull-left[
+# <span style="color:DarkBlue"> Linear Time Granularities <br>
+
+_* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
+<br>
+<br>
+```{r linear-time, echo=FALSE,out.width="100%"}
+knitr::include_graphics("linear-time-2.png")
+```
+
+<br>
+<br>
+<span style="color:Crimson">  These definitions for linear granularities are inadequate for conceptualizing circular granularities since the linearity imposes a restriction on reflecting periodicity in time
+
+]
+.pull-right[### Definition: Time Domain
+A **time domain** is a pair $(T; \le)$ where $T$ is a non-empty set of time instants and $\le$ is a total order on $T$.
+
+### Definition: Linear Granularity
+A linear **granularity** is a mapping $G$ from the integers to subsets of the time domain such that:
+
+  (C1) if $i < j$ and $G(i)$ and $G(j)$ are non-empty, then each element of $G(i)$ is less than all elements of $G(j)$, and  
+  <br>
+  (C2) if $i < k < j$ and $G(i)$ and $G(j)$ are non-empty, then $G(k)$ is non-empty.  
+<br>
+<br>
+The first condition implies that the granules in a linear granularity are non-overlapping and their index order is same as time order
+<br>
+<br>
+]
+
+---
+class:  middle center
+
+<!-- SLIDE 6 -->
+## Cyclic granularities
+
+-  cyclic calendar algrebra
+
+---
 <!-- SLIDE 6 -->
 ##  How looking at multiple perspectives benefit us
 
@@ -410,18 +452,10 @@ class:  middle center
 class:  middle center
 
 <!-- SLIDE 6 -->
-##  Computation of cyclic granularities
-
--  cyclic calendar algrebra
-
----
-class:  middle center
-
-<!-- SLIDE 6 -->
-##  Data Structure for exploration 
+# Data Structure for exploration 
 
 
-#### Extension of a tsibble - data abstraction for tidy temporal data
+## Extension of a tsibble - data abstraction for tidy temporal data
 
 
 <img src="images/datastructure.png", height = "400px">
@@ -449,17 +483,8 @@ class:  middle center
 <!-- f(x,y) & = \sum_{i=0}^{order(y) - order(x) - 1} c(x, x+i)(f(x -->
 <!--   +i, x+i+1) - 1)\\ -->
 <!-- \end{split} -->
-
----
-class:  middle center
-
-<!-- SLIDE 6 -->
-##  Computation of cyclic granularities
-
--  cyclic calendar algrebra
-
----
 <!-- SLIDE 7 -->
+---
 ## Relationship of cyclic granularities
 
 **Harmonies** : pairs of granularities that aid exploratory data analysis  
