@@ -360,51 +360,70 @@ class: middle center
 ]
 
 &lt;!-- --- --&gt;
-&lt;!-- class:  middle center --&gt;
-
-&lt;!-- # &lt;span style="color:DarkBlue"&gt; Linear time granularities &lt;br&gt; --&gt;
-
-&lt;!-- .pull-left[ --&gt;
-&lt;!-- ### Definition: Time Domain --&gt;
-&lt;!-- A **time domain** is a pair `\((T; \le)\)` where `\(T\)` is a non-empty set of time instants and `\(\le\)` is a total order on `\(T\)`. --&gt;
-
-&lt;!-- ### Definition: Linear Granularity --&gt;
-&lt;!-- A linear **granularity** is a mapping `\(G\)` from the integers to subsets of the time domain such that: --&gt;
-
-&lt;!--   (C1) if `\(i &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then each element of `\(G(i)\)` is less than all elements of `\(G(j)\)`, and   --&gt;
-&lt;!--   &lt;br&gt; --&gt;
-&lt;!--   (C2) if `\(i &lt; k &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then `\(G(k)\)` is non-empty.   --&gt;
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right[ --&gt;
-
-&lt;!-- &lt;br&gt; --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-&lt;!-- ```{r linear-time, echo=FALSE,out.width="100%"} --&gt;
-&lt;!-- knitr::include_graphics("linear-time-2.png") --&gt;
-&lt;!-- ``` --&gt;
-
-&lt;!-- &lt;span style="color:Crimson"&gt; (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order --&gt;
-
-&lt;!-- &lt;span style="color:Crimson"&gt;  These definitions inadequate for conceptualizing circular granularities  --&gt;
-
-&lt;!-- &lt;!-- since the linearity imposes a restriction on reflecting periodicity in time --&gt; --&gt;
-&lt;!-- .footnote[ --&gt;
-&lt;!-- _* "A Glossary of Time Granularity Concepts"* by Bettini et al." _ --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- ] --&gt;
-&lt;!-- --- --&gt;
-&lt;!-- class:  middle center --&gt;
-
-&lt;!-- &lt;!-- SLIDE 6 --&gt; --&gt;
-&lt;!-- ## Cyclic time granularities --&gt;
-
-&lt;!-- -  cyclic calendar algrebra --&gt;
-
-&lt;!-- --- --&gt;
-
 ---
 class:  middle center
+
+# &lt;span style="color:DarkBlue"&gt; Linear time granularities &lt;br&gt;
+.pull-left[
+### Definition: Time Domain
+A **time domain** is a pair `\((T; \le)\)` where `\(T\)` is a non-empty set of time instants and `\(\le\)` is a total order on `\(T\)`.
+
+### Definition: Linear Granularity
+A linear **granularity** is a mapping `\(G\)` from the integers to subsets of the time domain such that:
+
+  (C1) if `\(i &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then each element of `\(G(i)\)` is less than all elements of `\(G(j)\)`, and
+  &lt;br&gt;
+  (C2) if `\(i &lt; k &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then `\(G(k)\)` is non-empty.
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="images/linear-time-2.png" width="897" style="display: block; margin: auto;" /&gt;
+
+&lt;span style="color:Crimson"&gt; (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order
+
+&lt;span style="color:Crimson"&gt;  These definitions inadequate for conceptualizing circular granularities
+
+&lt;!-- since the linearity imposes a restriction on reflecting periodicity in time --&gt;
+.footnote[
+_* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
+]
+]
+---
+class:  middle center
+
+&lt;!-- SLIDE 6 --&gt;
+# Cyclic time granularities
+
+.pull-left[
+.checked[
+* **Circular**  
+`\(C_{B, G}(z) = {L}(z\mod P(B, G))\)`,  `\(\forall z \in \mathbb{Z}_{\geq 0}\)`
+
+* **Quasi-circular**  
+
+`\(Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)\)`, `\(z \in T_k\)`
+
+* **Aperiodic**  
+`\(A_{B, M}(z) = L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n}\)`
+             = L(0), otherwise
+]
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;img src="images/circular-dow.png" width="1496" height="100px" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="images/quasi-circular-example.png" width="2829" height="100px" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="images/aperiodic-example.png" width="2795" height="100px" style="display: block; margin: auto;" /&gt;
+]
+---
+class:  middle center
+
 # Why look at multiple cyclic granularities?
 
 `\(multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)\)`
@@ -492,13 +511,13 @@ class:  middle center
 &lt;img src="figure/effectofreverse1-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
-class:  middle center
+&lt;!-- class:  middle center --&gt;
 
-&lt;!-- SLIDE 6 --&gt;
-##  Effect of rarely occuring observations
+&lt;!-- &lt;!-- SLIDE 6 --&gt; --&gt;
+&lt;!-- ##  Effect of rarely occuring observations --&gt;
 
 
----
+&lt;!-- --- --&gt;
 
 
 &lt;!-- SLIDE 8 --&gt;

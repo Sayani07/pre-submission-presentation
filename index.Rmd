@@ -389,51 +389,74 @@ class: middle center
 ]
 
 <!-- --- -->
-<!-- class:  middle center -->
-
-<!-- # <span style="color:DarkBlue"> Linear time granularities <br> -->
-
-<!-- .pull-left[ -->
-<!-- ### Definition: Time Domain -->
-<!-- A **time domain** is a pair $(T; \le)$ where $T$ is a non-empty set of time instants and $\le$ is a total order on $T$. -->
-
-<!-- ### Definition: Linear Granularity -->
-<!-- A linear **granularity** is a mapping $G$ from the integers to subsets of the time domain such that: -->
-
-<!--   (C1) if $i < j$ and $G(i)$ and $G(j)$ are non-empty, then each element of $G(i)$ is less than all elements of $G(j)$, and   -->
-<!--   <br> -->
-<!--   (C2) if $i < k < j$ and $G(i)$ and $G(j)$ are non-empty, then $G(k)$ is non-empty.   -->
-<!-- ] -->
-
-<!-- .pull-right[ -->
-
-<!-- <br> -->
-<!-- <br> -->
-<!-- ```{r linear-time, echo=FALSE,out.width="100%"} -->
-<!-- knitr::include_graphics("linear-time-2.png") -->
-<!-- ``` -->
-
-<!-- <span style="color:Crimson"> (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order -->
-
-<!-- <span style="color:Crimson">  These definitions inadequate for conceptualizing circular granularities  -->
-
-<!-- <!-- since the linearity imposes a restriction on reflecting periodicity in time --> -->
-<!-- .footnote[ -->
-<!-- _* "A Glossary of Time Granularity Concepts"* by Bettini et al." _ -->
-<!-- ] -->
-<!-- ] -->
-<!-- --- -->
-<!-- class:  middle center -->
-
-<!-- <!-- SLIDE 6 --> -->
-<!-- ## Cyclic time granularities -->
-
-<!-- -  cyclic calendar algrebra -->
-
-<!-- --- -->
-
 ---
 class:  middle center
+
+# <span style="color:DarkBlue"> Linear time granularities <br>
+.pull-left[
+### Definition: Time Domain
+A **time domain** is a pair $(T; \le)$ where $T$ is a non-empty set of time instants and $\le$ is a total order on $T$.
+
+### Definition: Linear Granularity
+A linear **granularity** is a mapping $G$ from the integers to subsets of the time domain such that:
+
+  (C1) if $i < j$ and $G(i)$ and $G(j)$ are non-empty, then each element of $G(i)$ is less than all elements of $G(j)$, and
+  <br>
+  (C2) if $i < k < j$ and $G(i)$ and $G(j)$ are non-empty, then $G(k)$ is non-empty.
+]
+
+.pull-right[
+<br>
+<br>
+```{r linear-time, echo=FALSE}
+knitr::include_graphics("images/linear-time-2.png")
+```
+
+<span style="color:Crimson"> (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order
+
+<span style="color:Crimson">  These definitions inadequate for conceptualizing circular granularities
+
+<!-- since the linearity imposes a restriction on reflecting periodicity in time -->
+.footnote[
+_* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
+]
+]
+---
+class:  middle center
+
+<!-- SLIDE 6 -->
+# Cyclic time granularities
+.pull-left[
+.checked[
+* **Circular**  
+$C_{B, G}(z) = {L}(z\mod P(B, G))$,  $\forall z \in \mathbb{Z}_{\geq 0}$
+
+* **Quasi-circular**  
+
+$Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)$, $z \in T_k$
+
+* **Aperiodic**  
+$A_{B, M}(z) = L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n}$
+             = L(0), otherwise
+]
+]
+
+.pull-right[
+<br>
+```{r computation1, out.height="100px"}
+```
+<br>
+<br>
+```{r computation2, out.height="100px"}
+```
+<br>
+<br>
+```{r computation3, out.height="100px"}
+```
+]
+---
+class:  middle center
+
 # Why look at multiple cyclic granularities?
 
 $multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$
@@ -529,13 +552,13 @@ class:  middle center
 ```
 
 ---
-class:  middle center
+<!-- class:  middle center -->
 
-<!-- SLIDE 6 -->
-##  Effect of rarely occuring observations
+<!-- <!-- SLIDE 6 --> -->
+<!-- ##  Effect of rarely occuring observations -->
 
 
----
+<!-- --- -->
 
 
 <!-- SLIDE 8 -->

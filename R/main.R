@@ -674,4 +674,11 @@ knitr::include_graphics("images/di.jpg")
 knitr::include_graphics("images/rob.jpg")
 
 
+##----computation1
+knitr::include_graphics("images/circular-dow.png")
 
+##----computation2
+knitr::include_graphics("images/quasi-circular-example.png")
+
+##----computation3
+knitr::include_graphics("images/aperiodic-example.png")
