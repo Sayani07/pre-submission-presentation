@@ -7,7 +7,7 @@ bgimg: "images/bg1.jpg"
 output:
   xaringan::moon_reader:
     after_body: ["libs/collapseoutput.js"]
-    css: ["libs/font-awesome/css/fontawesome-all.css", "xaringan-themer.css","libs/myremark.css"]
+    css: ["libs/font-awesome/css/fontawesome-all.css", "xaringan-themer.css","libs/myremark.css", "timeline.css"]
     self_contained: false
     nature:
       ratio: 4:3
@@ -102,26 +102,27 @@ class: center, middle
 
 <!-- SLIDE 2 -->
 
-### Raw data - Periodic behavior of one household?
+## Raw data - Periodic behavior of one household?
 
 <!-- in half-hourly energy usage for 1 household from 2012 to 2014 -->
 
-.pull-left[
+.left-column[
+<br>
 ## **Linear scale** 
 <br>
-<br>
-<large> `r emo::ji("arrow_down")`
-<br>
+<br><font size="15">
+`r emo::ji("arrow_down")`
+<br></font size>
 <br>
 ## **Periodic scale**
 ]
 
-.pull-right[
+.right-column[
 `r par(mfrow = c(1, 2))`
-```{r motivation4}
+```{r motivation4, fig.height=4.5}
 ```
 
-```{r motivation5}
+```{r motivation5, fig.height=4.5}
 ```
 ]
 
@@ -200,15 +201,7 @@ class: center,middle
 .timeline-block[
 .arrow-right[
 .timeline-content[
-Candidature Confirmation
-.timeline-date[
-2019/02
-]]]]
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-Internship with Google Summer of Code working on R package `gravitas` and Shiny App
+Internship with Google Summer of Code
 .timeline-date[
 2019/05 - 2019/08
 ]]]]
@@ -216,7 +209,7 @@ Internship with Google Summer of Code working on R package `gravitas` and Shiny 
 .timeline-block[
 .arrow-right[
 .timeline-content[
-Presented at Young Statistician's Conference -  
+Young Statistician's Conference -  
 won the 2nd best Presentation award `r emo::ji("trophy")`
 .timeline-date[
 2019/10
@@ -233,7 +226,7 @@ R package `gravitas` on CRAN
 .timeline-block[
 .arrow-right[
 .timeline-content[
-R package `gghdr`: graphing highest density regions using `ggplot2` at rOpenSci 
+R package `gghdr`: graphing highest density regions at [rOpenSci](https://ropensci.org/) 
 .timeline-date[
 2019/12
 ]]]]
@@ -242,7 +235,7 @@ R package `gghdr`: graphing highest density regions using `ggplot2` at rOpenSci
 .timeline-block[
 .arrow-right[
 .timeline-content[
-Presented at International Indian Statistical Association 
+International Indian Statistical Association 
 .timeline-date[
 2019/12
 ]]]]
@@ -345,7 +338,7 @@ Research objective-3 draft paper ready
 .timeline-block[
 .arrow-right[
 .timeline-content[
-Thesis `r emo::ji("v")`
+Thesis submission `r emo::ji("v")`
 .timeline-date[
 2020/06
 ]]]]
@@ -357,7 +350,7 @@ class: middle center
 <!-- SLIDE 4 -->
 
 .animated.bounce[
-<img src="images/gravitas.png" height=280px>
+<img src="images/gravitas_sticker.png" height=280px>
 ]
 
 ## Visualize probability distributions over different time granularities
@@ -451,7 +444,7 @@ $multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$
 <br>
 <br>
 <br>
-### If certain days of the month are different for different months?
+### If certain days of the week are different for different months?
 ]
 
 .pull-left[
@@ -520,9 +513,11 @@ class:  middle center
 class:  middle center
 
 <!-- SLIDE 6 -->
-# Effect of number of levels
+# Effect of number of levels on visualization
 
 .pull-left[
+
+If certain  hours of the day are different between weekdays and weekends ?
 
 .x[
 * Ridge plot

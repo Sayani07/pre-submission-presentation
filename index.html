@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="libs/font-awesome/css/fontawesome-all.css" type="text/css" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="libs/myremark.css" type="text/css" />
+    <link rel="stylesheet" href="timeline.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -77,21 +78,22 @@ class: center, middle
 
 &lt;!-- SLIDE 2 --&gt;
 
-### Raw data - Periodic behavior of one household?
+## Raw data - Periodic behavior of one household?
 
 &lt;!-- in half-hourly energy usage for 1 household from 2012 to 2014 --&gt;
 
-.pull-left[
+.left-column[
+&lt;br&gt;
 ## **Linear scale** 
 &lt;br&gt;
-&lt;br&gt;
-&lt;large&gt; ⬇️
-&lt;br&gt;
+&lt;br&gt;&lt;font size="15"&gt;
+⬇️
+&lt;br&gt;&lt;/font size&gt;
 &lt;br&gt;
 ## **Periodic scale**
 ]
 
-.pull-right[
+.right-column[
 
 &lt;img src="figure/motivation4-1.svg" style="display: block; margin: auto;" /&gt;
 
@@ -170,15 +172,7 @@ class: center,middle
 .timeline-block[
 .arrow-right[
 .timeline-content[
-Candidature Confirmation
-.timeline-date[
-2019/02
-]]]]
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-Internship with Google Summer of Code working on R package `gravitas` and Shiny App
+Internship with Google Summer of Code
 .timeline-date[
 2019/05 - 2019/08
 ]]]]
@@ -186,7 +180,7 @@ Internship with Google Summer of Code working on R package `gravitas` and Shiny 
 .timeline-block[
 .arrow-right[
 .timeline-content[
-Presented at Young Statistician's Conference -  
+Young Statistician's Conference -  
 won the 2nd best Presentation award 🏆
 .timeline-date[
 2019/10
@@ -203,7 +197,7 @@ R package `gravitas` on CRAN
 .timeline-block[
 .arrow-right[
 .timeline-content[
-R package `gghdr`: graphing highest density regions using `ggplot2` at rOpenSci 
+R package `gghdr`: graphing highest density regions at [rOpenSci](https://ropensci.org/) 
 .timeline-date[
 2019/12
 ]]]]
@@ -212,7 +206,7 @@ R package `gghdr`: graphing highest density regions using `ggplot2` at rOpenSci
 .timeline-block[
 .arrow-right[
 .timeline-content[
-Presented at International Indian Statistical Association 
+International Indian Statistical Association 
 .timeline-date[
 2019/12
 ]]]]
@@ -315,7 +309,7 @@ Research objective-3 draft paper ready
 .timeline-block[
 .arrow-right[
 .timeline-content[
-Thesis ✌️
+Thesis submission ✌️
 .timeline-date[
 2020/06
 ]]]]
@@ -327,7 +321,7 @@ class: middle center
 &lt;!-- SLIDE 4 --&gt;
 
 .animated.bounce[
-&lt;img src="images/gravitas.png" height=280px&gt;
+&lt;img src="images/gravitas_sticker.png" height=280px&gt;
 ]
 
 ## Visualize probability distributions over different time granularities
@@ -421,7 +415,7 @@ class:  middle center
 &lt;br&gt;
 &lt;br&gt;
 &lt;br&gt;
-### If certain days of the month are different for different months?
+### If certain days of the week are different for different months?
 ]
 
 .pull-left[
@@ -485,9 +479,11 @@ class:  middle center
 class:  middle center
 
 &lt;!-- SLIDE 6 --&gt;
-# Effect of number of levels
+# Effect of number of levels on visualization
 
 .pull-left[
+
+If certain  hours of the day are different between weekdays and weekends ?
 
 .x[
 * Ridge plot

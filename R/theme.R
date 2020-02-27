@@ -10,6 +10,5 @@ theme_remark <- function() {
       legend.position = "bottom",
         strip.text = ggplot2::element_text(
           size = 24
-        )) 
-    )
+        ))
 }

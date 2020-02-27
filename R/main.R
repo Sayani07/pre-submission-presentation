@@ -11,22 +11,27 @@ library(ggridges)
 library(ggpubr)
 library(lvplot)
 library(kableExtra)
+library(gghdr)
 #remotes::install_github("njtierney/palap")
 library(palap)
 
-smart_meter50 <- read_rds("data/sm_cust50.rds")%>%  
-  select(customer_id, 
+load("data/sm_cust50.Rdata")
+
+smart_meter50 <- sm_cust50 %>% select(customer_id, 
          reading_datetime,
          general_supply_kwh, 
          everything())
 
+data_cust1 <- smart_meter50 %>% filter(customer_id == 10017936)
+
 ##----motivation1
 
-smart_meter50 %>% filter(customer_id %in% 10006414) %>% ggplot() + geom_line(aes(x =reading_datetime, y = general_supply_kwh), color = "#1B9E77")+ theme(legend.position = "bottom")
+
+data_cust1%>% ggplot() + geom_line(aes(x =reading_datetime, y = general_supply_kwh), color = "#1B9E77")+ theme(legend.position = "bottom")
 
 
 ##----motivation2
-smart_meter50 %>% filter(customer_id %in% c(10018254)) %>%  ggplot() + geom_line(aes(x =reading_datetime, y = general_supply_kwh, color = customer_id), color = "#D95F02") + theme(legend.position = "bottom")
+data_cust1 %>%  ggplot() + geom_line(aes(x =reading_datetime, y = general_supply_kwh, color = customer_id), color = "#D95F02") + theme(legend.position = "bottom")
 
 ##----motivation3
 
@@ -43,22 +48,28 @@ knitr::include_graphics("images/smart_allcust.gif")
 
 
 ##----motivation4
-smart_meter50 %>% 
-  filter(customer_id %in% c(10018254)) %>%  
+smart_meter50 %>%
+  filter(customer_id==10018250) %>%   
   ggplot() + 
   geom_line(aes(x =reading_datetime, 
                 y = general_supply_kwh, 
                 color = customer_id), color = "#D95F02") + 
-  theme(legend.position = "bottom")
+  theme(legend.position = "bottom",
+    axis.text = element_text(size = 18),
+    axis.title = element_text(size = 18)
+    )
 
 
 ##----motivation5
 smart_meter50 %>%
-  filter(customer_id %in% 10018254) %>%
+  filter(customer_id==10018250) %>%
   mutate(hour_day = hour(reading_datetime)) %>% 
   ggplot() + geom_point(aes(x = hour_day, 
                             y = general_supply_kwh)) + 
-  theme(legend.position = "bottom")  
+  theme(legend.position = "bottom",
+        axis.text = element_text(size = 18),
+        axis.title = element_text(size = 18)
+  )
   #ggtitle("10018254")
 
 
@@ -371,10 +382,16 @@ pridge <-  ggplot(mpg, aes( hwy, cls)) + geom_density_ridges2()+  xlab("") + yla
     )
   })
   
-  pquant <- p4_quantile %>% ggplot(aes(x = hour_day, y = Value, group=Quantile,  col = as.factor(Quantile))) + geom_line() +   xlab("") + ylab("") + theme(legend.position = "None") + scale_color_brewer(palette = "Dark2") +   ylab("") + xlab("") + scale_x_discrete(breaks = seq(0, 23, 5))
+  pquant <- p4_quantile %>% ggplot(aes(x = hour_day, y = Value, group=Quantile,  col = as.factor(Quantile))) + geom_line() +   xlab("") + ylab("") + theme(legend.position = "None") + scale_color_brewer(palette = "Dark2") +   ylab("") + xlab("") + scale_x_discrete(breaks = seq(0, 23, 5)) + ylab("")
+
+phdr <- mpg %>% ggplot( 
+         # make sure to change x to y from geom_density to geom_hdr_boxplot
+         aes(y = hwy)) + 
+    geom_hdr_boxplot(fill = "blue") + theme(legend.position = "none") +
+  ylab("")
+
   
-  
-ggarrange(pbox, pviolin, plv, pridge, pquant, nrow = 1, ncol =5, labels = c("box", "violin", "letter-value", "ridge", "quantile"))
+ggarrange(pbox, pviolin, plv, pridge, pquant, phdr, nrow = 1, ncol = 6, labels = c("box", "violin", "letter-value", "ridge", "quantile", "hdr-box"))
 
 
 ##----box
@@ -446,13 +463,13 @@ p5
 
 #----EDA1
 
-smart_meter50 %>%
-  filter(customer_id %in% 10006414) %>% 
+data_cust1 %>% 
   create_gran("day_week") %>% 
   filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
   prob_plot("day_week",
             "hour_day",
-            plot_type = "boxplot") + 
+            plot_type = "quantile", symmetric = FALSE,
+            quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + 
             ggtitle("") + 
   theme(
     legend.position = "bottom",
@@ -465,13 +482,12 @@ smart_meter50 %>%
 
 #----EDA2
 
-smart_meter50 %>%
-  filter(customer_id %in% 10006414) %>% 
+data_cust1 %>% 
   create_gran("month_year") %>% 
   filter(month_year %in% c("Aug", "Dec")) %>% 
   prob_plot("month_year",
             "day_week",
-            plot_type = "quantile",
+            plot_type = "boxplot",
             symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
   theme(
     legend.position = "bottom",
@@ -482,9 +498,8 @@ smart_meter50 %>%
 
 #----effectoflevel1
 
-smart_meter50 %>%
-  filter(customer_id %in% 10006414) %>% 
-  prob_plot("hhour_hour",
+data_cust1 %>% 
+  prob_plot("wknd_wday",
             "hour_day",
             plot_type = "ridge") + 
   ggtitle("") + 
@@ -497,10 +512,10 @@ smart_meter50 %>%
   scale_x_discrete(breaks = seq(0, 23, 2))
 
 
+
 #----effectoflevel2
 
-smart_meter50 %>%
-  filter(customer_id %in% 10006414) %>% 
+data_cust1%>% 
   create_gran("month_year") %>% 
   filter(month_year %in% c("Aug", "Dec")) %>% 
   prob_plot("month_year",
@@ -517,9 +532,8 @@ smart_meter50 %>%
 
 #----effectoflevel3
 
-smart_meter50 %>%
-  filter(customer_id %in% 10006414) %>% 
-  prob_plot("hhour_hour",
+data_cust1 %>% 
+  prob_plot("wknd_wday",
             "hour_day",
             plot_type = "boxplot") + 
   ggtitle("") + 
@@ -534,8 +548,7 @@ smart_meter50 %>%
 
 #----effectoflevel4
 
-smart_meter50 %>%
-  filter(customer_id %in% 10006414) %>% 
+data_cust1 %>% 
   create_gran("month_year") %>% 
   filter(month_year %in% c("Aug", "Dec")) %>% 
   prob_plot("month_year",
@@ -549,10 +562,23 @@ smart_meter50 %>%
       size = 24
     )) 
 
+#----effectoflevel5
+# 
+# data_cust1 %>% 
+#   create_gran("wknd_wday") %>% create_gran("hour_day") %>% 
+#   ggplot(aes(y=  general_supply_kwh, x = hour_day)) + 
+#   geom_hdr_boxplot() + facet_wrap(~wknd_wday) +
+#   ggtitle("") + 
+#   theme(
+#     legend.position = "bottom",
+#     text = element_text(size = 24),
+#     strip.text = ggplot2::element_text(
+#       size = 24
+#     )) +
+#   scale_x_discrete(breaks = seq(0, 23, 2))
 #----effectofreverse1
 
-smart_meter50 %>%
-  filter(customer_id %in% 10006414) %>% 
+data_cust1%>% 
   create_gran("day_week") %>% 
   filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
   prob_plot("day_week",
@@ -568,9 +594,7 @@ smart_meter50 %>%
   scale_x_discrete(breaks = seq(0, 23, 2))
 
 #----effectofreverse2
-
-smart_meter50 %>%
-  filter(customer_id %in% 10006414) %>% 
+data_cust1 %>% 
   create_gran("day_week") %>% 
   filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
   prob_plot("hour_day",
