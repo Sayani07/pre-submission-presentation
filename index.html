@@ -427,7 +427,7 @@ class:  middle center
 ---
 class:  middle center
 
-# Graphical mapping with two cyclic granularities
+## Data structure and Graphical mapping with two cyclic granularities
 
 
 &lt;img src="images/datastructure.png", height = "400px"&gt;
@@ -479,41 +479,18 @@ class:  middle center
 class:  middle center
 
 &lt;!-- SLIDE 6 --&gt;
-# Effect of number of levels on visualization
-
-.pull-left[
-
-If certain  hours of the day are different between weekdays and weekends ?
-
-.x[
-* Ridge plot
+## Effect of number of levels on visualization
+&lt;!-- If certain  hours of the day are different between weekdays and weekends ? --&gt;
 &lt;img src="figure/effectoflevel1-1.svg" style="display: block; margin: auto;" /&gt;
-
-* Violin plot
-&lt;img src="figure/effectoflevel2-1.svg" style="display: block; margin: auto;" /&gt;
-]
-]
-.pull-right[
-
-.checked[
-* box plot
-
-&lt;img src="figure/effectoflevel3-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-* quantile plot
-
-&lt;img src="figure/effectoflevel4-1.svg" style="display: block; margin: auto;" /&gt;
-]
-]
 ---
 class:  middle center
 
 &lt;!-- SLIDE 6 --&gt;
 ##  Effect of interchanging the mapping
 
+
 &lt;img src="figure/effectofreverse1-1.svg" style="display: block; margin: auto;" /&gt;
-&lt;img src="figure/effectofreverse2-1.svg" style="display: block; margin: auto;" /&gt;
+
 ---
 class:  middle center
 
@@ -667,7 +644,6 @@ smart_meter %&gt;%
 #### - set of harmonies `harmony()`
 ]
 .right-column[
-
 ```r
 smart_meter %&gt;% 
 * harmony(ugran = "month", lgran = "hhour",
@@ -778,7 +754,7 @@ smart_meter %&gt;%
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-### &lt;large&gt;  Good news! Only 13 out 30 are harmonies &lt;/large&gt;
+### Good news! Only 13 out 30 are harmonies 
 ]
 ---
 
@@ -907,33 +883,20 @@ smart_meter %&gt;%
 class: center, middle
 
 
-### Special thanks to
-
+### Joint work with
 .pull-left[
 .portrait[
 ![](https://slides.earo.me/phd19/img/di.jpg)
 Di Cook
 ]
-&lt;img src="images/Numbats.png"&gt;
-NUMBATS, Monash University
 ]
-
-
 .pull-right[
 .portrait[
 ![](https://pbs.twimg.com/profile_images/1103150025981321216/dV3Wz_ql_400x400.png)
 Rob J Hyndman
 ]
-###  More Information
-
-Package: [gravitas 0.1.0 on CRAN](https://cran.r-project.org/web/packages/gravitas/index.html)  
-Slides: https://sayanigupta-iisa2019.netlify.com/   
-Materials: https://github.com/Sayani07/IISA2019 
-
-Slides created with &lt;i&gt; Rmarkdown, knitr, xaringan, xaringanthemer&lt;/i&gt;
-
-
 ]
+### Slides created with &lt;i&gt; Rmarkdown, knitr, xaringan, xaringanthemer&lt;/i&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

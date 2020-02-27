@@ -458,7 +458,7 @@ $multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$
 ---
 class:  middle center
 
-# Graphical mapping with two cyclic granularities
+## Data structure and Graphical mapping with two cyclic granularities
 
 
 <img src="images/datastructure.png", height = "400px">
@@ -513,47 +513,21 @@ class:  middle center
 class:  middle center
 
 <!-- SLIDE 6 -->
-# Effect of number of levels on visualization
+## Effect of number of levels on visualization
+<!-- If certain  hours of the day are different between weekdays and weekends ? -->
+```{r effectoflevel1, fig.height = 9}
 
-.pull-left[
-
-If certain  hours of the day are different between weekdays and weekends ?
-
-.x[
-* Ridge plot
-```{r effectoflevel1}
 ```
-
-* Violin plot
-```{r effectoflevel2}
-```
-]
-]
-.pull-right[
-
-.checked[
-* box plot
-
-```{r effectoflevel3}
-```
-
-
-* quantile plot
-
-```{r effectoflevel4}
-```
-]
-]
 ---
 class:  middle center
 
 <!-- SLIDE 6 -->
 ##  Effect of interchanging the mapping
 
-```{r effectofreverse1, fig.height=4.5}
+
+```{r effectofreverse1, fig.height = 9}
 ```
-```{r effectofreverse2, fig.height=4.5}
-```
+
 ---
 class:  middle center
 
@@ -662,7 +636,6 @@ smart_meter %>%
 #### - set of harmonies `harmony()`
 ]
 .right-column[
-
 ```r
 smart_meter %>% 
 * harmony(ugran = "month", lgran = "hhour",
@@ -671,7 +644,7 @@ smart_meter %>%
 
 ```{r harmony}
 ```
-### <large>  Good news! Only 13 out `r length(combn(6,2))` are harmonies </large>
+### Good news! Only 13 out `r length(combn(6,2))` are harmonies 
 ]
 ---
 
@@ -740,32 +713,19 @@ smart_meter %>%
 class: center, middle
 
 
-### Special thanks to
-
+### Joint work with
 .pull-left[
 .portrait[
 ![](https://slides.earo.me/phd19/img/di.jpg)
 Di Cook
 ]
-<img src="images/Numbats.png">
-NUMBATS, Monash University
 ]
-
-
 .pull-right[
 .portrait[
 ![](https://pbs.twimg.com/profile_images/1103150025981321216/dV3Wz_ql_400x400.png)
 Rob J Hyndman
 ]
-###  More Information
-
-Package: [gravitas 0.1.0 on CRAN](https://cran.r-project.org/web/packages/gravitas/index.html)  
-Slides: https://sayanigupta-iisa2019.netlify.com/   
-Materials: https://github.com/Sayani07/IISA2019 
-
-Slides created with <i> Rmarkdown, knitr, xaringan, xaringanthemer</i>
-
-
 ]
+### Slides created with <i> Rmarkdown, knitr, xaringan, xaringanthemer</i>
 
 

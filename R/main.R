@@ -498,20 +498,46 @@ data_cust1 %>%
 
 #----effectoflevel1
 
-data_cust1 %>% 
+level1 <- data_cust1 %>% 
   prob_plot("wknd_wday",
             "hour_day",
             plot_type = "ridge") + 
   ggtitle("") + 
   theme(
-    legend.position = "bottom",
-    text = element_text(size = 24),
-    strip.text = ggplot2::element_text(
-      size = 24
-    )) +
+    legend.position = "bottom")+
+    # text = element_text(size = 24),
+    # strip.text = ggplot2::element_text(
+    #   size = 24
+    # )) +
   scale_x_discrete(breaks = seq(0, 23, 2))
 
+level2 <- data_cust1 %>% 
+  prob_plot("wknd_wday",
+            "hour_day",
+            plot_type = "violin") + 
+  ggtitle("") + 
+  theme(
+    legend.position = "bottom") + 
+  # text = element_text(size = 24),
+  # strip.text = ggplot2::element_text(
+  #   size = 24
+  # )) +
+  scale_x_discrete(breaks = seq(0, 23, 2))
 
+level3 <- data_cust1 %>% 
+  prob_plot("wknd_wday",
+            "hour_day",
+            plot_type = "boxplot") + 
+  ggtitle("") + 
+  theme(
+    legend.position = "bottom") + 
+    # text = element_text(size = 24),
+    # strip.text = ggplot2::element_text(
+    #   size = 24
+    # )) +
+  scale_x_discrete(breaks = seq(0, 23, 2))
+
+ggarrange(level1, level3, ncol=1, nrow=2)
 
 #----effectoflevel2
 
@@ -530,20 +556,6 @@ data_cust1%>%
     )) 
 
 
-#----effectoflevel3
-
-data_cust1 %>% 
-  prob_plot("wknd_wday",
-            "hour_day",
-            plot_type = "boxplot") + 
-  ggtitle("") + 
-  theme(
-    legend.position = "bottom",
-    text = element_text(size = 24),
-    strip.text = ggplot2::element_text(
-      size = 24
-    )) +
-  scale_x_discrete(breaks = seq(0, 23, 2))
 
 
 #----effectoflevel4
@@ -576,38 +588,75 @@ data_cust1 %>%
 #       size = 24
 #     )) +
 #   scale_x_discrete(breaks = seq(0, 23, 2))
+#   
 #----effectofreverse1
 
-data_cust1%>% 
-  create_gran("day_week") %>% 
-  filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
-  prob_plot("day_week",
+reverse1 <- data_cust1 %>%
+  prob_plot("wknd_wday",
             "hour_day",
-            plot_type = "boxplot") + 
-  ggtitle("") + 
-  theme(
-    legend.position = "bottom",
-    text = element_text(size = 24),
-    strip.text = ggplot2::element_text(
-      size = 24
-    )) +
-  scale_x_discrete(breaks = seq(0, 23, 2))
+            response = "general_supply_kwh",
+            plot_type = "quantile",
+            symmetric = TRUE,
+            quantile_prob = c(0.01, 0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
+  ) +
+  scale_y_sqrt() + ggtitle("How hours of the day progress on weekdays and weekends?")
 
-#----effectofreverse2
-data_cust1 %>% 
-  create_gran("day_week") %>% 
-  filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
+reverse2 <- data_cust1  %>%
   prob_plot("hour_day",
-            "day_week",
-            plot_type = "boxplot") + 
-  ggtitle("") + 
-  theme(
-    legend.position = "bottom",
-    text = element_text(size = 24),
-    strip.text = ggplot2::element_text(
-      size = 24
-    )) +
-  scale_x_discrete(breaks = seq(0, 23, 2))
+            "wknd_wday",
+            response = "general_supply_kwh",
+            plot_type = "violin"
+  ) +
+  scale_y_sqrt() + ggtitle("How weekend and weekday varies for every hour of the day?")
+
+ggarrange(reverse2, reverse1, nrow = 2, ncol = 1)
+
+# 
+# data_cust1 %>% 
+#   prob_plot("hour_day",
+#             "wknd_wday",
+#             plot_type = "boxplot") + 
+#   ggtitle("") + 
+#   theme(
+#     legend.position = "bottom",
+#     text = element_text(size = 24),
+#     strip.text = ggplot2::element_text(
+#       size = 24
+#     )) +
+#   scale_x_discrete(breaks = seq(0, 23, 2))
+# 
+# 
+# 
+# data_cust1%>% 
+#   create_gran("day_week") %>% 
+#   filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
+#   prob_plot("day_week",
+#             "hour_day",
+#             plot_type = "boxplot") + 
+#   ggtitle("") + 
+#   theme(
+#     legend.position = "bottom",
+#     text = element_text(size = 24),
+#     strip.text = ggplot2::element_text(
+#       size = 24
+#     )) +
+#   scale_x_discrete(breaks = seq(0, 23, 2))
+# 
+# #----effectofreverse2
+# data_cust1 %>% 
+#   create_gran("day_week") %>% 
+#   filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
+#   prob_plot("hour_day",
+#             "day_week",
+#             plot_type = "boxplot") + 
+#   ggtitle("") + 
+#   theme(
+#     legend.position = "bottom",
+#     text = element_text(size = 24),
+#     strip.text = ggplot2::element_text(
+#       size = 24
+#     )) +
+#   scale_x_discrete(breaks = seq(0, 23, 2))
 
 
 #----clash
