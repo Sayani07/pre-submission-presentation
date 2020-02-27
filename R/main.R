@@ -191,8 +191,7 @@ smart_meter50   %>%
            response = "general_supply_kwh",
            quantile_prob = c(0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95),
            overlay = TRUE) + ggtitle("") +
-  scale_x_discrete(breaks = seq(0,23,2)) + 
-  theme_remark()
+  scale_x_discrete(breaks = seq(0,23,2)) + scale_y_sqrt(breaks = c(0.01, 0.1, 0.5, 1:3))
 
 ##----gran-advice
 
@@ -313,12 +312,35 @@ glimpse(cricket)
 # 
 # 
 #anim_save("~/Documents/YSc2019/images/cricketex.gif")
-# #
-
-#
-
-
 knitr::include_graphics("images/cricketex.gif")
+
+##----cricketnew
+library(tsibble)
+library(gravitas)
+library(tidyverse)
+library(lvplot)
+cricket_tsibble <- cricket %>%
+  mutate(data_index = row_number()) %>%
+  as_tsibble(index = data_index)
+
+hierarchy_model <- tibble::tibble(
+  units = c("index", "over", "inning", "match"),
+  convert_fct = c(1, 20, 2, 1)
+)
+
+cricket_tsibble %>%
+  filter(batting_team %in% c(
+    "Mumbai Indians",
+    "Chennai Super Kings"
+  )) %>%
+  prob_plot("inning",
+            "over",
+            response = "runs_per_over",
+            hierarchy_model,
+            plot_type = "lv") + 
+  ggtitle("") +
+  scale_fill_brewer(palette = "Dark2")
+
 
 
 ##----lineartime
@@ -473,10 +495,7 @@ data_cust1 %>%
             ggtitle("") + 
   theme(
     legend.position = "bottom",
-    text = element_text(size = 24),
-    strip.text = ggplot2::element_text(
-      size = 24
-    )) +
+    text = element_text(size = 24)) +
   scale_x_discrete(breaks = seq(0, 23, 2))
 
 
@@ -491,10 +510,10 @@ data_cust1 %>%
             symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
   theme(
     legend.position = "bottom",
-    text = element_text(size = 24),
-    strip.text = ggplot2::element_text(
-      size = 24
-    )) 
+    text = element_text(size = 24)
+    #strip.text = ggplot2::element_text(
+      #size = 24
+    )
 
 #----effectoflevel1
 
@@ -550,10 +569,7 @@ data_cust1%>%
             symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
   theme(
     legend.position = "bottom",
-    text = element_text(size = 24),
-    strip.text = ggplot2::element_text(
-      size = 24
-    )) 
+    text = element_text(size = 24))
 
 
 
@@ -569,10 +585,10 @@ data_cust1 %>%
             symmetric = FALSE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
   theme(
     legend.position = "bottom",
-    text = element_text(size = 24),
-    strip.text = ggplot2::element_text(
-      size = 24
-    )) 
+    text = element_text(size = 24)
+    #strip.text = ggplot2::element_text(
+      #size = 24
+    )
 
 #----effectoflevel5
 # 

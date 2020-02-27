@@ -50,7 +50,7 @@ library(xaringanthemer)
   
 
 <!-- SLIDE 1 -->
-# Electricity smart meter technology  (~ 40 billion half hourly observations)
+# Electricity smart meter technology  (~ 0.3 billion half hourly observations)
 
 <!-- .pull-left[ -->
 <!-- .center-left[ -->
@@ -182,7 +182,7 @@ class: center,middle
 ---
 #  Research objectives : 
 
-- ## **Visualize probability distributions over different time granularities for one or few individuals**
+- ## **Visualizing probability distributions across bivariate cyclic temporal granularities_ **
 
 - ## **Clustering temporal data across cyclic granularities based on probability distribution similarity**
 
@@ -522,8 +522,7 @@ class:  middle center
 
 ---
 <!-- SLIDE 7 -->
-## Summarising probability distributions
-
+## Choice of statistical transformations and geometric objects
 
 
 #### Types of statistical distribution plots 
@@ -541,6 +540,11 @@ class:  middle center
 ```{r effectoflevel1, fig.height = 9}
 
 ```
+
+For too many categories levels
+- ridge plots should be avoided
+- Quantile plots might be useful for comparing patterns
+- Other involved methods of plotting useful for studying anomalies, outlier or multimodal behavior
 ---
 class:  middle center
 
@@ -551,6 +555,7 @@ class:  middle center
 ```{r effectofreverse1, fig.height = 9}
 ```
 
+Different mapping of cyclic granularities shift focus to different periodic behaviors
 ---
 <!-- class:  middle center -->
 
@@ -735,6 +740,15 @@ smart_meter %>%
 ---
 class: center, middle
 
+# Summary
+
+- provide a formal characterization of cyclic granularities  
+- facilitate manipulation of single- and multiple-order-up time granularities through cyclic calendar algebra  
+- develop an approach to check the feasibility of creating plots or drawing inferences for any two cyclic granularities  
+- recommend prospective probability distributions for exploring distributions of a univariate dependent variable across pair of granularities  
+
+---
+class: center, middle
 
 ### Joint work with
 .pull-left[
