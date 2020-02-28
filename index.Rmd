@@ -7,7 +7,15 @@ bgimg: "images/bg1.jpg"
 output:
   xaringan::moon_reader:
     after_body: ["libs/collapseoutput.js"]
-    css: ["xaringan-themer.css", "libs/font-awesome/css/fontawesome-all.css"]
+    css:
+      - ninjutsu 
+      - "assets/animate.css"
+      - "assets/monash-logo.css"
+      - "assets/monash-brand.css"
+      - "assets/monash-fonts.css"
+      - "assets/styles.css" # small improvements
+      - "assets/custom.css" # add your own CSS here!
+    # [ "libs/myremark.css", "xaringan-themer.css" , "libs/font-awesome/css/fontawesome-all.css"]
     self_contained: false
     nature:
       ratio: 16:9
@@ -30,7 +38,7 @@ read_chunk('R/theme.R')
 read_chunk('R/main.R')
 ```
 
-```{r xaringan-themer, include = FALSE}
+```{r xaringan-themer, include = FALSE, eval=FALSE}
 library(xaringanthemer)
  solarized_dark(
    header_font_google = google_font("Josefin Sans"),
@@ -48,11 +56,9 @@ library(xaringanthemer)
  )
 ```
 
-<!-- SLIDE 1 -->
+
 # Electricity smart meter technology  (~ 0.3 billion half hourly observations)
 
-<!-- .pull-left[ -->
-<!-- .center-left[ -->
 - Source : Department of the Environment and Energy, Australia
 <br>
 <br>
@@ -66,13 +72,9 @@ library(xaringanthemer)
 <br>
 <br>
 
-???
-Just to give you some perspective I have this data from Department of Energy and Environment, Australia that provides interval meter reading data every 30 minutes from 2012 to 2014. So you can think of it like, that the finest temporal unit here is half hour, whereas the coarsest temporal unit is year. This data is made available for 14k customers located in different local government areas across places.. So this is a data which is spread across both time and space and hence is a spatio-temporal data. 
-
 ---
-<!-- class: hide-slide-number -->
+class:transition middle
 
-<!-- SLIDE 1 -->
 ## Raw data from from 2012 - 2014 for 50 households
 
 ```{r load}
@@ -84,6 +86,7 @@ Just to give you some perspective I have this data from Department of Energy and
 
 ---
 class:center, middle
+
 ```{r load-theme}
 ```
 
@@ -95,11 +98,11 @@ class:center, middle
 ## **How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behaviour?**
 
 ---
-class:center, middle
+class:left, middle
 
 #  Research objectives : 
 
-- ## **Visualizing probability distributions across bivariate cyclic temporal granularities_ **
+- ## **Visualizing probability distributions across bivariate cyclic temporal granularities **
 
 - ## **Clustering temporal data across cyclic granularities based on probability distribution similarity**
 
@@ -151,7 +154,7 @@ class: middle center
 
 <!-- --- -->
 ---
-class:  middle center
+class:  left middle
 
 # <span style="color:DarkBlue"> Linear time granularities <br>
 .pull-left[
@@ -173,7 +176,7 @@ A linear **granularity** is a mapping $G$ from the integers to subsets of the ti
 knitr::include_graphics("images/linear-time-2.png")
 ```
 
-<span style="color:Crimson"> (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order
+<!-- <span style="color:Crimson"> (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order -->
 
 <span style="color:Crimson">  These definitions inadequate for conceptualizing circular granularities
 
@@ -183,7 +186,7 @@ _* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
 ]
 ]
 ---
-class:  middle center
+class: left middle
 
 <!-- SLIDE 6 -->
 # Cyclic time granularities
@@ -226,24 +229,20 @@ class:  middle center
 
 ---
 class:  middle center
-
 # Why look at multiple cyclic granularities?
-
-$multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$
 .pull-left[
+<!-- <large> $multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$ </large> -->
 <br>
 <br>
-### If certain hours of the day within a week are different?
+### (1) If certain hours of the day within a week are different?
 <br>
 <br>
-<br>
-### If certain days of the week are different for different months?
+### (2) If certain days of the week are different for different months?
 ]
-
-.pull-left[
-```{r EDA1}
+.pull-right[
+```{r EDA1, out.width = "200%"}
 ```
-```{r EDA2}
+```{r EDA2, out.width = "200%"}
 ```
 ]
 
@@ -276,13 +275,28 @@ $multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$
 ---
 ## Relationship of cyclic granularities
 
-**Harmonies** : pairs of granularities that aid exploratory data analysis  
-**Clashes**   : pairs leading to structurally empty sets  
+.pull-left[
+**Clashes** : pairs leading to empty sets
+.x[
+* structural
+* event-based
+* build-based
+]
 
-```{r clash, out.width="100%"}
+**Harmonies** : pairs leading to no empty sets
+.checked[
+* aid exploratory data analysis
+]
+]
 
+.pull-right[
+
+```{r clash}
 ```
 
+```{r noclash}
+```
+]
 ---
 <!-- SLIDE 7 -->
 ### Statistical transformations and geometric objects
@@ -377,22 +391,21 @@ Recommendation on a harmony? `gran_advice()`
 <!-- SLIDE 8 -->
 
 .left-column[
-## cricket example
-#### - the data
-]
-.right-column[
-```{r read}
-```
-<i><small>Data source</i></small> : [<small><i>Department of the Environment and Energy, Australia</i></small>](https://data.gov.au/dataset/4e21dea3-9b87-4610-94c7-15a8a77907ef)
+## Cricket example
+<small><i>Data source</i></small>: [<small><i>Cricsheet</i></small>](http://cricsheet.org/) ,  [<small><i>Kaggle</i></small>](https://www.kaggle.com/josephgpinto/ipl-data-analysis/data)
 
+the data
+]
+```{r cricket}
+```
 ]
 ---
 
 <!-- SLIDE 9 -->
 .left-column[
-## smart meter example
-#### - the data
-#### - possible cyclic granularities `search_gran()`
+## Cricket example
+the data  
+possible cyclic granularities `search_gran()`
 ]
 .right-column[
 
@@ -417,9 +430,9 @@ smart_meter %>%
 
 .left-column[
 ## smart meter example
-#### - the data
-#### - possible cyclic granularities `search_gran()`
-#### - set of harmonies `harmony()`
+ - the data
+ - possible cyclic granularities `search_gran()`
+ - set of harmonies `harmony()`
 ]
 .right-column[
 ```r
@@ -436,10 +449,10 @@ smart_meter %>%
 
 .left-column[
 ## smart meter example
-#### - the data
-#### - possible cyclic granularities `search_gran()`
-#### - set of harmonies `harmony()`
-#### - advice `gran_advice()`
+ - the data
+ - possible cyclic granularities `search_gran()`
+ - set of harmonies `harmony()`
+ - advice `gran_advice()`
 ]
 .right-column[
 
@@ -456,11 +469,11 @@ smart_meter %>%
 ---
 .left-column[
 ## smart meter example
-#### - the data
-#### - possible cyclic granularities `search_gran()`
-#### - set of harmonies `harmony()`
-#### - advice `gran_advice()`
-#### - visualize harmonies `prob_plot()`
+ - the data
+ - possible cyclic granularities `search_gran()`
+ - set of harmonies `harmony()`
+ - advice `gran_advice()`
+ - visualize harmonies `prob_plot()`
 ]
 .right-column[
 
@@ -479,23 +492,13 @@ smart_meter %>%
 
 ---
 
-## Another example: Cricket data of Indian Premier League
-
-<small><i>Data source</i></small>: [<small><i>Cricsheet</i></small>](http://cricsheet.org/) ,  [<small><i>Kaggle</i></small>](https://www.kaggle.com/josephgpinto/ipl-data-analysis/data)
-
-```{r cricket}
-```
-
----
-
-
 ## Difference in strategy between two top teams
 
 
 ```{r cricketex}
 ```
 ---
-class: center, middle
+class: left, middle
 
 # Clustering temporal data across cyclic granularities based on probability distribution similarity
 
@@ -513,7 +516,7 @@ class: center, middle
  - Handling autocorrelation
 
 ---
-class: center, middle
+class: left, middle
 
 # Clustering temporal data across cyclic granularities based on probability distribution similarity
 
