@@ -3,6 +3,4 @@
 .RData
 .Ruserdata
 cache/*
-components/*
-assets/*
 script.Rmd
