@@ -477,7 +477,7 @@ data_cust1 %>%
 
 data_cust1 %>% 
   create_gran("month_year") %>% 
-  filter(month_year %in% c("Aug", "Dec")) %>% 
+  filter(month_year %in% c("Aug", "May")) %>% 
   prob_plot("month_year",
             "day_week",
             plot_type = "boxplot",
