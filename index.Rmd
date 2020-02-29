@@ -59,7 +59,7 @@ library(xaringanthemer)
 ```
 
 
-## Electricity smart meter technology  (~ 0.3 billion half hourly observations)
+# Electricity smart meter technology <br> (~ 0.3 billion half hourly observations)
 
 - Source : Department of the Environment and Energy, Australia
 <br>
@@ -76,7 +76,7 @@ library(xaringanthemer)
 
 ---
 
-## Raw data from from 2012 - 2014 for 50 households
+# Raw data from from 2012 - 2014 for 50 households
 
 ```{r load}
 ```
@@ -92,22 +92,19 @@ class:center, middle
 ```
 
 ---
-class:center, middle
+class:left, top
 
 #  Research aim 
 
 ## **How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behaviour?**
 
 ---
-class:left, middle
+class:left, top
 
 #  Research objectives 
-.smaller[
+
  * **Visualizing probability distributions across bivariate cyclic temporal granularities **
-]
-
  * **Clustering temporal data across cyclic granularities based on probability distribution similarity**
-
  * **Study of Australian smart meter data**
 
 ---
@@ -178,36 +175,23 @@ _* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
 ---
 class: left middle
 
-<!-- SLIDE 6 -->
 # Cyclic time granularities
-.pull-left[
+
+.smaller[
 .checked[
-* **Circular**  
-$C_{B, G}(z) = {L}(z\mod P(B, G))$,  $\forall z \in \mathbb{Z}_{\geq 0}$
 
-* **Quasi-circular**  
+* **Circular**: $C_{B, G}(z) = {L}(z\mod P(B, G))$,  $\forall z \in \mathbb{Z}_{\geq 0}$
+* **Quasi-circular**: $Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)$, $z \in T_k$
+* **Aperiodic** : 
 
-$Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)$, $z \in T_k$
-
-* **Aperiodic**  
-$A_{B, M}(z) = L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n}$
-             = L(0), otherwise
+\begin{align}
+A_{B, M}(z) &= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
+             &= L(0), \text{otherwise}
+\end{align}
 ]
 ]
 
-.pull-right[
-<br>
-```{r computation1, out.height="100px"}
-```
-<br>
-<br>
-```{r computation2, out.height="100px"}
-```
-<br>
-<br>
-```{r computation3, out.height="100px"}
-```
-]
+
 
 ---
 class:  middle center
@@ -513,25 +497,20 @@ filter(batting_team %in% c("Mumbai Indians",
 ---
 class: left, middle
 
-# Clustering temporal data across cyclic granularities based on probability distribution similarity
+# Clustering temporal data across cyclic granularities <br> based on probability distribution similarity
 
 
- - Dimension reduction
- 
- - Avoid loss of information due to aggregation
-
- - Robustness to outliers
-
- - Non-synchronized observed time periods
-
- - Similar periodic behavior
-
- - Handling autocorrelation
+- Dimension reduction
+- Avoid loss of information due to aggregation
+- Robustness to outliers
+- Non-synchronized observed time periods
+- Similar periodic behavior
+- Handling autocorrelation
 
 ---
 class: left, middle
 
-# Clustering temporal data across cyclic granularities based on probability distribution similarity
+# Clustering temporal data across cyclic granularities <br> based on probability distribution similarity
 
 
 - $C_1: \mathbb{Z}_+ \mapsto \{L_1, L_2, L_3, \dots, L_m \}$
@@ -541,16 +520,15 @@ class: left, middle
 - clustering algorithm on $P(i, j, k)$ instead of raw data
 
 ---
-class: center, middle
+class: left, middle
 
 # Study of Australian smart meter data
 
-- Provide a preliminary exploratory visualization and summarisation to characterize this data which could be a foundation for any future work with the same data. 
-
-- Employ cluster analysis to obtain households showing similar periodic behavior and combine the findings with external data like weather conditions, socio-economic or other demographic factors of those households
-
-- Comparative study with earlier methods which mostly focussed on clustering raw data across linear time scales as opposed to clustering probability distributions across periodic scales.
-
+.smaller[
+* Provide preliminary exploratory visualization and summarisation.
+* Employ cluster analysis to obtain households showing similar periodic behavior and combine the findings with external data like weather conditions, socio-economic or other demographic factors of those households.
+* Comparative study with earlier methods which focussed on clustering raw data across linear time scales as opposed to clustering probability distributions across periodic scales.
+]
 ---
 
 .left-column[
@@ -566,7 +544,7 @@ class: center, middle
 .timeline-content[
 Internship with Google Summer of Code
 .timeline-date[
-2019/05 - 2019/08
+2019/08
 ]]]]
 
 .timeline-block[
@@ -708,11 +686,21 @@ Thesis submission `r emo::ji("v")`
 ]
 ]
 ---
+class: center middle 
 
-class: center, middle
+# Thank you
 
-# Joint work with Rob J Hyndman & Dianne Cook
+<br>
+## Joint work with Rob J Hyndman & Dianne Cook
+<br>
+<br>
+### <span style="color:black"> Special thanks to NUMBATS
+<br>
+<br>
 
-## Slides created with <i> Rmarkdown, knitr, xaringan, xaringanthemer</i>
 
-## Special thanks to NUMBATS
+.footnote[
+Slides created with <i> Rmarkdown, knitr, xaringan, xaringanthemer</i>
+]
+--
+

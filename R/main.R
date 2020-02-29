@@ -25,6 +25,27 @@ smart_meter50 <- sm_cust50 %>% select(customer_id,
 
 data_cust1 <- smart_meter50 %>% filter(customer_id == 10017936)
 
+
+cricket <- read_rds("data/cricket_tsibble.rds")%>%  
+  select(season, 
+         match_id,
+         inning,
+         over,
+         ball,
+         winner,
+         total_runs,
+         everything())
+
+cricket_tsibble <- gravitas::cricket %>%
+  mutate(data_index = row_number()) %>%
+  as_tsibble(index = data_index)
+
+hierarchy_model <- tibble::tibble(
+  units = c("ball", "over", "inning", "match"),
+  convert_fct = c(6, 20, 2, 1)
+)
+
+
 ##----motivation1
 
 
@@ -256,21 +277,11 @@ knitr::include_graphics("images/palap_quantile.gif")
 
 ##----cricket
 
-
-cricket <- read_rds("data/cricket_tsibble.rds")%>%  
-  select(season, 
-         match_id,
-         inning,
-         over,
-         ball,
-         winner,
-         total_runs,
-         everything())
-
 glimpse(cricket)
 
+##----cricket-glimpse
 
-
+knitr::include_graphics("images/cricket_data.png")
 
 
 
@@ -308,35 +319,6 @@ glimpse(cricket)
 # 
 #anim_save("~/Documents/YSc2019/images/cricketex.gif")
 knitr::include_graphics("images/cricketex.gif")
-
-##----cricketnew
-library(tsibble)
-library(gravitas)
-library(tidyverse)
-library(lvplot)
-cricket_tsibble <- cricket %>%
-  mutate(data_index = row_number()) %>%
-  as_tsibble(index = data_index)
-
-hierarchy_model <- tibble::tibble(
-  units = c("index", "over", "inning", "match"),
-  convert_fct = c(1, 20, 2, 1)
-)
-
-cricket_tsibble %>%
-  filter(batting_team %in% c(
-    "Mumbai Indians",
-    "Chennai Super Kings"
-  )) %>%
-  prob_plot("inning",
-            "over",
-            response = "runs_per_over",
-            hierarchy_model,
-            plot_type = "lv") + 
-  ggtitle("") +
-  scale_fill_brewer(palette = "Dark2") +
-  theme_remark() 
-
 
 
 ##----lineartime
@@ -553,9 +535,9 @@ data_cust1 %>%
   theme_remark() 
 
 
-#----effectofreverse1
+#----effectofreverse2
 
-reverse1 <- data_cust1 %>%
+data_cust1 %>%
   prob_plot("wknd_wday",
             "hour_day",
             response = "general_supply_kwh",
@@ -563,17 +545,27 @@ reverse1 <- data_cust1 %>%
             symmetric = TRUE,
             quantile_prob = c(0.01, 0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
   ) +
-  scale_y_sqrt() + ggtitle("How hours of the day progress on weekdays and weekends?") 
+  scale_y_sqrt() + ggtitle("How hours of the day progress on weekdays and weekends?")  + theme_remark() + theme(
+    axis.text = element_text(size = 18),
+    strip.text = element_text(size = 18),
+    plot.title = element_text(size = 24)
+  )
 
-reverse2 <- data_cust1  %>%
+#----effectofreverse1
+
+
+data_cust1  %>%
   prob_plot("hour_day",
             "wknd_wday",
             response = "general_supply_kwh",
-            plot_type = "violin"
+            plot_type = "boxplot"
   ) +
-  scale_y_sqrt() + ggtitle("How weekend and weekday varies for every hour of the day?")
+  scale_y_sqrt() + ggtitle("How weekend and weekday varies for every hour of the day?") + theme_remark()+ theme(
+    axis.text = element_text(size = 16),
+    strip.text = element_text(size = 18),
+    plot.title = element_text(size = 24)
+  )
 
-ggarrange(reverse2, reverse1, nrow = 2, ncol = 1)
 
 
 #----clash
@@ -631,3 +623,125 @@ VIC %>%
   theme(
     axis.text = element_text(size = 16))
 
+##----hierarchy2
+library(gravitas)
+library(tibble)
+tibble::tibble(
+  G = c("ball", "over", "inning", "match"),
+  P = c(6, 20, 2, 1)
+)
+#knitr::kable(hierarchy_model, format = "html")
+
+
+
+##----search_gran_cric
+search_gran <- cricket_tsibble %>%
+  search_gran(hierarchy_model, lowest_unit = "ball", highest_unit =  "match")
+
+knitr::kable(search_gran, row.names = TRUE) %>% kable_styling(font_size = 20)
+
+##----harmony_gran_cric
+
+harmony_cric <- cricket_tsibble %>%
+  harmony(hierarchy_model, 
+          lgran = "ball",
+          ugran =  "match")
+
+knitr::kable(harmony_cric, row.names = TRUE) %>% 
+  kable_styling(font_size = 20, fixed_thead = T) %>% 
+  row_spec(0, background = "#FFE4E1") %>% 
+  row_spec(1:8, background = "White") 
+
+
+##----gran-advice_cric
+
+cricket_tsibble %>% 
+  gran_advice("over_inning", 
+              "inning_match",
+              hierarchy_model)
+##----visualise_cric
+cricket_tsibble %>%
+  filter(batting_team %in% c(
+    "Mumbai Indians",
+    "Chennai Super Kings")) %>%
+  prob_plot("inning",
+            "over",
+            response = "runs_per_over",
+            hierarchy_model,
+            plot_type = "lv") +
+  ggtitle("") +
+  scale_fill_brewer(palette = "Dark2") + 
+  scale_x_discrete(breaks = seq(1, 20, 2)) +
+  theme_remark()
+
+##----aperiodic_cric
+
+cricket_dot_field <- cricket %>%
+  mutate(
+    fielding_proxy = if_else(dismissal_kind %in%
+                               c("caught", "caught and bowled"), 1, 0),
+    dot_ball_proxy = if_else(total_runs == 0, 1, 0),
+    wicket_proxy = if_else(is.na(dismissal_kind), 0, 1)
+  ) %>%
+  group_by(
+    season,
+    match_id,
+    batting_team,
+    bowling_team,
+    inning,
+    over
+  ) %>%
+  summarise(
+    runs_per_over = sum(total_runs),
+    run_rate = sum(total_runs) / length(total_runs),
+    fielding_wckts = sum(fielding_proxy),
+    dot_balls = sum(dot_ball_proxy)
+  ) %>%
+  mutate(diff_run_rate = c(0, diff(run_rate)))
+
+cricket_tsibble <- cricket_dot_field %>%
+  ungroup() %>%
+  mutate(data_index = row_number()) %>%
+  as_tsibble(index = data_index)
+
+cricket_data <- cricket_tsibble %>%
+  mutate(
+    field = if_else(fielding_wckts == 0, "no wickets", ">0 wickets"),
+    dot = if_else(dot_balls == 0, "no dot balls", ">0 dot balls"),
+    lag_field = lag(field),
+    lag_dot = lag(dot)
+  ) %>%
+  filter(lag_field != 0, lag_dot != 0)
+
+cricket_data %>% prob_plot("over", "lag_field",
+                           hierarchy_model,
+                           response = "run_rate",
+                           plot_type = "violin",
+) + ggtitle("") + geom_boxplot(width = 0.5, aes(colour = lag_field)) +
+  ylim(0, 4.5) +    theme_remark() + theme(
+    axis.text = element_text(size = 14),
+    strip.text = element_text(size = 16, margin = margin()),
+    axis.title = element_text(size = 16),
+    legend.position = "none"
+  )
+  
+
+
+#knitr::include_graphics("images/aperiodic-cric.png")
+
+
+# 
+# <!-- .pull-right[ -->
+#                     <!-- <br> -->
+#                     <!-- ```{r computation1, out.height="100px"} -->
+#                     <!-- ``` -->
+#                     <!-- <br> -->
+#                     <!-- <br> -->
+#                     <!-- ```{r computation2, out.height="100px"} -->
+#                     <!-- ``` -->
+#                     <!-- <br> -->
+#                     <!-- <br> -->
+#                     <!-- ```{r computation3, out.height="100px"} -->
+#                     <!-- ``` -->
+#                     <!-- ] -->
+#   
