@@ -91,6 +91,7 @@ class:center, middle
 ```{r load-theme}
 ```
 
+
 ---
 class:left, top
 
@@ -288,9 +289,14 @@ class:  middle center
 
 .pull-left[
 .checked[
-* x-axis levels too high, avoid ridge plots
-* For x-axis medium or too high, quantile plots are preferred
-* For low levels of cyclic granularity, any plot could be chosen
+
+```{r leveltable}
+
+```
+<br>
+<br>
+
+For example, with too many x-axis levels, avoid ridge plots
 ]
 ]
 

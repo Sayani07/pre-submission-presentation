@@ -638,7 +638,10 @@ tibble::tibble(
 search_gran <- cricket_tsibble %>%
   search_gran(hierarchy_model, lowest_unit = "ball", highest_unit =  "match")
 
-knitr::kable(search_gran, row.names = TRUE) %>% kable_styling(font_size = 20)
+knitr::kable(search_gran, row.names = TRUE) %>% 
+  kable_styling(font_size = 20)%>% 
+  row_spec(0, background = 	"#808080") %>% 
+  row_spec(1:6, background = "White") 
 
 ##----harmony_gran_cric
 
@@ -648,10 +651,10 @@ harmony_cric <- cricket_tsibble %>%
           ugran =  "match")
 
 knitr::kable(harmony_cric, row.names = TRUE) %>% 
-  kable_styling(font_size = 20, fixed_thead = T) %>% 
-  row_spec(0, background = "#FFE4E1") %>% 
+  kable_styling(font_size = 20, fixed_thead = F,"striped") %>% 
+  row_spec(0, background = 	"#808080") %>% 
   row_spec(1:8, background = "White") 
-
+# FFE4E1"
 
 ##----gran-advice_cric
 
@@ -717,12 +720,13 @@ cricket_data %>% prob_plot("over", "lag_field",
                            hierarchy_model,
                            response = "run_rate",
                            plot_type = "violin",
-) + ggtitle("") + geom_boxplot(width = 0.5, aes(colour = lag_field)) +
+) + ggtitle("Does run rate decrease in the subsequent over for at least one wicket in the last over?") + geom_boxplot(width = 0.5, aes(colour = lag_field)) + xlab("Number of wickets in last over") +
   ylim(0, 4.5) +    theme_remark() + theme(
     axis.text = element_text(size = 14),
     strip.text = element_text(size = 16, margin = margin()),
     axis.title = element_text(size = 16),
-    legend.position = "none"
+    legend.position = "none",
+    plot.title =  element_text(size = 16)
   )
   
 
@@ -745,3 +749,8 @@ cricket_data %>% prob_plot("over", "lag_field",
 #                     <!-- ``` -->
 #                     <!-- ] -->
 #   
+
+
+#----leveltable
+
+knitr::include_graphics("images/levels_graphs.png")

@@ -59,7 +59,8 @@ class: center, middle, inverse, title-slide
 ---
 class:center, middle
 
-&lt;img src="images/theme.png" width="3056" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/theme.png" width="2973" style="display: block; margin: auto;" /&gt;
+
 
 ---
 class:left, top
@@ -251,9 +252,12 @@ class:  middle center
 
 .pull-left[
 .checked[
-* x-axis levels too high, avoid ridge plots
-* For x-axis medium or too high, quantile plots are preferred
-* For low levels of cyclic granularity, any plot could be chosen
+
+&lt;img src="images/levels_graphs.png" width="1485" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+For example, with too many x-axis levels, avoid ridge plots
 ]
 ]
 
@@ -375,34 +379,34 @@ cricket_tsibble &lt;- cricket %&gt;%
 &lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; x &lt;/th&gt;
+   &lt;th style="text-align:left;background-color: #808080 !important;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:left;background-color: #808080 !important;"&gt; x &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; ball_over &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_over &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; ball_inning &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_inning &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; ball_match &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_match &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; over_inning &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; over_inning &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; over_match &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; over_match &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; inning_match &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;background-color: White !important;"&gt; inning_match &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -432,14 +436,14 @@ cricket_tsibble %&gt;%
 
 ```
 
-&lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
+&lt;table class="table table-striped" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
  &lt;thead&gt;
   &lt;tr&gt;
-   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;background-color: #FFE4E1 !important;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;background-color: #FFE4E1 !important;"&gt; facet_variable &lt;/th&gt;
-   &lt;th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;background-color: #FFE4E1 !important;"&gt; x_variable &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;background-color: #FFE4E1 !important;"&gt; facet_levels &lt;/th&gt;
-   &lt;th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;background-color: #FFE4E1 !important;"&gt; x_levels &lt;/th&gt;
+   &lt;th style="text-align:left;background-color: #808080 !important;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:left;background-color: #808080 !important;"&gt; facet_variable &lt;/th&gt;
+   &lt;th style="text-align:left;background-color: #808080 !important;"&gt; x_variable &lt;/th&gt;
+   &lt;th style="text-align:right;background-color: #808080 !important;"&gt; facet_levels &lt;/th&gt;
+   &lt;th style="text-align:right;background-color: #808080 !important;"&gt; x_levels &lt;/th&gt;
   &lt;/tr&gt;
  &lt;/thead&gt;
 &lt;tbody&gt;
