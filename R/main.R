@@ -186,7 +186,7 @@ smart_meter50   %>%
            response = "general_supply_kwh",
            quantile_prob = c(0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95),
            overlay = TRUE) + ggtitle("") +
-  scale_x_discrete(breaks = seq(0,23,2)) + scale_y_sqrt(breaks = c(0.01, 0.1, 0.5, 1:3)) 
+  scale_x_discrete(breaks = seq(0,23,2)) + scale_y_sqrt(breaks = c(0.01, 0.1, 0.5, 1:3))
 
 ##----gran-advice
 
@@ -489,8 +489,7 @@ data_cust1 %>%
             plot_type = "quantile", symmetric = FALSE,
             quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + 
             ggtitle("") + 
-  scale_x_discrete(breaks = seq(0, 23, 2))
-
+  scale_x_discrete(breaks = seq(0, 23, 2)) + theme_remark()
 
 #----EDA2
 
@@ -500,43 +499,44 @@ data_cust1 %>%
   prob_plot("month_year",
             "day_week",
             plot_type = "boxplot",
-            symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")
+            symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("") + theme_remark()
 
 #----effectoflevel1
 
-level1 <- data_cust1 %>% 
+data_cust1 %>% 
   prob_plot("wknd_wday",
             "hour_day",
             plot_type = "ridge") + 
   ggtitle("") +
-  scale_x_discrete(breaks = seq(0, 23, 2)) 
+  scale_y_discrete(breaks = seq(0, 23, 2))  + theme_remark()
 
-level2 <- data_cust1 %>% 
-  prob_plot("wknd_wday",
-            "hour_day",
-            plot_type = "violin") + 
-  ggtitle("") +
-  scale_x_discrete(breaks = seq(0, 23, 2))
+# 
+# level2 <- data_cust1 %>% 
+#   prob_plot("wknd_wday",
+#             "hour_day",
+#             plot_type = "violin") + 
+#   ggtitle("") +
+#   scale_x_discrete(breaks = seq(0, 23, 2))
 
-level3 <- data_cust1 %>% 
+#----effectoflevel2
+data_cust1 %>% 
   prob_plot("wknd_wday",
             "hour_day",
             plot_type = "boxplot") + 
   ggtitle("") +
-  scale_x_discrete(breaks = seq(0, 23, 2))
+  scale_x_discrete(breaks = seq(0, 23, 2)) + theme_remark()
 
-ggarrange(level1, level3, ncol=1, nrow=2)
-
-#----effectoflevel2
-
-data_cust1%>% 
-  create_gran("month_year") %>% 
-  filter(month_year %in% c("Aug", "Dec")) %>% 
-  prob_plot("month_year",
-            "day_month",
-            plot_type = "violin",
-            symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("") +
-  theme_remark() 
+# 
+# #----effectoflevel2
+# 
+# data_cust1%>% 
+#   create_gran("month_year") %>% 
+#   filter(month_year %in% c("Aug", "Dec")) %>% 
+#   prob_plot("month_year",
+#             "day_month",
+#             plot_type = "violin",
+#             symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("") +
+#   theme_remark() 
 
 
 
@@ -615,7 +615,8 @@ VIC %>%
             response = "Demand",
             plot_type = "quantile",
             quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9),
-            symmetric = FALSE)
+            symmetric = FALSE) + ggtitle("") + theme_remark() + 
+  scale_x_discrete(breaks = seq(0, 364, 20))
 
 ##----noclash
 
@@ -626,5 +627,7 @@ VIC %>%
   filter(month_year %in% c("Jan", "Mar", "July", "Dec")) %>%
   prob_plot("month_year", "day_week",
             response = "Demand",
-            plot_type = "lv")
+            plot_type = "lv") + ggtitle("") + theme_remark() +
+  theme(
+    axis.text = element_text(size = 16))
 

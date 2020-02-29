@@ -320,7 +320,10 @@ class:  middle center
 ]
 
 .pull-right[
-```{r effectoflevel1, out.width= "90%"}
+```{r effectoflevel1, out.width= "100%"}
+```
+
+```{r effectoflevel2, out.width= "100%"}
 ```
 ]
 ---
