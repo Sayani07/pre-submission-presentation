@@ -15,6 +15,7 @@ output:
       - "assets/monash-fonts.css"
       - "assets/styles.css" # small improvements
       - "assets/custom.css" # add your own CSS here!
+      - "timeline.css"
     # [ "libs/myremark.css", "xaringan-themer.css" , "libs/font-awesome/css/fontawesome-all.css"]
     self_contained: false
     nature:
@@ -330,66 +331,57 @@ class:  middle center
 class:  middle center
 
 <!-- SLIDE 6 -->
-###  Interchanging the mapping
+#  Interchanging the mapping
 
-
-```{r effectofreverse1, out.width= "90%"}
+.pull-left[
+.checked[
+* Items placed in close proximity assumed to be in the same group 
+(_Gestalt theory_)
+* Different mapping focus on different periodic behaviors
+]
+]
+.pull-right[
+```{r effectofreverse1, out.width= "100%"}
 ```
 
-Different mapping of cyclic granularities shift focus to different periodic behaviors
+```{r effectofreverse2, out.width= "100%"}
+```
+]
+
 ---
-<!-- class:  middle center -->
-
-<!-- <!-- SLIDE 6 --> -->
-<!-- ##  Effect of rarely occuring observations -->
-
-
-<!-- --- -->
-
-
-<!-- SLIDE 8 -->
+class: middle center
 
 # R package: **gravitas**
 
 .center[
 ### Computation
 --- 
-
 .left[
-Compute any cyclic granularity? <span style="color:Red">`create_gran()`
+Compute any cyclic granularity? `create_gran()`
  <br>
- <br>
- 
-Exhaustive list of granularities to explore? <span style="color:Red"> `search_gran()`
+Exhaustive list of granularities to explore? `search_gran()`
  <br>
        ]
-
 ]
  
 .pull-left[
  ### Interaction
  --- 
  
-Check if cyclic granularities are harmonies/clashes?  `is.harmony()`
-<br>
+Check if cyclic granularities are harmonies/clashes? `is.harmony()`
 <br>
 List of harmonies to explore? `harmony()`
 <br>
  ]
-
 .pull-right[
 ### Visualization
 --- 
 
-Possible probability distributions plots for harmonies?  `prob_plot()`
+Possible probability distributions plots for harmonies? `prob_plot()`
 <br>
-<br>
-Sufficient observations?  `gran_obs()`  
+Sufficient observations? `gran_obs()`  
 Recommendation on a harmony? `gran_advice()`
-
  ]
-
----
 
 <!-- class: center,middle -->
 
@@ -398,14 +390,22 @@ Recommendation on a harmony? `gran_advice()`
 <!-- ##   granularity visualization of time series data  -->
 
 <!-- SLIDE 8 -->
-
+---
+# Application: Non-temporal case
 .left-column[
 ## Cricket example
-<small><i>Data source</i></small>: [<small><i>Cricsheet</i></small>](http://cricsheet.org/) ,  [<small><i>Kaggle</i></small>](https://www.kaggle.com/josephgpinto/ipl-data-analysis/data)
-
-the data
+.checked[
+* the data
+<br>
+<br>
+* Hierachy table
+```{r hierarchy2}
+```
 ]
-```{r cricket}
+]
+.right-column[
+```{r cricket-glimpse}
+knitr::include_graphics("images/cricket_data.png")
 ```
 ]
 ---
@@ -413,92 +413,109 @@ the data
 <!-- SLIDE 9 -->
 .left-column[
 ## Cricket example
-the data  
-possible cyclic granularities `search_gran()`
+.checked[
+* the data
+* search granularities `search_gran()`
+]
 ]
 .right-column[
 
 ```r
-smart_meter %>%
-*   search_gran(lowest_unit = "hhour", 
-*               highest_unit =  "month", 
-*               filter_out = c("fortnight",
-*                                "hhour"))
+cricket_tsibble <- cricket %>%
+*  mutate(data_index = row_number()) %>%
+*  as_tsibble(index = data_index)
+```
+
+```r
+* cricket_tsibble %>%
+*  search_gran(hierarchy_model, 
+*              lowest_unit = "ball",
+*               highest_unit =  "match")
 ```
 .pull-left[
-```{r search_gran}
+```{r search_gran_cric}
 ```
 ]
-
 .pull-right[
-
+<br>
+<br>
 <large>  So there are $^{6} P_2$ =  `r length(combn(6,2))` pair of granularities to look at.
 ]
 ]
 ---
 
 .left-column[
-## smart meter example
- - the data
- - possible cyclic granularities `search_gran()`
- - set of harmonies `harmony()`
+## Cricket example
+.checked[
+* the data
+* search granularities `search_gran()`
+* set of harmonies `harmony()`
+]
 ]
 .right-column[
 ```r
-smart_meter %>% 
-* harmony(ugran = "month", lgran = "hhour",
-*          filter_out = c("fortnight", "hhour"))
+cricket_tsibble %>%
+*  harmony(hierarchy_model, 
+*          lgran = "ball",
+*          ugran =  "match")
+
 ```
 
-```{r harmony}
+```{r harmony_gran_cric}
 ```
-### Good news! Only 13 out `r length(combn(6,2))` are harmonies 
+### Good news! Only 8 out `r length(combn(6,2))` are harmonies 
 ]
 ---
 
 .left-column[
-## smart meter example
- - the data
- - possible cyclic granularities `search_gran()`
- - set of harmonies `harmony()`
- - advice `gran_advice()`
+## Cricket example
+.checked[
+* the data
+* search granularities `search_gran()`
+* set of harmonies `harmony()`
+* advice `gran_advice()`
+]
 ]
 .right-column[
 
 ```r
-smart_meter %>% 
-*  gran_advice("month_year", "hour_day")
+cricket_tsibble %>% 
+*  gran_advice("hierarchy_model",
+*              "over_inning", 
+*              "inning_match")
 ```
-
-```{r gran-advice}
+<small>
+```{r gran-advice_cric, out.width="100%"}
 ```
-### <large>  Quantile plots recommended for the harmony pair (month_year, hour_day) </large>
+</small>
+### <large>  Quantile plots recommended for the harmony pair (over_inning, inning_match) </large>
 ]
-
 ---
 .left-column[
-## smart meter example
- - the data
- - possible cyclic granularities `search_gran()`
- - set of harmonies `harmony()`
- - advice `gran_advice()`
- - visualize harmonies `prob_plot()`
+## Cricket example
+.checked[
+* the data
+* search granularities `search_gran()`
+* set of harmonies `harmony()`
+* advice `gran_advice()`
+* visualize harmonies `prob_plot()`
+]
 ]
 .right-column[
-
 ```r
-smart_meter %>% 
-* prob_plot("month_year","hour_day",
-*           plot_type = "quantile", 
-*           response = "general_supply_kwh",
-*           quantile_prob = c(0.05, 0.1, 0.25, 
-*                             0.5, 0.75, 0.9, 0.95))
+cricket_tsibble %>% 
+filter(batting_team %in% c("Mumbai Indians",
+                           "Chennai Super Kings")) %>%
+* prob_plot("inning_match",
+*            "over_inning",
+*            response = "runs_per_over",
+*            hierarchy_model,
+*            plot_type = "lv")
 ```
 
-```{r granplotoverlay3}
+```{r visualise_cric}
 ```
 ]
-
 ---
 
 ## Difference in strategy between two top teams
