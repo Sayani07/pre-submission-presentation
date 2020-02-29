@@ -63,7 +63,7 @@ class:center, middle
 
 
 ---
-class:left, top
+class:middle center
 
 #  Research aim 
 
@@ -74,10 +74,11 @@ class:left, top
 
 #  Research objectives 
 
- * **Visualizing probability distributions across bivariate cyclic temporal granularities **
- * **Clustering temporal data across cyclic granularities based on probability distribution similarity**
- * **Study of Australian smart meter data**
-
+.larger[
+- Visualizing probability distributions across bivariate cyclic temporal granularities &lt;br&gt;&lt;br&gt;
+- Clustering temporal data across cyclic granularities based on probability distribution similarity &lt;br&gt;&lt;br&gt;
+- Study of Australian smart meter data
+]
 ---
 class: middle center
 
@@ -96,26 +97,19 @@ class: middle center
 #  Time granularities - abstractions of time
 .pull-left[
 ### Arrangement
-&lt;br&gt;
  &lt;i&gt; **Linear**&lt;/i&gt;  
- - days, weeks, months, years  
-&lt;br&gt;
-
-&lt;i&gt; **Cyclic** &lt;/i&gt;
-
- -  &lt;i&gt; **Circular** &lt;/i&gt;   day-of-week, month-of-year or hour-of-day  
- -  &lt;i&gt; **Quasi-circular** &lt;/i&gt;   day-of-month, week-of-month   
- -  &lt;i&gt; **Aperiodic** &lt;/i&gt;  public holidays, school vacations
+ - .smaller[days, weeks, months, years]
+ &lt;i&gt; **Cyclic**&lt;/i&gt;  
+ - .smaller[&lt;i&gt; Circular: &lt;/i&gt;  day-of-week, month-of-year]  
+ - .smaller[&lt;i&gt; Quasi-circular: &lt;/i&gt; day-of-month, week-of-month]
+ - .smaller[&lt;i&gt; Aperiodic: &lt;/i&gt; public holidays, school vacations]
 ]
-
 .pull-right[
-### Order 
-
-- &lt;i&gt;**Single-order-up**&lt;/i&gt; second-of-minute, hour-of-day  
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-- &lt;i&gt;**Multiple-order-up**&lt;/i&gt; second-of-hour, hour-of-week  
+### Order
+ &lt;i&gt;**Single-order-up**&lt;/i&gt;
+ - .smaller[second-of-minute, hour-of-day]  
+ &lt;i&gt;**Multiple-order-up**&lt;/i&gt;
+ - .smaller[second-of-hour, hour-of-week]
 
 &lt;!-- # ```{r calendar, out.width="100%"} --&gt;
 &lt;!-- #  --&gt;
@@ -176,9 +170,7 @@ class:  middle center
 .pull-left[
 &lt;!-- &lt;large&gt; `\(multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)\)` &lt;/large&gt; --&gt;
 &lt;br&gt;
-&lt;br&gt;
 ### (1) If certain hours of the day within a week are different?
-&lt;br&gt;
 &lt;br&gt;
 ### (2) If certain days of the week are different for different months?
 ]
@@ -288,36 +280,43 @@ class:  middle center
 ---
 class: middle center
 
-# R package: **gravitas**
+# R package: gravitas
+
 
 .center[
 ### Computation
 --- 
 .left[
-Compute any cyclic granularity? `create_gran()`
+.smaller[
+- Compute any cyclic granularity? `create_gran()`
  &lt;br&gt;
-Exhaustive list of granularities to explore? `search_gran()`
+- Exhaustive list of granularities to explore? `search_gran()`
  &lt;br&gt;
+       ]
        ]
 ]
  
 .pull-left[
+&lt;br&gt;
  ### Interaction
  --- 
- 
-Check if cyclic granularities are harmonies/clashes? `is.harmony()`
+ .smaller[
+- Check if cyclic granularities are harmonies/clashes? `is.harmony()`
 &lt;br&gt;
-List of harmonies to explore? `harmony()`
-&lt;br&gt;
+- List of harmonies to explore? `harmony()`
+&lt;br&gt;]
  ]
 .pull-right[
+&lt;br&gt;
 ### Visualization
 --- 
-
-Possible probability distributions plots for harmonies? `prob_plot()`
+.smaller[
+- Plot harmonies? `prob_plot()`
 &lt;br&gt;
-Sufficient observations? `gran_obs()`  
-Recommendation on a harmony? `gran_advice()`
+- Sufficient observations? `gran_obs()`
+&lt;br&gt;
+- Recommendations on feasibility? `gran_advice()`
+ ]
  ]
 
 &lt;!-- class: center,middle --&gt;

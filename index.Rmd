@@ -93,7 +93,7 @@ class:center, middle
 
 
 ---
-class:left, top
+class:middle center
 
 #  Research aim 
 
@@ -104,10 +104,11 @@ class:left, top
 
 #  Research objectives 
 
- * **Visualizing probability distributions across bivariate cyclic temporal granularities **
- * **Clustering temporal data across cyclic granularities based on probability distribution similarity**
- * **Study of Australian smart meter data**
-
+.larger[
+- Visualizing probability distributions across bivariate cyclic temporal granularities <br><br>
+- Clustering temporal data across cyclic granularities based on probability distribution similarity <br><br>
+- Study of Australian smart meter data
+]
 ---
 class: middle center
 
@@ -126,26 +127,19 @@ class: middle center
 #  Time granularities - abstractions of time
 .pull-left[
 ### Arrangement
-<br>
  <i> **Linear**</i>  
- - days, weeks, months, years  
-<br>
-
-<i> **Cyclic** </i>
-
- -  <i> **Circular** </i>   day-of-week, month-of-year or hour-of-day  
- -  <i> **Quasi-circular** </i>   day-of-month, week-of-month   
- -  <i> **Aperiodic** </i>  public holidays, school vacations
+ - .smaller[days, weeks, months, years]
+ <i> **Cyclic**</i>  
+ - .smaller[<i> Circular: </i>  day-of-week, month-of-year]  
+ - .smaller[<i> Quasi-circular: </i> day-of-month, week-of-month]
+ - .smaller[<i> Aperiodic: </i> public holidays, school vacations]
 ]
-
 .pull-right[
-### Order 
-
-- <i>**Single-order-up**</i> second-of-minute, hour-of-day  
-<br>
-<br>
-<br>
-- <i>**Multiple-order-up**</i> second-of-hour, hour-of-week  
+### Order
+ <i>**Single-order-up**</i>
+ - .smaller[second-of-minute, hour-of-day]  
+ <i>**Multiple-order-up**</i>
+ - .smaller[second-of-hour, hour-of-week]
 
 <!-- # ```{r calendar, out.width="100%"} -->
 <!-- #  -->
@@ -208,9 +202,7 @@ class:  middle center
 .pull-left[
 <!-- <large> $multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$ </large> -->
 <br>
-<br>
 ### (1) If certain hours of the day within a week are different?
-<br>
 <br>
 ### (2) If certain days of the week are different for different months?
 ]
@@ -331,36 +323,43 @@ class:  middle center
 ---
 class: middle center
 
-# R package: **gravitas**
+# R package: gravitas
+
 
 .center[
 ### Computation
 --- 
 .left[
-Compute any cyclic granularity? `create_gran()`
+.smaller[
+- Compute any cyclic granularity? `create_gran()`
  <br>
-Exhaustive list of granularities to explore? `search_gran()`
+- Exhaustive list of granularities to explore? `search_gran()`
  <br>
+       ]
        ]
 ]
  
 .pull-left[
+<br>
  ### Interaction
  --- 
- 
-Check if cyclic granularities are harmonies/clashes? `is.harmony()`
+ .smaller[
+- Check if cyclic granularities are harmonies/clashes? `is.harmony()`
 <br>
-List of harmonies to explore? `harmony()`
-<br>
+- List of harmonies to explore? `harmony()`
+<br>]
  ]
 .pull-right[
+<br>
 ### Visualization
 --- 
-
-Possible probability distributions plots for harmonies? `prob_plot()`
+.smaller[
+- Plot harmonies? `prob_plot()`
 <br>
-Sufficient observations? `gran_obs()`  
-Recommendation on a harmony? `gran_advice()`
+- Sufficient observations? `gran_obs()`
+<br>
+- Recommendations on feasibility? `gran_advice()`
+ ]
  ]
 
 <!-- class: center,middle -->
