@@ -24,15 +24,15 @@
 body {
   font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
   font-weight: 300;
-  color: #839496;
+  color: White;
 }
 h1, h2, h3 {
   font-family: Josefin Sans;
   font-weight: normal;
-  color: #000080;
+  color: #ffbb33;
 }
 .remark-slide-content {
-  background-color: White;
+  background-color: #555555;
   font-size: 20px;
   
   
@@ -144,11 +144,11 @@ blockquote {
 th, td { padding: 5px; }
 .remark-slide thead, .remark-slide tfoot, .remark-slide tr:nth-child(even) { background: #073642 }
 table.dataTable tbody {
-  background-color: White;
-  color: #839496;
+  background-color: #555555;
+  color: White;
 }
 table.dataTable.display tbody tr.odd {
-  background-color: White;
+  background-color: #555555;
 }
 table.dataTable.display tbody tr.even {
   background-color: #073642;
@@ -157,10 +157,10 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.5);
 }
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
-  color: #839496;
+  color: White;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
-  color: #839496 !important;
+  color: White !important;
 }
 
 @page { margin: 0; }

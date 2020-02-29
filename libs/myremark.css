@@ -124,8 +124,8 @@ code {
   padding: 15px;
 }
 .inverse {
-  background: linear-gradient(0deg, rgb(115, 115, 130), rgb(18, 11, 49));
-  /* background: rgb(18, 11, 49); */
+  /*background: linear-gradient(0deg, rgb(115, 115, 130), rgb(18, 11, 49));*/
+  background: rgb(18, 11, 49); 
   color: rgb(223, 73, 66);
   text-shadow: 0 0 20px #333;
 }

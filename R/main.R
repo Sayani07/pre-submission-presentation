@@ -12,6 +12,7 @@ library(ggpubr)
 library(lvplot)
 library(kableExtra)
 library(gghdr)
+library(tsibbledata)
 #remotes::install_github("njtierney/palap")
 library(palap)
 
@@ -54,11 +55,7 @@ smart_meter50 %>%
   geom_line(aes(x =reading_datetime, 
                 y = general_supply_kwh, 
                 color = customer_id), color = "#D95F02") + 
-  theme(legend.position = "bottom",
-    axis.text = element_text(size = 18),
-    axis.title = element_text(size = 18)
-    )
-
+  theme_remark()
 
 ##----motivation5
 smart_meter50 %>%
@@ -66,10 +63,8 @@ smart_meter50 %>%
   mutate(hour_day = hour(reading_datetime)) %>% 
   ggplot() + geom_point(aes(x = hour_day, 
                             y = general_supply_kwh)) + 
-  theme(legend.position = "bottom",
-        axis.text = element_text(size = 18),
-        axis.title = element_text(size = 18)
-  )
+  theme_remark()
+  
   #ggtitle("10018254")
 
 
@@ -191,7 +186,7 @@ smart_meter50   %>%
            response = "general_supply_kwh",
            quantile_prob = c(0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95),
            overlay = TRUE) + ggtitle("") +
-  scale_x_discrete(breaks = seq(0,23,2)) + scale_y_sqrt(breaks = c(0.01, 0.1, 0.5, 1:3))
+  scale_x_discrete(breaks = seq(0,23,2)) + scale_y_sqrt(breaks = c(0.01, 0.1, 0.5, 1:3)) 
 
 ##----gran-advice
 
@@ -339,7 +334,8 @@ cricket_tsibble %>%
             hierarchy_model,
             plot_type = "lv") + 
   ggtitle("") +
-  scale_fill_brewer(palette = "Dark2")
+  scale_fill_brewer(palette = "Dark2") +
+  theme_remark() 
 
 
 
@@ -413,7 +409,7 @@ phdr <- mpg %>% ggplot(
   ylab("")
 
   
-ggarrange(pbox, pviolin, plv, pridge, pquant, phdr, nrow = 1, ncol = 6, labels = c("box", "violin", "letter-value", "ridge", "quantile", "hdr-box"))
+ggarrange(pbox, pviolin, plv, pridge, pquant, phdr, nrow = 2, ncol = 3, labels = c("box", "violin", "letter-value", "ridge", "quantile", "hdr-box"))
 
 
 ##----box
@@ -493,9 +489,6 @@ data_cust1 %>%
             plot_type = "quantile", symmetric = FALSE,
             quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + 
             ggtitle("") + 
-  theme(
-    legend.position = "bottom",
-    text = element_text(size = 24)) +
   scale_x_discrete(breaks = seq(0, 23, 2))
 
 
@@ -507,13 +500,7 @@ data_cust1 %>%
   prob_plot("month_year",
             "day_week",
             plot_type = "boxplot",
-            symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
-  theme(
-    legend.position = "bottom",
-    text = element_text(size = 24)
-    #strip.text = ggplot2::element_text(
-      #size = 24
-    )
+            symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")
 
 #----effectoflevel1
 
@@ -521,39 +508,21 @@ level1 <- data_cust1 %>%
   prob_plot("wknd_wday",
             "hour_day",
             plot_type = "ridge") + 
-  ggtitle("") + 
-  theme(
-    legend.position = "bottom")+
-    # text = element_text(size = 24),
-    # strip.text = ggplot2::element_text(
-    #   size = 24
-    # )) +
-  scale_x_discrete(breaks = seq(0, 23, 2))
+  ggtitle("") +
+  scale_x_discrete(breaks = seq(0, 23, 2)) 
 
 level2 <- data_cust1 %>% 
   prob_plot("wknd_wday",
             "hour_day",
             plot_type = "violin") + 
-  ggtitle("") + 
-  theme(
-    legend.position = "bottom") + 
-  # text = element_text(size = 24),
-  # strip.text = ggplot2::element_text(
-  #   size = 24
-  # )) +
+  ggtitle("") +
   scale_x_discrete(breaks = seq(0, 23, 2))
 
 level3 <- data_cust1 %>% 
   prob_plot("wknd_wday",
             "hour_day",
             plot_type = "boxplot") + 
-  ggtitle("") + 
-  theme(
-    legend.position = "bottom") + 
-    # text = element_text(size = 24),
-    # strip.text = ggplot2::element_text(
-    #   size = 24
-    # )) +
+  ggtitle("") +
   scale_x_discrete(breaks = seq(0, 23, 2))
 
 ggarrange(level1, level3, ncol=1, nrow=2)
@@ -566,10 +535,8 @@ data_cust1%>%
   prob_plot("month_year",
             "day_month",
             plot_type = "violin",
-            symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
-  theme(
-    legend.position = "bottom",
-    text = element_text(size = 24))
+            symmetric = TRUE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("") +
+  theme_remark() 
 
 
 
@@ -582,29 +549,10 @@ data_cust1 %>%
   prob_plot("month_year",
             "day_month",
             plot_type = "quantile",
-            symmetric = FALSE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("")+
-  theme(
-    legend.position = "bottom",
-    text = element_text(size = 24)
-    #strip.text = ggplot2::element_text(
-      #size = 24
-    )
+            symmetric = FALSE, quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + ggtitle("") +
+  theme_remark() 
 
-#----effectoflevel5
-# 
-# data_cust1 %>% 
-#   create_gran("wknd_wday") %>% create_gran("hour_day") %>% 
-#   ggplot(aes(y=  general_supply_kwh, x = hour_day)) + 
-#   geom_hdr_boxplot() + facet_wrap(~wknd_wday) +
-#   ggtitle("") + 
-#   theme(
-#     legend.position = "bottom",
-#     text = element_text(size = 24),
-#     strip.text = ggplot2::element_text(
-#       size = 24
-#     )) +
-#   scale_x_discrete(breaks = seq(0, 23, 2))
-#   
+
 #----effectofreverse1
 
 reverse1 <- data_cust1 %>%
@@ -615,7 +563,7 @@ reverse1 <- data_cust1 %>%
             symmetric = TRUE,
             quantile_prob = c(0.01, 0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
   ) +
-  scale_y_sqrt() + ggtitle("How hours of the day progress on weekdays and weekends?")
+  scale_y_sqrt() + ggtitle("How hours of the day progress on weekdays and weekends?") 
 
 reverse2 <- data_cust1  %>%
   prob_plot("hour_day",
@@ -626,53 +574,6 @@ reverse2 <- data_cust1  %>%
   scale_y_sqrt() + ggtitle("How weekend and weekday varies for every hour of the day?")
 
 ggarrange(reverse2, reverse1, nrow = 2, ncol = 1)
-
-# 
-# data_cust1 %>% 
-#   prob_plot("hour_day",
-#             "wknd_wday",
-#             plot_type = "boxplot") + 
-#   ggtitle("") + 
-#   theme(
-#     legend.position = "bottom",
-#     text = element_text(size = 24),
-#     strip.text = ggplot2::element_text(
-#       size = 24
-#     )) +
-#   scale_x_discrete(breaks = seq(0, 23, 2))
-# 
-# 
-# 
-# data_cust1%>% 
-#   create_gran("day_week") %>% 
-#   filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
-#   prob_plot("day_week",
-#             "hour_day",
-#             plot_type = "boxplot") + 
-#   ggtitle("") + 
-#   theme(
-#     legend.position = "bottom",
-#     text = element_text(size = 24),
-#     strip.text = ggplot2::element_text(
-#       size = 24
-#     )) +
-#   scale_x_discrete(breaks = seq(0, 23, 2))
-# 
-# #----effectofreverse2
-# data_cust1 %>% 
-#   create_gran("day_week") %>% 
-#   filter(day_week %in% c("Fri","Sat", "Sun", "Mon")) %>% 
-#   prob_plot("hour_day",
-#             "day_week",
-#             plot_type = "boxplot") + 
-#   ggtitle("") + 
-#   theme(
-#     legend.position = "bottom",
-#     text = element_text(size = 24),
-#     strip.text = ggplot2::element_text(
-#       size = 24
-#     )) +
-#   scale_x_discrete(breaks = seq(0, 23, 2))
 
 
 #----clash
@@ -698,3 +599,32 @@ knitr::include_graphics("images/quasi-circular-example.png")
 
 ##----computation3
 knitr::include_graphics("images/aperiodic-example.png")
+
+##----load-theme
+knitr::include_graphics("images/theme.png")
+
+##----clash
+
+VIC <- vic_elec
+
+VIC %>%
+  create_gran("month_year") %>%
+  filter(month_year %in% c("Jan", "Jul", "Nov")) %>%
+  prob_plot("month_year",
+            "day_year",
+            response = "Demand",
+            plot_type = "quantile",
+            quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9),
+            symmetric = FALSE)
+
+##----noclash
+
+VIC <- vic_elec
+
+VIC %>%
+  create_gran("month_year") %>%
+  filter(month_year %in% c("Jan", "Mar", "July", "Dec")) %>%
+  prob_plot("month_year", "day_week",
+            response = "Demand",
+            plot_type = "lv")
+

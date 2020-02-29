@@ -57,7 +57,7 @@ library(xaringanthemer)
 ```
 
 
-# Electricity smart meter technology  (~ 0.3 billion half hourly observations)
+## Electricity smart meter technology  (~ 0.3 billion half hourly observations)
 
 - Source : Department of the Environment and Energy, Australia
 <br>
@@ -73,7 +73,6 @@ library(xaringanthemer)
 <br>
 
 ---
-class:transition middle
 
 ## Raw data from from 2012 - 2014 for 50 households
 
@@ -156,7 +155,7 @@ class: middle center
 ---
 class:  left middle
 
-# <span style="color:DarkBlue"> Linear time granularities <br>
+#  Linear time granularities
 .pull-left[
 ### Definition: Time Domain
 A **time domain** is a pair $(T; \le)$ where $T$ is a non-empty set of time instants and $\le$ is a total order on $T$.
@@ -273,7 +272,7 @@ class:  middle center
 <!-- \end{split} -->
 <!-- SLIDE 7 -->
 ---
-## Relationship of cyclic granularities
+# Relationship of cyclic granularities
 
 .pull-left[
 **Clashes** : pairs leading to empty sets
@@ -299,7 +298,7 @@ class:  middle center
 ]
 ---
 <!-- SLIDE 7 -->
-### Statistical transformations and geometric objects
+# Statistical transformations and geometric objects
 
 ```{r allplot, out.width= "90%"}
 ```
@@ -308,15 +307,22 @@ class:  middle center
 class:  middle center
 
 <!-- SLIDE 6 -->
-### Number of levels on visualization
+
+# Number of levels on visualization
 <!-- If certain  hours of the day are different between weekdays and weekends ? -->
+
+.pull-left[
+.checked[
+* x-axis levels too high, avoid ridge plots
+* For x-axis medium or too high, quantile plots are preferred
+* For low levels of cyclic granularity, any plot could be chosen
+]
+]
+
+.pull-right[
 ```{r effectoflevel1, out.width= "90%"}
 ```
-
-For too many categories levels
-- ridge plots should be avoided
-- Quantile plots might be useful for comparing patterns
-- Other involved methods of plotting useful for studying anomalies, outlier or multimodal behavior
+]
 ---
 class:  middle center
 

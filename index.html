@@ -3,11 +3,14 @@
   <head>
     <title>Visualisation and analysis of probability distributions of variables defined on cyclic temporal granularities</title>
     <meta charset="utf-8" />
+    <link href="index_files/remark-css/ninjutsu.css" rel="stylesheet" />
     <script src="index_files/kePrint/kePrint.js"></script>
-    <link rel="stylesheet" href="libs/font-awesome/css/fontawesome-all.css" type="text/css" />
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
-    <link rel="stylesheet" href="libs/myremark.css" type="text/css" />
-    <link rel="stylesheet" href="timeline.css" type="text/css" />
+    <link rel="stylesheet" href="assets/animate.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-logo.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-brand.css" type="text/css" />
+    <link rel="stylesheet" href="assets/monash-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="assets/styles.css" type="text/css" />
+    <link rel="stylesheet" href="assets/custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -26,13 +29,10 @@ Supervisors:   Prof. Rob J Hyndman     Prof. Dianne Cook     Dr. Peter T
 
 
 
-  
 
-&lt;!-- SLIDE 1 --&gt;
-# Electricity smart meter technology  (~ 0.3 billion half hourly observations)
 
-&lt;!-- .pull-left[ --&gt;
-&lt;!-- .center-left[ --&gt;
+## Electricity smart meter technology  (~ 0.3 billion half hourly observations)
+
 - Source : Department of the Environment and Energy, Australia
 &lt;br&gt;
 &lt;br&gt;
@@ -46,118 +46,656 @@ Supervisors:   Prof. Rob J Hyndman     Prof. Dianne Cook     Dr. Peter T
 &lt;br&gt;
 &lt;br&gt;
 
-???
-Smart meters record electricity usage (per kWh) every 30 minutes and send this information to the electricity retailer for billing
-
-**Consumers** can save considerable amount on their electricity bill by 
-- Switching on their hot water heater or do laundry when energy is cheaper, or when their solar system is generating surplus energy 
-- Switching off appliances during peak demands
-- Check usage and compare with similar homes 
-
-**Retailers** can reduce costs and increase efficiency
-- Lowering metering and connection fees 
-- Drawing insights into when customer is home, or sleeping, or even what appliances they are using based on usage figures
-- Rewarding customers for mindful usage
-
-Just to give you some perspective I have this data from Department of Energy and Environment, Australia that provides interval meter reading data every 30 minutes from 2012 to 2014. So you can think of it like, that the finest temporal unit here is half hour, whereas the coarsest temporal unit is year. This data is made available for 14k customers located in different local government areas across places.. So this is a data which is spread across both time and space and hence is a spatio-temporal data. 
-
----
-&lt;!-- class: hide-slide-number --&gt;
-
-&lt;!-- SLIDE 1 --&gt;
-## Explore the raw data from from 2012 - 2014 for 50 households
-
-
-
-
-&lt;img src="images/smart_allcust.gif" style="display: block; margin: auto;" /&gt;
-
----
-class: center, middle
-&lt;!-- class: hide-slide-number --&gt;
-
-&lt;!-- SLIDE 2 --&gt;
-
-## Raw data - Periodic behavior of one household?
-
-&lt;!-- in half-hourly energy usage for 1 household from 2012 to 2014 --&gt;
-
-.left-column[
-&lt;br&gt;
-## **Linear scale** 
-&lt;br&gt;
-&lt;br&gt;&lt;font size="15"&gt;
-⬇️
-&lt;br&gt;&lt;/font size&gt;
-&lt;br&gt;
-## **Periodic scale**
-]
-
-.right-column[
-
-&lt;img src="figure/motivation4-1.svg" style="display: block; margin: auto;" /&gt;
-
-&lt;img src="figure/motivation5-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-## `\(Time\ restructuring \equiv Data \ restructuring\)`
 ---
 
-### Raw data - Periodic behavior of many households?
+## Raw data from from 2012 - 2014 for 50 households
 
-&lt;img src="images/all_households.png" width="737" height="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+&lt;img src="images/smart_allcust.gif" height="500px" style="display: block; margin: auto;" /&gt;
 
 ---
-# Summarize data
-&lt;br&gt;
-&lt;br&gt;
-&lt;!-- SLIDE 3 --&gt;
-&lt;img src="images/dino-saurus.gif" style="display: block; margin: auto;" /&gt;
+class:center, middle
 
-.footnote[
-["Same Stats, Different Graphs: Generating Datasets with Varied Appearance and Identical Statistics through Simulated Annealing"](https://www.autodeskresearch.com/publications/samestats)
-]
-&lt;!-- -- [Nick Tierney, WOMBAT2019](https://github.com/njtierney/wombat19) --&gt;
+&lt;img src="images/theme.png" width="3056" style="display: block; margin: auto;" /&gt;
+
 ---
-# Summarize distributions induced by multiple observations
-.checked[
-&lt;br&gt;
-&lt;br&gt;
-* **Avoids loss of information due to excessive aggregation**
-&lt;br&gt;
-&lt;br&gt;
-* **Dimension reduction**
-&lt;br&gt;
-&lt;br&gt;
-* **Captures shape and uncertainty**
-&lt;br&gt;
-&lt;br&gt;
-* **Alleviates the impact of outlier behavior (eg. different holidays)**
-&lt;br&gt;
-&lt;br&gt;
-* **Handles asynchronous and unequal time series**
-]
-
-&lt;!-- -- [Nick Tierney, WOMBAT2019](https://github.com/njtierney/wombat19) --&gt;
----
-
-class: center,middle
-
-&lt;!-- SLIDE 4 --&gt;
+class:center, middle
 
 #  Research aim 
 
 ## **How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behaviour?**
 
-&lt;!-- ## **Solution** :  Visualize probability distributions over different time granularities. --&gt;
 ---
+class:left, middle
+
 #  Research objectives : 
 
-- ## **Visualizing probability distributions across bivariate cyclic temporal granularities_ **
+- ## **Visualizing probability distributions across bivariate cyclic temporal granularities **
 
 - ## **Clustering temporal data across cyclic granularities based on probability distribution similarity**
 
 - ## **Study of Australian smart meter data**
+
+---
+class: middle center
+
+&lt;!-- SLIDE 4 --&gt;
+
+.animated.bounce[
+&lt;img src="images/gravitas_sticker.png" height=280px&gt;
+]
+
+## Visualize probability distributions over different time granularities
+
+
+---
+&lt;!-- SLIDE 5 --&gt;
+
+#  Time granularities - abstractions of time
+.pull-left[
+### Arrangement
+&lt;br&gt;
+ &lt;i&gt; **Linear**&lt;/i&gt;  
+ - days, weeks, months, years  
+&lt;br&gt;
+
+&lt;i&gt; **Cyclic** &lt;/i&gt;
+
+ -  &lt;i&gt; **Circular** &lt;/i&gt;   day-of-week, month-of-year or hour-of-day  
+ -  &lt;i&gt; **Quasi-circular** &lt;/i&gt;   day-of-month, week-of-month   
+ -  &lt;i&gt; **Aperiodic** &lt;/i&gt;  public holidays, school vacations
+]
+
+.pull-right[
+### Order 
+
+- &lt;i&gt;**Single-order-up**&lt;/i&gt; second-of-minute, hour-of-day  
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+- &lt;i&gt;**Multiple-order-up**&lt;/i&gt; second-of-hour, hour-of-week  
+
+&lt;!-- # ```{r calendar, out.width="100%"} --&gt;
+&lt;!-- #  --&gt;
+&lt;!-- # ``` --&gt;
+]
+
+&lt;!-- --- --&gt;
+---
+class:  left middle
+
+#  Linear time granularities
+.pull-left[
+### Definition: Time Domain
+A **time domain** is a pair `\((T; \le)\)` where `\(T\)` is a non-empty set of time instants and `\(\le\)` is a total order on `\(T\)`.
+
+### Definition: Linear Granularity
+A linear **granularity** is a mapping `\(G\)` from the integers to subsets of the time domain such that:
+
+  (C1) if `\(i &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then each element of `\(G(i)\)` is less than all elements of `\(G(j)\)`, and
+  &lt;br&gt;
+  (C2) if `\(i &lt; k &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then `\(G(k)\)` is non-empty.
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="images/linear-time-2.png" width="897" style="display: block; margin: auto;" /&gt;
+
+&lt;!-- &lt;span style="color:Crimson"&gt; (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order --&gt;
+
+&lt;span style="color:Crimson"&gt;  These definitions inadequate for conceptualizing circular granularities
+
+&lt;!-- since the linearity imposes a restriction on reflecting periodicity in time --&gt;
+.footnote[
+_* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
+]
+]
+---
+class: left middle
+
+&lt;!-- SLIDE 6 --&gt;
+# Cyclic time granularities
+.pull-left[
+.checked[
+* **Circular**  
+`\(C_{B, G}(z) = {L}(z\mod P(B, G))\)`,  `\(\forall z \in \mathbb{Z}_{\geq 0}\)`
+
+* **Quasi-circular**  
+
+`\(Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)\)`, `\(z \in T_k\)`
+
+* **Aperiodic**  
+`\(A_{B, M}(z) = L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n}\)`
+             = L(0), otherwise
+]
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;img src="images/circular-dow.png" width="1496" height="100px" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="images/quasi-circular-example.png" width="2829" height="100px" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;img src="images/aperiodic-example.png" width="2795" height="100px" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class:  middle center
+
+## Data structure and Graphical mapping with two cyclic granularities
+
+
+&lt;img src="images/datastructure.png", height = "400px"&gt;
+
+---
+class:  middle center
+# Why look at multiple cyclic granularities?
+.pull-left[
+&lt;!-- &lt;large&gt; `\(multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)\)` &lt;/large&gt; --&gt;
+&lt;br&gt;
+&lt;br&gt;
+### (1) If certain hours of the day within a week are different?
+&lt;br&gt;
+&lt;br&gt;
+### (2) If certain days of the week are different for different months?
+]
+.pull-right[
+&lt;img src="figure/EDA1-1.svg" width="200%" style="display: block; margin: auto;" /&gt;
+&lt;img src="figure/EDA2-1.svg" width="200%" style="display: block; margin: auto;" /&gt;
+]
+
+&lt;!-- Exhaustive sets of visual representation required for multiple perspectives on data? --&gt;
+
+
+&lt;!-- # Computation of granularities --&gt;
+
+&lt;!-- `\(z\)`       : index of a tsibble   --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- `\(x\)`, `\(y\)`  : two units in the hierarchy table with  `\(order(x) &lt;  order(y)\)`   --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- `\(f(x, y)\)` : accessor function for computing the granularity   --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+&lt;!-- `\(c(x, y)\)` : a constant which relates x and y   --&gt;
+&lt;!-- &lt;br&gt; --&gt;
+
+&lt;!-- #### **Single-order-up** --&gt;
+&lt;!-- `$$f(x, y) = \lfloor z/c(z,x) \rfloor\mod c(x,y)$$` where `\(y = x+1\)` --&gt;
+
+
+&lt;!-- #### **Multiple-order-up** --&gt;
+
+
+&lt;!-- \begin{split} --&gt;
+&lt;!-- f(x,y) &amp; = \sum_{i=0}^{order(y) - order(x) - 1} c(x, x+i)(f(x --&gt;
+&lt;!--   +i, x+i+1) - 1)\\ --&gt;
+&lt;!-- \end{split} --&gt;
+&lt;!-- SLIDE 7 --&gt;
+---
+# Relationship of cyclic granularities
+
+.pull-left[
+**Clashes** : pairs leading to empty sets
+.x[
+* structural
+* event-based
+* build-based
+]
+
+**Harmonies** : pairs leading to no empty sets
+.checked[
+* aid exploratory data analysis
+]
+]
+
+.pull-right[
+
+&lt;img src="figure/clash-1.svg" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="figure/noclash-1.svg" style="display: block; margin: auto;" /&gt;
+]
+---
+&lt;!-- SLIDE 7 --&gt;
+# Statistical transformations and geometric objects
+
+&lt;img src="figure/allplot-1.svg" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+class:  middle center
+
+&lt;!-- SLIDE 6 --&gt;
+
+# Number of levels on visualization
+&lt;!-- If certain  hours of the day are different between weekdays and weekends ? --&gt;
+
+.pull-left[
+For too many categories levels
+- ridge plots should be avoided
+- Quantile plots might be useful for comparing patterns
+- Other involved methods of plotting useful for studying anomalies, outlier or multimodal behavior
+
+]
+
+.pull-right[
+&lt;img src="figure/effectoflevel1-1.svg" width="90%" style="display: block; margin: auto;" /&gt;
+]
+---
+class:  middle center
+
+&lt;!-- SLIDE 6 --&gt;
+###  Interchanging the mapping
+
+
+&lt;img src="figure/effectofreverse1-1.svg" width="90%" style="display: block; margin: auto;" /&gt;
+
+Different mapping of cyclic granularities shift focus to different periodic behaviors
+---
+&lt;!-- class:  middle center --&gt;
+
+&lt;!-- &lt;!-- SLIDE 6 --&gt; --&gt;
+&lt;!-- ##  Effect of rarely occuring observations --&gt;
+
+
+&lt;!-- --- --&gt;
+
+
+&lt;!-- SLIDE 8 --&gt;
+
+# R package: **gravitas**
+
+.center[
+### Computation
+--- 
+
+.left[
+Compute any cyclic granularity? &lt;span style="color:Red"&gt;`create_gran()`
+ &lt;br&gt;
+ &lt;br&gt;
+ 
+Exhaustive list of granularities to explore? &lt;span style="color:Red"&gt; `search_gran()`
+ &lt;br&gt;
+       ]
+
+]
+ 
+.pull-left[
+ ### Interaction
+ --- 
+ 
+Check if cyclic granularities are harmonies/clashes?  `is.harmony()`
+&lt;br&gt;
+&lt;br&gt;
+List of harmonies to explore? `harmony()`
+&lt;br&gt;
+ ]
+
+.pull-right[
+### Visualization
+--- 
+
+Possible probability distributions plots for harmonies?  `prob_plot()`
+&lt;br&gt;
+&lt;br&gt;
+Sufficient observations?  `gran_obs()`  
+Recommendation on a harmony? `gran_advice()`
+
+ ]
+
+---
+
+&lt;!-- class: center,middle --&gt;
+
+&lt;!-- # &lt;span style="color:MediumVioletRed"&gt; Package gravitas &lt;/span&gt; --&gt;
+
+&lt;!-- ##   granularity visualization of time series data  --&gt;
+
+&lt;!-- SLIDE 8 --&gt;
+
+.left-column[
+## Cricket example
+&lt;small&gt;&lt;i&gt;Data source&lt;/i&gt;&lt;/small&gt;: [&lt;small&gt;&lt;i&gt;Cricsheet&lt;/i&gt;&lt;/small&gt;](http://cricsheet.org/) ,  [&lt;small&gt;&lt;i&gt;Kaggle&lt;/i&gt;&lt;/small&gt;](https://www.kaggle.com/josephgpinto/ipl-data-analysis/data)
+
+the data
+]
+
+```
+#&gt; Observations: 136,598
+#&gt; Variables: 38
+#&gt; $ season           &lt;dbl&gt; 2008, 2008, 2008, 2008, 200…
+#&gt; $ match_id         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+#&gt; $ inning           &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+#&gt; $ over             &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 2, 2, …
+#&gt; $ ball             &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 1, 2, …
+#&gt; $ winner           &lt;chr&gt; "Kolkata Knight Riders", "K…
+#&gt; $ total_runs       &lt;dbl&gt; 1, 0, 1, 0, 0, 0, 1, 0, 4, …
+#&gt; $ batting_team     &lt;chr&gt; "Kolkata Knight Riders", "K…
+#&gt; $ bowling_team     &lt;chr&gt; "Royal Challengers Bangalor…
+#&gt; $ batsman          &lt;chr&gt; "SC Ganguly", "BB McCullum"…
+#&gt; $ non_striker      &lt;chr&gt; "BB McCullum", "SC Ganguly"…
+#&gt; $ bowler           &lt;chr&gt; "P Kumar", "P Kumar", "P Ku…
+#&gt; $ is_super_over    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ wide_runs        &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, …
+#&gt; $ bye_runs         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ legbye_runs      &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 1, 0, 0, …
+#&gt; $ noball_runs      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ penalty_runs     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ batsman_runs     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 4, …
+#&gt; $ extra_runs       &lt;dbl&gt; 1, 0, 1, 0, 0, 0, 1, 0, 0, …
+#&gt; $ player_dismissed &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ dismissal_kind   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ fielder          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA,…
+#&gt; $ city             &lt;chr&gt; "Bangalore", "Bangalore", "…
+#&gt; $ date             &lt;date&gt; 2008-04-18, 2008-04-18, 20…
+#&gt; $ team1            &lt;chr&gt; "Kolkata Knight Riders", "K…
+#&gt; $ team2            &lt;chr&gt; "Royal Challengers Bangalor…
+#&gt; $ toss_winner      &lt;chr&gt; "Royal Challengers Bangalor…
+#&gt; $ toss_decision    &lt;chr&gt; "field", "field", "field", …
+#&gt; $ result           &lt;chr&gt; "normal", "normal", "normal…
+#&gt; $ dl_applied       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ win_by_runs      &lt;dbl&gt; 140, 140, 140, 140, 140, 14…
+#&gt; $ win_by_wickets   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+#&gt; $ player_of_match  &lt;chr&gt; "BB McCullum", "BB McCullum…
+#&gt; $ venue            &lt;chr&gt; "M Chinnaswamy Stadium", "M…
+#&gt; $ umpire1          &lt;chr&gt; "Asad Rauf", "Asad Rauf", "…
+#&gt; $ umpire2          &lt;chr&gt; "RE Koertzen", "RE Koertzen…
+#&gt; $ umpire3          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA,…
+```
+]
+---
+
+&lt;!-- SLIDE 9 --&gt;
+.left-column[
+## Cricket example
+the data  
+possible cyclic granularities `search_gran()`
+]
+.right-column[
+
+```r
+smart_meter %&gt;%
+*   search_gran(lowest_unit = "hhour", 
+*               highest_unit =  "month", 
+*               filter_out = c("fortnight",
+*                                "hhour"))
+```
+.pull-left[
+&lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; x &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_week &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_month &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+
+&lt;large&gt;  So there are `\(^{6} P_2\)` =  30 pair of granularities to look at.
+]
+]
+---
+
+.left-column[
+## smart meter example
+ - the data
+ - possible cyclic granularities `search_gran()`
+ - set of harmonies `harmony()`
+]
+.right-column[
+```r
+smart_meter %&gt;% 
+* harmony(ugran = "month", lgran = "hhour",
+*          filter_out = c("fortnight", "hhour"))
+```
+
+&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; facet_variable &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; x_variable &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; facet_levels &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; x_levels &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_week &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 168 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_week &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 168 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_month &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 744 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+### Good news! Only 13 out 30 are harmonies 
+]
+---
+
+.left-column[
+## smart meter example
+ - the data
+ - possible cyclic granularities `search_gran()`
+ - set of harmonies `harmony()`
+ - advice `gran_advice()`
+]
+.right-column[
+
+```r
+smart_meter %&gt;% 
+*  gran_advice("month_year", "hour_day")
+```
+
+
+```
+#&gt; The chosen granularities are harmonies 
+#&gt;  
+#&gt; Recommended plots are: quantile 
+#&gt;  
+#&gt; Number of observations are homogenous across facets 
+#&gt;  
+#&gt; Number of observations are homogenous within facets 
+#&gt;  
+#&gt; Cross tabulation of granularities : 
+#&gt;  
+#&gt; # A tibble: 24 x 13
+#&gt;   hour_day   Jan   Feb   Mar   Apr   May   Jun   Jul
+#&gt;   &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+#&gt; 1 0         1151  1095   730   660   682  1008  1054
+#&gt; 2 1         1154  1094   730   660   682  1008  1054
+#&gt; 3 2         1152  1094   730   660   682  1008  1054
+#&gt; 4 3         1150  1094   730   660   682  1008  1054
+#&gt; # … with 20 more rows, and 5 more variables:
+#&gt; #   Aug &lt;dbl&gt;, Sep &lt;dbl&gt;, Oct &lt;dbl&gt;, Nov &lt;dbl&gt;,
+#&gt; #   Dec &lt;dbl&gt;
+```
+### &lt;large&gt;  Quantile plots recommended for the harmony pair (month_year, hour_day) &lt;/large&gt;
+]
+
+---
+.left-column[
+## smart meter example
+ - the data
+ - possible cyclic granularities `search_gran()`
+ - set of harmonies `harmony()`
+ - advice `gran_advice()`
+ - visualize harmonies `prob_plot()`
+]
+.right-column[
+
+```r
+smart_meter %&gt;% 
+* prob_plot("month_year","hour_day",
+*           plot_type = "quantile", 
+*           response = "general_supply_kwh",
+*           quantile_prob = c(0.05, 0.1, 0.25, 
+*                             0.5, 0.75, 0.9, 0.95))
+```
+
+&lt;img src="figure/granplotoverlay3-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+
+## Difference in strategy between two top teams
+
+
+&lt;img src="images/cricketex.gif" style="display: block; margin: auto;" /&gt;
+---
+class: left, middle
+
+# Clustering temporal data across cyclic granularities based on probability distribution similarity
+
+
+ - Dimension reduction
+ 
+ - Avoid loss of information due to aggregation
+
+ - Robustness to outliers
+
+ - Non-synchronized observed time periods
+
+ - Similar periodic behavior
+
+ - Handling autocorrelation
+
+---
+class: left, middle
+
+# Clustering temporal data across cyclic granularities based on probability distribution similarity
+
+
+- `\(C_1: \mathbb{Z}_+ \mapsto \{L_1, L_2, L_3, \dots, L_m \}\)`
+- `\(C_2: \mathbb{Z}_+ \mapsto \{L_1, L_2, L_3, \dots, L_p \}\)`
+- `\(S(i, j, k)\)`: set of measurement variables corresponding to the key `\(i\)` for `\(k^{th}\)` level of `\(j^{th}\)` cyclic granularity
+- `\(P(i, j, k)\)`: probability distribution of the measured variable corresponding to the set `\(S(i, j, k)\)`
+- clustering algorithm on `\(P(i, j, k)\)` instead of raw data
+
+---
+class: center, middle
+
+# Study of Australian smart meter data
+
+- Provide a preliminary exploratory visualization and summarisation to characterize this data which could be a foundation for any future work with the same data. 
+
+- Employ cluster analysis to obtain households showing similar periodic behavior and combine the findings with external data like weather conditions, socio-economic or other demographic factors of those households
+
+- Comparative study with earlier methods which mostly focussed on clustering raw data across linear time scales as opposed to clustering probability distributions across periodic scales.
 
 ---
 
@@ -316,624 +854,19 @@ Thesis submission ✌️
 ]
 ]
 ---
-class: middle center
 
-&lt;!-- SLIDE 4 --&gt;
-
-.animated.bounce[
-&lt;img src="images/gravitas_sticker.png" height=280px&gt;
-]
-
-## Visualize probability distributions over different time granularities
-
-
----
-&lt;!-- SLIDE 5 --&gt;
-
-#  Time granularities - abstractions of time
-.pull-left[
-### Arrangement
-&lt;br&gt;
- &lt;i&gt; **Linear**&lt;/i&gt;  
- - days, weeks, months, years  
-&lt;br&gt;
-
-&lt;i&gt; **Cyclic** &lt;/i&gt;
-
- -  &lt;i&gt; **Circular** &lt;/i&gt;   day-of-week, month-of-year or hour-of-day  
- -  &lt;i&gt; **Quasi-circular** &lt;/i&gt;   day-of-month, week-of-month   
- -  &lt;i&gt; **Aperiodic** &lt;/i&gt;  public holidays, school vacations
-]
-
-.pull-right[
-### Order 
-
-- &lt;i&gt;**Single-order-up**&lt;/i&gt; second-of-minute, hour-of-day  
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-- &lt;i&gt;**Multiple-order-up**&lt;/i&gt; second-of-hour, hour-of-week  
-
-&lt;!-- # ```{r calendar, out.width="100%"} --&gt;
-&lt;!-- #  --&gt;
-&lt;!-- # ``` --&gt;
-]
-
-&lt;!-- --- --&gt;
----
-class:  middle center
-
-# &lt;span style="color:DarkBlue"&gt; Linear time granularities &lt;br&gt;
-.pull-left[
-### Definition: Time Domain
-A **time domain** is a pair `\((T; \le)\)` where `\(T\)` is a non-empty set of time instants and `\(\le\)` is a total order on `\(T\)`.
-
-### Definition: Linear Granularity
-A linear **granularity** is a mapping `\(G\)` from the integers to subsets of the time domain such that:
-
-  (C1) if `\(i &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then each element of `\(G(i)\)` is less than all elements of `\(G(j)\)`, and
-  &lt;br&gt;
-  (C2) if `\(i &lt; k &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then `\(G(k)\)` is non-empty.
-]
-
-.pull-right[
-&lt;br&gt;
-&lt;br&gt;
-&lt;img src="images/linear-time-2.png" width="897" style="display: block; margin: auto;" /&gt;
-
-&lt;span style="color:Crimson"&gt; (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order
-
-&lt;span style="color:Crimson"&gt;  These definitions inadequate for conceptualizing circular granularities
-
-&lt;!-- since the linearity imposes a restriction on reflecting periodicity in time --&gt;
-.footnote[
-_* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
-]
-]
----
-class:  middle center
-
-&lt;!-- SLIDE 6 --&gt;
-# Cyclic time granularities
-.pull-left[
-.checked[
-* **Circular**  
-`\(C_{B, G}(z) = {L}(z\mod P(B, G))\)`,  `\(\forall z \in \mathbb{Z}_{\geq 0}\)`
-
-* **Quasi-circular**  
-
-`\(Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)\)`, `\(z \in T_k\)`
-
-* **Aperiodic**  
-`\(A_{B, M}(z) = L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n}\)`
-             = L(0), otherwise
-]
-]
-
-.pull-right[
-&lt;br&gt;
-&lt;img src="images/circular-dow.png" width="1496" height="100px" style="display: block; margin: auto;" /&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;img src="images/quasi-circular-example.png" width="2829" height="100px" style="display: block; margin: auto;" /&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;img src="images/aperiodic-example.png" width="2795" height="100px" style="display: block; margin: auto;" /&gt;
-]
----
-class:  middle center
-
-# Why look at multiple cyclic granularities?
-
-`\(multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)\)`
-.pull-left[
-&lt;br&gt;
-&lt;br&gt;
-### If certain hours of the day within a week are different?
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-### If certain days of the week are different for different months?
-]
-
-.pull-left[
-&lt;img src="figure/EDA1-1.svg" style="display: block; margin: auto;" /&gt;
-&lt;img src="figure/EDA2-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
-&lt;!-- Exhaustive sets of visual representation required for multiple perspectives on data? --&gt;
----
-class:  middle center
-
-## Data structure and Graphical mapping with two cyclic granularities
-
-
-&lt;img src="images/datastructure.png", height = "400px"&gt;
-
-
-&lt;!-- # Computation of granularities --&gt;
-
-&lt;!-- `\(z\)`       : index of a tsibble   --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-&lt;!-- `\(x\)`, `\(y\)`  : two units in the hierarchy table with  `\(order(x) &lt;  order(y)\)`   --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-&lt;!-- `\(f(x, y)\)` : accessor function for computing the granularity   --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-&lt;!-- `\(c(x, y)\)` : a constant which relates x and y   --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- #### **Single-order-up** --&gt;
-&lt;!-- `$$f(x, y) = \lfloor z/c(z,x) \rfloor\mod c(x,y)$$` where `\(y = x+1\)` --&gt;
-
-
-&lt;!-- #### **Multiple-order-up** --&gt;
-
-
-&lt;!-- \begin{split} --&gt;
-&lt;!-- f(x,y) &amp; = \sum_{i=0}^{order(y) - order(x) - 1} c(x, x+i)(f(x --&gt;
-&lt;!--   +i, x+i+1) - 1)\\ --&gt;
-&lt;!-- \end{split} --&gt;
-&lt;!-- SLIDE 7 --&gt;
----
-## Relationship of cyclic granularities
-
-**Harmonies** : pairs of granularities that aid exploratory data analysis  
-**Clashes**   : pairs leading to structurally empty sets  
-
-&lt;img src="images/clash.png" width="100%" style="display: block; margin: auto;" /&gt;
-
----
-&lt;!-- SLIDE 7 --&gt;
-## Choice of statistical transformations and geometric objects
-
-
-#### Types of statistical distribution plots 
-
-
-&lt;img src="figure/allplot-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-class:  middle center
-
-&lt;!-- SLIDE 6 --&gt;
-## Effect of number of levels on visualization
-&lt;!-- If certain  hours of the day are different between weekdays and weekends ? --&gt;
-&lt;img src="figure/effectoflevel1-1.svg" style="display: block; margin: auto;" /&gt;
-
-For too many categories levels
-- ridge plots should be avoided
-- Quantile plots might be useful for comparing patterns
-- Other involved methods of plotting useful for studying anomalies, outlier or multimodal behavior
----
-class:  middle center
-
-&lt;!-- SLIDE 6 --&gt;
-##  Effect of interchanging the mapping
-
-
-&lt;img src="figure/effectofreverse1-1.svg" style="display: block; margin: auto;" /&gt;
-
-Different mapping of cyclic granularities shift focus to different periodic behaviors
----
-&lt;!-- class:  middle center --&gt;
-
-&lt;!-- &lt;!-- SLIDE 6 --&gt; --&gt;
-&lt;!-- ##  Effect of rarely occuring observations --&gt;
-
-
-&lt;!-- --- --&gt;
-
-
-&lt;!-- SLIDE 8 --&gt;
-
-# R package: **gravitas**
-
-.center[
-### Computation
---- 
-
-.left[
-Compute any cyclic granularity? &lt;span style="color:Red"&gt;`create_gran()`
- &lt;br&gt;
- &lt;br&gt;
- 
-Exhaustive list of granularities to explore? &lt;span style="color:Red"&gt; `search_gran()`
- &lt;br&gt;
-       ]
-
-]
- 
-.pull-left[
- ### Interaction
- --- 
- 
-Check if cyclic granularities are harmonies/clashes?  `is.harmony()`
-&lt;br&gt;
-&lt;br&gt;
-List of harmonies to explore? `harmony()`
-&lt;br&gt;
- ]
-
-.pull-right[
-### Visualization
---- 
-
-Possible probability distributions plots for harmonies?  `prob_plot()`
-&lt;br&gt;
-&lt;br&gt;
-Sufficient observations?  `gran_obs()`  
-Recommendation on a harmony? `gran_advice()`
-
- ]
-
----
-
-&lt;!-- class: center,middle --&gt;
-
-&lt;!-- # &lt;span style="color:MediumVioletRed"&gt; Package gravitas &lt;/span&gt; --&gt;
-
-&lt;!-- ##   granularity visualization of time series data  --&gt;
-
-&lt;!-- SLIDE 8 --&gt;
-
-.left-column[
-## smart meter example
-#### - the data
-]
-.right-column[
-
-```
-#&gt; # A tsibble: 1,450,232 x 8 [30m] &lt;UTC&gt;
-#&gt; # Key:       customer_id [50]
-#&gt;   customer_id reading_datetime    general_supply_…
-#&gt;   &lt;chr&gt;       &lt;dttm&gt;                         &lt;dbl&gt;
-#&gt; 1 10006414    2012-02-10 08:00:00            0.141
-#&gt; 2 10006414    2012-02-10 08:30:00            0.088
-#&gt; 3 10006414    2012-02-10 09:00:00            0.078
-#&gt; 4 10006414    2012-02-10 09:30:00            0.151
-#&gt; # … with 1.45e+06 more rows, and 5 more variables:
-#&gt; #   event_key &lt;dbl&gt;, controlled_load_kwh &lt;dbl&gt;,
-#&gt; #   gross_generation_kwh &lt;dbl&gt;,
-#&gt; #   net_generation_kwh &lt;dbl&gt;, other_kwh &lt;dbl&gt;
-```
-&lt;i&gt;&lt;small&gt;Data source&lt;/i&gt;&lt;/small&gt; : [&lt;small&gt;&lt;i&gt;Department of the Environment and Energy, Australia&lt;/i&gt;&lt;/small&gt;](https://data.gov.au/dataset/4e21dea3-9b87-4610-94c7-15a8a77907ef)
-
-]
----
-
-&lt;!-- SLIDE 9 --&gt;
-.left-column[
-## smart meter example
-#### - the data
-#### - possible cyclic granularities `search_gran()`
-]
-.right-column[
-
-```r
-smart_meter %&gt;%
-*   search_gran(lowest_unit = "hhour", 
-*               highest_unit =  "month", 
-*               filter_out = c("fortnight",
-*                                "hhour"))
-```
-.pull-left[
-&lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; x &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_week &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_month &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-]
-
-.pull-right[
-
-&lt;large&gt;  So there are `\(^{6} P_2\)` =  30 pair of granularities to look at.
-]
-]
----
-
-.left-column[
-## smart meter example
-#### - the data
-#### - possible cyclic granularities `search_gran()`
-#### - set of harmonies `harmony()`
-]
-.right-column[
-```r
-smart_meter %&gt;% 
-* harmony(ugran = "month", lgran = "hhour",
-*          filter_out = c("fortnight", "hhour"))
-```
-
-&lt;table class="table" style="font-size: 16px; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; facet_variable &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; x_variable &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; facet_levels &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; x_levels &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_week &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 168 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_week &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 168 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_month &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 744 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 7 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 8 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 9 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 10 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 11 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_month &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 31 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 12 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; hour_day &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 24 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; 13 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; day_week &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; week_month &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 7 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-### Good news! Only 13 out 30 are harmonies 
-]
----
-
-.left-column[
-## smart meter example
-#### - the data
-#### - possible cyclic granularities `search_gran()`
-#### - set of harmonies `harmony()`
-#### - advice `gran_advice()`
-]
-.right-column[
-
-```r
-smart_meter %&gt;% 
-*  gran_advice("month_year", "hour_day")
-```
-
-
-```
-#&gt; The chosen granularities are harmonies 
-#&gt;  
-#&gt; Recommended plots are: quantile 
-#&gt;  
-#&gt; Number of observations are homogenous across facets 
-#&gt;  
-#&gt; Number of observations are homogenous within facets 
-#&gt;  
-#&gt; Cross tabulation of granularities : 
-#&gt;  
-#&gt; # A tibble: 24 x 13
-#&gt;   hour_day   Jan   Feb   Mar   Apr   May   Jun   Jul
-#&gt;   &lt;fct&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 0         1151  1095   730   660   682  1008  1054
-#&gt; 2 1         1154  1094   730   660   682  1008  1054
-#&gt; 3 2         1152  1094   730   660   682  1008  1054
-#&gt; 4 3         1150  1094   730   660   682  1008  1054
-#&gt; # … with 20 more rows, and 5 more variables:
-#&gt; #   Aug &lt;dbl&gt;, Sep &lt;dbl&gt;, Oct &lt;dbl&gt;, Nov &lt;dbl&gt;,
-#&gt; #   Dec &lt;dbl&gt;
-```
-### &lt;large&gt;  Quantile plots recommended for the harmony pair (month_year, hour_day) &lt;/large&gt;
-]
-
----
-.left-column[
-## smart meter example
-#### - the data
-#### - possible cyclic granularities `search_gran()`
-#### - set of harmonies `harmony()`
-#### - advice `gran_advice()`
-#### - visualize harmonies `prob_plot()`
-]
-.right-column[
-
-```r
-smart_meter %&gt;% 
-* prob_plot("month_year","hour_day",
-*           plot_type = "quantile", 
-*           response = "general_supply_kwh",
-*           quantile_prob = c(0.05, 0.1, 0.25, 
-*                             0.5, 0.75, 0.9, 0.95))
-```
-
-&lt;img src="figure/granplotoverlay3-1.svg" style="display: block; margin: auto;" /&gt;
-]
-
----
-
-## Another example: Cricket data of Indian Premier League
-
-&lt;small&gt;&lt;i&gt;Data source&lt;/i&gt;&lt;/small&gt;: [&lt;small&gt;&lt;i&gt;Cricsheet&lt;/i&gt;&lt;/small&gt;](http://cricsheet.org/) ,  [&lt;small&gt;&lt;i&gt;Kaggle&lt;/i&gt;&lt;/small&gt;](https://www.kaggle.com/josephgpinto/ipl-data-analysis/data)
-
-
-```
-#&gt; Observations: 136,598
-#&gt; Variables: 38
-#&gt; $ season           &lt;dbl&gt; 2008, 2008, 2008, 2008, 200…
-#&gt; $ match_id         &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-#&gt; $ inning           &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-#&gt; $ over             &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 2, 2, …
-#&gt; $ ball             &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 1, 2, …
-#&gt; $ winner           &lt;chr&gt; "Kolkata Knight Riders", "K…
-#&gt; $ total_runs       &lt;dbl&gt; 1, 0, 1, 0, 0, 0, 1, 0, 4, …
-#&gt; $ batting_team     &lt;chr&gt; "Kolkata Knight Riders", "K…
-#&gt; $ bowling_team     &lt;chr&gt; "Royal Challengers Bangalor…
-#&gt; $ batsman          &lt;chr&gt; "SC Ganguly", "BB McCullum"…
-#&gt; $ non_striker      &lt;chr&gt; "BB McCullum", "SC Ganguly"…
-#&gt; $ bowler           &lt;chr&gt; "P Kumar", "P Kumar", "P Ku…
-#&gt; $ is_super_over    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-#&gt; $ wide_runs        &lt;dbl&gt; 0, 0, 1, 0, 0, 0, 0, 0, 0, …
-#&gt; $ bye_runs         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-#&gt; $ legbye_runs      &lt;dbl&gt; 1, 0, 0, 0, 0, 0, 1, 0, 0, …
-#&gt; $ noball_runs      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-#&gt; $ penalty_runs     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-#&gt; $ batsman_runs     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 4, …
-#&gt; $ extra_runs       &lt;dbl&gt; 1, 0, 1, 0, 0, 0, 1, 0, 0, …
-#&gt; $ player_dismissed &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA,…
-#&gt; $ dismissal_kind   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA,…
-#&gt; $ fielder          &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA,…
-#&gt; $ city             &lt;chr&gt; "Bangalore", "Bangalore", "…
-#&gt; $ date             &lt;date&gt; 2008-04-18, 2008-04-18, 20…
-#&gt; $ team1            &lt;chr&gt; "Kolkata Knight Riders", "K…
-#&gt; $ team2            &lt;chr&gt; "Royal Challengers Bangalor…
-#&gt; $ toss_winner      &lt;chr&gt; "Royal Challengers Bangalor…
-#&gt; $ toss_decision    &lt;chr&gt; "field", "field", "field", …
-#&gt; $ result           &lt;chr&gt; "normal", "normal", "normal…
-#&gt; $ dl_applied       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-#&gt; $ win_by_runs      &lt;dbl&gt; 140, 140, 140, 140, 140, 14…
-#&gt; $ win_by_wickets   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-#&gt; $ player_of_match  &lt;chr&gt; "BB McCullum", "BB McCullum…
-#&gt; $ venue            &lt;chr&gt; "M Chinnaswamy Stadium", "M…
-#&gt; $ umpire1          &lt;chr&gt; "Asad Rauf", "Asad Rauf", "…
-#&gt; $ umpire2          &lt;chr&gt; "RE Koertzen", "RE Koertzen…
-#&gt; $ umpire3          &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA,…
-```
-
----
-
-
-## Difference in strategy between two top teams
-
-
-&lt;img src="images/cricketex.gif" style="display: block; margin: auto;" /&gt;
-
----
 class: center, middle
 
-# Summary
+# Joint work with Rob J Hyndman &amp; Dianne Cook
 
-- provide a formal characterization of cyclic granularities  
-- facilitate manipulation of single- and multiple-order-up time granularities through cyclic calendar algebra  
-- develop an approach to check the feasibility of creating plots or drawing inferences for any two cyclic granularities  
-- recommend prospective probability distributions for exploring distributions of a univariate dependent variable across pair of granularities  
+## Slides created with &lt;i&gt; Rmarkdown, knitr, xaringan, xaringanthemer&lt;/i&gt;
 
----
-class: center, middle
-
-### Joint work with
-.pull-left[
-.portrait[
-![](https://slides.earo.me/phd19/img/di.jpg)
-Di Cook
-]
-]
-.pull-right[
-.portrait[
-![](https://pbs.twimg.com/profile_images/1103150025981321216/dV3Wz_ql_400x400.png)
-Rob J Hyndman
-]
-]
-### Slides created with &lt;i&gt; Rmarkdown, knitr, xaringan, xaringanthemer&lt;/i&gt;
+## Special thanks to NUMBATS
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"ratio": "4:3",
+"ratio": "16:9",
 "highlightStyle": "github",
 "highlightLines": true,
 "countIncrementalSlides": false
