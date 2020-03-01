@@ -61,7 +61,7 @@ library(xaringanthemer)
 
 # Electricity smart meter technology <br> (~ 0.3 billion half hourly observations)
 
-- Source : Department of the Environment and Energy, Australia
+- Source: Department of the Environment and Energy, Australia
 <br>
 <br>
 - Frequency:  Half hourly (interval meter reading (Kwh))
@@ -199,7 +199,7 @@ $Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)$, $z \in T_k$
 - $B: Day$  
 - $G': Month$ 
 - $G'(w) = \bigcup_{z \in T_w}B(z)$
-- $\vert T_w \vert : cardinality \ of \ T_w$.
+- $\vert T_w \vert: cardinality \ of \ T_w$.
 ]
 ---
 
@@ -278,14 +278,14 @@ class:  middle center
 # Relationship of cyclic granularities
 
 .pull-left[
-**Clashes** : pairs leading to empty sets
+**Clashes**: pairs leading to empty sets
 .x[
 * structural
 * event-based
 * build-based
 ]
 
-**Harmonies** : pairs leading to no empty sets
+**Harmonies**: pairs leading to no empty sets
 .checked[
 * aid exploratory data analysis
 ]
