@@ -336,28 +336,29 @@ knitr::include_graphics("images/calendar_new.jpg")
 
 ##----allplot
 
-pbox <- smart_meter50 %>% 
-  create_gran("hour_day") %>% 
-  filter(hour_day %in% c(20, 10, 2, 15)) %>% 
-  ggplot(aes(x = hour_day, y = log(general_supply_kwh))) +
-  geom_boxplot() + ylab("") + xlab("")
+# pbox <- smart_meter50 %>% 
+#   create_gran("hour_day") %>% 
+#   filter(hour_day %in% c(20, 10, 2, 15)) %>% 
+#   ggplot(aes(x = hour_day, y = log(general_supply_kwh))) +
+#   geom_boxplot() + ylab("") + xlab("")
+# 
+# 
+# pviolin <- smart_meter50 %>% 
+#   create_gran("hour_day") %>% 
+#   filter(hour_day %in% c(20, 10, 2, 15)) %>% 
+#   ggplot(aes(x = hour_day, y = log(general_supply_kwh))) +
+#   geom_violin() + ylab("") + xlab("")
+#   
+# plv <- smart_meter50 %>% 
+#   create_gran("hour_day") %>% 
+#   filter(hour_day %in% c(20, 10, 2, 15)) %>% 
+#   ggplot(aes(x = hour_day, y = log(general_supply_kwh))) + 
+#   geom_lv(aes(fill = ..LV..), outlier.colour = "red", outlier.shape = 1) +
+#   ylab("") + xlab("") + theme(legend.position = "None") 
 
 
-pviolin <- smart_meter50 %>% 
-  create_gran("hour_day") %>% 
-  filter(hour_day %in% c(20, 10, 2, 15)) %>% 
-  ggplot(aes(x = hour_day, y = log(general_supply_kwh))) +
-  geom_violin() + ylab("") + xlab("")
-  
-plv <- smart_meter50 %>% 
-  create_gran("hour_day") %>% 
-  filter(hour_day %in% c(20, 10, 2, 15)) %>% 
-  ggplot(aes(x = hour_day, y = log(general_supply_kwh))) + 
-  geom_lv(aes(fill = ..LV..), outlier.colour = "red", outlier.shape = 1) +
-  ylab("") + xlab("") + theme(legend.position = "None") 
-
-
-mpg <- mpg %>% filter (class %in% c("compact", "midsize", "suv","minivan")) %>% 
+mpg <- mpg %>% 
+  filter (class %in% c("compact", "midsize", "suv","minivan")) %>% 
   mutate(cls = 
            case_when(
              class == "compact" ~ "A",
@@ -365,16 +366,30 @@ mpg <- mpg %>% filter (class %in% c("compact", "midsize", "suv","minivan")) %>%
              class == "suv" ~ "C",
              class == "minivan"  ~ "D"))
 
-pridge <-  ggplot(mpg, aes( hwy, cls)) + geom_density_ridges2()+  xlab("") + ylab("")
+pbox <- ggplot(mpg, aes(cls, hwy)) + 
+  geom_boxplot() + ylab("") + xlab("") + 
+  theme(
+    axis.text = element_text(size = 16))
 
+pridge <-  ggplot(mpg, aes(hwy, cls)) + 
+  geom_density_ridges2() + 
+  xlab("") + 
+  ylab("") + theme(
+    axis.text = element_text(size = 14))
 
- p4_quantile <- smart_meter50 %>% 
-   create_gran("hour_day") %>% 
-   mutate(Demand = log(general_supply_kwh)) %>% 
-   group_by(hour_day) %>%  do({
-    x <- .$Demand
+pviolin <-  ggplot(mpg, aes(cls, hwy)) + 
+  geom_violin() + ylab("") + xlab("")+ theme(
+    axis.text = element_text(size = 14))
+
+plv <-  ggplot(mpg, aes(cls, hwy)) + 
+  geom_lv(aes(fill = ..LV..), outlier.colour = "red", outlier.shape = 1) +
+  ylab("") + xlab("") +  xlab("") + ylab("")+  theme(legend.position = "bottom", legend.text = element_text(size=14))
+
+ p4_quantile <- mpg %>% 
+   group_by(cls) %>%  do({
+    x <- .$hwy
     map_dfr(
-      .x = c(0.1, 0.25, 0.5, 0.75, 0.9),
+      .x = c(0.25, 0.5, 0.75, 0.9),
       .f = ~ tibble(
         Quantile = .x,
         Value = quantile(x, probs = .x, na.rm = TRUE)
@@ -382,16 +397,15 @@ pridge <-  ggplot(mpg, aes( hwy, cls)) + geom_density_ridges2()+  xlab("") + yla
     )
   })
   
-  pquant <- p4_quantile %>% ggplot(aes(x = hour_day, y = Value, group=Quantile,  col = as.factor(Quantile))) + geom_line() +   xlab("") + ylab("") + theme(legend.position = "None") + scale_color_brewer(palette = "Dark2") +   ylab("") + xlab("") + scale_x_discrete(breaks = seq(0, 23, 5)) + ylab("")
+  pquant <- p4_quantile %>% ggplot(aes(x = cls, y = Value, group = Quantile,  col = as.factor(Quantile))) + geom_line() +   xlab("") + ylab("") + theme(legend.position = "bottom") + scale_color_brewer(palette = "Dark2") +   ylab("") + xlab("")  + guides(color = guide_legend(title = "quantiles"))+  theme(legend.position = "bottom", legend.text=element_text(size=16))
 
-phdr <- mpg %>% ggplot( 
-         # make sure to change x to y from geom_density to geom_hdr_boxplot
-         aes(y = hwy)) + 
-    geom_hdr_boxplot(fill = "blue") + theme(legend.position = "none") +
-  ylab("")
-
+phdr <- ggplot(data = mpg,
+               aes(y = hwy, fill = cls)) + 
+  geom_hdr_boxplot(all.modes = FALSE, prob = c(0.5, 0.9)) +
+  ylab("") +
+  xlab("") + theme(legend.position = "bottom")
   
-ggarrange(pbox, pviolin, plv, pridge, pquant, phdr, nrow = 2, ncol = 3, labels = c("box", "violin", "letter-value", "ridge", "quantile", "hdr-box"))
+ggarrange(pbox, pviolin, pridge, pquant, plv,  phdr, nrow = 2, ncol = 3, labels = c("box", "violin", "ridge","quantile", "letter-value",  "hdr-box"))
 
 
 ##----box

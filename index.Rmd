@@ -268,9 +268,19 @@ class:  middle center
 <!-- SLIDE 7 -->
 # Statistical transformations and geometric objects
 
-```{r allplot, out.width= "90%"}
-```
+.left-column[
+.checked[
+* basic plot chosen displays distributions
+* plot choices dictated by statistical transformations and geometric objects
+* enhances different features of the distribution
+* equipped with benefits and challenges
+]
+]
 
+.right-column[
+```{r allplot, out.width= "100%"}
+```
+]
 ---
 class:  middle center
 
