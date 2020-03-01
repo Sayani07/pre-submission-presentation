@@ -136,25 +136,53 @@ A linear **granularity** is a mapping `\(G\)` from the integers to subsets of th
 _* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
 ]
 ---
-class: left middle
+class: top left
 
-# Cyclic time granularities
+# Computation of cyclic time granularities: Circular
 
-.smaller[
+`\(C_{B, G}(z) = {L}(z\mod P(B, G))\)`,  `\(\forall z \in \mathbb{Z}_{\geq 0}\)`
+
+ &lt;img src="images/circular-example.png" width="2827" height="150px" style="display: block; margin: auto;" /&gt;
 .checked[
+- `\(z: Index \ set\)`  
+- `\(B: Day\)`  
+- `\(G: Week\)`  
+- `\(P(B, G) = 7\)`  
+]
+---
+class: top left
 
-* **Circular**: `\(C_{B, G}(z) = {L}(z\mod P(B, G))\)`,  `\(\forall z \in \mathbb{Z}_{\geq 0}\)`
-* **Quasi-circular**: `\(Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)\)`, `\(z \in T_k\)`
-* **Aperiodic** : 
+# Computation of cyclic time granularities: Quasi- circular
+
+`\(Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)\)`, `\(z \in T_k\)`
+
+ &lt;img src="images/quasi-periodic-example.png" width="2800" height="150px" style="display: block; margin: auto;" /&gt;
+.checked[
+- `\(B: Day\)`  
+- `\(G': Month\)` 
+- `\(G'(w) = \bigcup_{z \in T_w}B(z)\)`
+- `\(\vert T_w \vert : cardinality \ of \ T_w\)`.
+]
+---
+
+class: top left
+
+# Computation of cyclic time granularities: Aperiodic
 
 `\begin{align}
 A_{B, M}(z) &amp;= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
              &amp;= L(0), \text{otherwise}
 \end{align}`
+
+ &lt;img src="images/aperiodic-cyclic.png" width="3061" height="150px" style="display: block; margin: auto;" /&gt;
+.smaller[
+.checked[
+- `\(B: Day\)`  
+- `\(M_{i}(j) = \bigcup_{z \in T_{i_j}}B(z)\)`
+- `\(M = \bigcup_{i=1}^{n}M_{i}\)`
+- index `\({\{i_j\}}\)`  = `\(j^{\text{th}}\)` granule of the `\(i^{\text{th}}\)` linear aperiodic granularity
 ]
 ]
-
-
 
 ---
 class:  middle center

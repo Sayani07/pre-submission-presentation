@@ -598,13 +598,13 @@ knitr::include_graphics("images/rob.jpg")
 
 
 ##----computation1
-knitr::include_graphics("images/circular-dow.png")
+knitr::include_graphics("images/circular-example.png")
 
 ##----computation2
-knitr::include_graphics("images/quasi-circular-example.png")
+knitr::include_graphics("images/quasi-periodic-example.png")
 
 ##----computation3
-knitr::include_graphics("images/aperiodic-example.png")
+knitr::include_graphics("images/aperiodic-cyclic.png")
 
 ##----load-theme
 knitr::include_graphics("images/theme.png")
