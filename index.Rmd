@@ -1,5 +1,5 @@
 ---
-title: "Visualisation and analysis of  probability distributions <br> of variables defined on cyclic temporal granularities"
+title: "Visualization and analysis of  probability distributions <br> of variables defined on cyclic temporal granularities"
 type: "contributed"
 author: "<br> Sayani Gupta <br> <hr> &nbsp; Prof. Rob J Hyndman &nbsp; &nbsp; Prof. Dianne Cook &nbsp; &nbsp; Dr. Peter Toscas"
 date: <font size="5"> Department of Econometrics and Business Statistics <br>  Progress Review <br> March 3, 2020
@@ -84,6 +84,10 @@ library(xaringanthemer)
 
 ```{r motivation3, out.height="500px"}
 ```
+---
+
+```{r motivation-animated}
+```
 
 ---
 class:center, middle
@@ -97,7 +101,7 @@ class:middle center
 
 #  Research aim 
 
-## **How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behaviour?**
+## **How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behavior?**
 
 ---
 class:left, top
@@ -573,7 +577,7 @@ class: left, middle
 .smaller[
 * Provide preliminary exploratory visualization and summarisation.
 * Employ cluster analysis to obtain households showing similar periodic behavior and combine the findings with external data like weather conditions, socio-economic or other demographic factors of those households.
-* Comparative study with earlier methods which focussed on clustering raw data across linear time scales as opposed to clustering probability distributions across periodic scales.
+* Comparative study with earlier methods which focused on clustering raw data across linear time scales as opposed to clustering probability distributions across periodic scales.
 ]
 ---
 
