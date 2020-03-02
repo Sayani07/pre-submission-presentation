@@ -94,10 +94,13 @@ class:center, middle
 
 
 ---
-class:middle center
+class:center, top
 
 #  Research aim 
 
+<br>
+<br>
+<br>
 ## <span style="color:firebrick"> How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behavior?
 
 ---
@@ -149,7 +152,7 @@ class: middle center
 
 <!-- --- -->
 ---
-class:  left middle
+class:left, top
 
 #  Linear time granularities
 
@@ -234,7 +237,7 @@ A_{B, M}(z) &= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
 ]
 
 ---
-class:  middle center
+class:center, top
 
 # Data structure and Graphical mapping
 
@@ -242,7 +245,8 @@ class:  middle center
 <img src="images/datastructure.png", height = "400px">
 
 ---
-class:  middle center
+class:left, top
+
 # Why look at multiple cyclic granularities?
 .pull-left[
 <!-- <large> $multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$ </large> -->
@@ -285,6 +289,8 @@ class:  middle center
 <!-- \end{split} -->
 <!-- SLIDE 7 -->
 ---
+class:left, top
+
 # Relationship of cyclic granularities
 
 .pull-left[
@@ -310,6 +316,8 @@ class:  middle center
 ```
 ]
 ---
+class:left, top
+
 <!-- SLIDE 7 -->
 # Statistical transformations and geometric objects
 
@@ -327,7 +335,7 @@ class:  middle center
 ```
 ]
 ---
-class:  middle center
+class:left, top
 
 <!-- SLIDE 6 -->
 
@@ -355,7 +363,7 @@ For example, with too many x-axis levels, avoid ridge plots
 ```
 ]
 ---
-class:  middle center
+class:left, top
 
 <!-- SLIDE 6 -->
 #  Interchanging the mapping
@@ -376,7 +384,7 @@ class:  middle center
 ]
 
 ---
-class: middle center
+class:center, top
 
 # R package: gravitas
 
@@ -555,7 +563,7 @@ filter(batting_team %in% c("Mumbai Indians",
 ```{r aperiodic_cric, fig.height = 7.5}
 ```
 ---
-class: left, middle
+class:left, top
 
 # Clustering temporal data based on <br> probability distributions
 
@@ -567,7 +575,7 @@ class: left, middle
 - clustering algorithm on $P(i, j, k)$ instead of raw data
 
 ---
-class: left, middle
+class:left, top
 
 # Clustering temporal data based on <br> probability distributions
 
@@ -581,7 +589,7 @@ class: left, middle
 
 
 ---
-class: left, middle
+class:left, top
 
 # Study of Australian smart meter data
 
