@@ -734,7 +734,7 @@ R package and draft paper of Research objective-2 ready
 .timeline-content[
 Pre-submission Review 
 .timeline-date[
-2020/03
+2021/03
 ]]]]
 
 .timeline-block[
@@ -742,7 +742,7 @@ Pre-submission Review
 .timeline-content[
 Research objective-3 draft paper ready 
 .timeline-date[
-2020/03
+2021/03
 ]]]]
 
 .timeline-block[
@@ -750,7 +750,7 @@ Research objective-3 draft paper ready
 .timeline-content[
 Thesis submission `r emo::ji("v")`
 .timeline-date[
-2020/06
+2021/06
 ]]]]
 ]
 ]
