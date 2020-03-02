@@ -637,10 +637,10 @@ knitr::include_graphics("images/rob.jpg")
 knitr::include_graphics("images/circular-example.png")
 
 ##----computation2
-knitr::include_graphics("images/quasi-periodic-example.png")
+knitr::include_graphics("images/quasiex.png")
 
 ##----computation3
-knitr::include_graphics("images/aperiodic-cyclic.png")
+knitr::include_graphics("images/aperiodic-examplen.png")
 
 ##----load-theme
 knitr::include_graphics("images/theme_refine.png")

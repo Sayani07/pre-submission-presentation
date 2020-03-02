@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Visualization and analysis of probability distributions   of variables defined on cyclic temporal granularities</title>
+    <title>Visualization and analysis of probability   distributions of variables defined on   cyclic temporal granularities</title>
     <meta charset="utf-8" />
     <link href="index_files/remark-css/ninjutsu.css" rel="stylesheet" />
     <script src="index_files/kePrint/kePrint.js"></script>
@@ -17,7 +17,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Visualization and analysis of probability distributions <br> of variables defined on cyclic temporal granularities
+# Visualization and analysis of probability <br> distributions of variables defined on <br> cyclic temporal granularities
 ### <br> Sayani Gupta <br>
 <hr>
   Prof. Rob J Hyndman     Prof. Dianne Cook     Dr. Peter Toscas
@@ -32,7 +32,9 @@ class: center, middle, inverse, title-slide
 
 
 
-# Electricity smart meter technology &lt;br&gt; (~ 0.3 billion half hourly observations)
+# Motivation
+
+### Electricity smart meter technology &lt;br&gt; (~ 0.3 billion half hourly observations)
 
 - Source: Department of the Environment and Energy, Australia
 &lt;br&gt;
@@ -68,7 +70,7 @@ class:top, center
 ---
 class:center, top
 
-#  Research aim 
+#  Research question
 
 &lt;br&gt;
 &lt;br&gt;
@@ -177,7 +179,7 @@ class: top left
 `\begin{align}
 Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert), z \in T_k
 \end{align}`
- &lt;img src="images/quasi-periodic-example.png" width="2800" height="150px" style="display: block; margin: auto;" /&gt;
+ &lt;img src="images/quasiex.png" width="3325" height="150px" style="display: block; margin: auto;" /&gt;
 .checked[
 - `\(B: Day\)`  
 - `\(G': Month\)` 
@@ -186,7 +188,6 @@ Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert), z \in T_k
 ]
 ]
 ---
-
 class: top left
 
 # Computation of cyclic time granularities
@@ -200,7 +201,7 @@ A_{B, M}(z) &amp;= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
              &amp;= L(0), \text{otherwise}
 \end{align}`
 
- &lt;img src="images/aperiodic-cyclic.png" width="3061" height="150px" style="display: block; margin: auto;" /&gt;
+ &lt;img src="images/aperiodic-examplen.png" width="3229" height="150px" style="display: block; margin: auto;" /&gt;
 .checked[
 - `\(B: Day\)`  
 - `\(M_{i}(j) = \bigcup_{z \in T_{i_j}}B(z)\)`
@@ -208,7 +209,16 @@ A_{B, M}(z) &amp;= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
 - `\({\{i_j\}}\)`  = `\(j^{\text{th}}\)` granule of the `\(i^{\text{th}}\)` linear aperiodic granularity
 ]
 ]
+---
+class: top left
 
+# Cyclic calendar algebra
+
+
+- from single to multiple order-up 
+&lt;br&gt; .smaller[e.g. day-of-semester from day-of-month]
+- from  multiple to single order-up
+&lt;br&gt; .smaller[e.g. hour-of-day from hour-of-week]
 ---
 class:center, top
 
@@ -356,45 +366,39 @@ class:left, top
 ---
 class:center, top
 
-# R package: gravitas
-
-
+# R package gravitas: communicating research findings
+.smaller[
 .center[
 ### Computation
 --- 
 .left[
-.smaller[
 - Compute any cyclic granularity? `create_gran()`
  &lt;br&gt;
 - Exhaustive list of granularities to explore? `search_gran()`
  &lt;br&gt;
        ]
        ]
-]
  
 .pull-left[
 &lt;br&gt;
  ### Interaction
  --- 
- .smaller[
 - Check if cyclic granularities are harmonies/clashes? `is.harmony()`
 &lt;br&gt;
 - List of harmonies to explore? `harmony()`
 &lt;br&gt;]
- ]
+
 .pull-right[
 &lt;br&gt;
 ### Visualization
 --- 
-.smaller[
 - Plot harmonies? `prob_plot()`
 &lt;br&gt;
 - Sufficient observations? `gran_obs()`
 &lt;br&gt;
 - Recommendations on feasibility? `gran_advice()`
  ]
- ]
-
+]
 &lt;!-- class: center,middle --&gt;
 
 &lt;!-- # &lt;span style="color:MediumVioletRed"&gt; Package gravitas &lt;/span&gt; --&gt;

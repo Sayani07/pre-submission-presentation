@@ -1,5 +1,5 @@
 ---
-title: "Visualization and analysis of  probability distributions <br> of variables defined on cyclic temporal granularities"
+title: "Visualization and analysis of probability <br> distributions of variables defined on <br> cyclic temporal granularities"
 type: "contributed"
 author: "<br> Sayani Gupta <br> <hr> &nbsp; Prof. Rob J Hyndman &nbsp; &nbsp; Prof. Dianne Cook &nbsp; &nbsp; Dr. Peter Toscas"
 date: <font size="5"> Department of Econometrics and Business Statistics <br>  Progress Review <br> March 3, 2020
@@ -59,7 +59,9 @@ library(xaringanthemer)
 ```
 
 
-# Electricity smart meter technology <br> (~ 0.3 billion half hourly observations)
+# Motivation
+
+### Electricity smart meter technology <br> (~ 0.3 billion half hourly observations)
 
 - Source: Department of the Environment and Energy, Australia
 <br>
@@ -98,7 +100,7 @@ class:top, center
 ---
 class:center, top
 
-#  Research aim 
+#  Research question
 
 <br>
 <br>
@@ -220,7 +222,6 @@ Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert), z \in T_k
 ]
 ]
 ---
-
 class: top left
 
 # Computation of cyclic time granularities
@@ -243,7 +244,16 @@ A_{B, M}(z) &= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
 - ${\{i_j\}}$  = $j^{\text{th}}$ granule of the $i^{\text{th}}$ linear aperiodic granularity
 ]
 ]
+---
+class: top left
 
+# Cyclic calendar algebra
+
+
+- from single to multiple order-up 
+<br> .smaller[e.g. day-of-semester from day-of-month]
+- from  multiple to single order-up
+<br> .smaller[e.g. hour-of-day from hour-of-week]
 ---
 class:center, top
 
@@ -400,45 +410,39 @@ class:left, top
 ---
 class:center, top
 
-# R package: gravitas
-
-
+# R package gravitas: communicating research findings
+.smaller[
 .center[
 ### Computation
 --- 
 .left[
-.smaller[
 - Compute any cyclic granularity? `create_gran()`
  <br>
 - Exhaustive list of granularities to explore? `search_gran()`
  <br>
        ]
        ]
-]
  
 .pull-left[
 <br>
  ### Interaction
  --- 
- .smaller[
 - Check if cyclic granularities are harmonies/clashes? `is.harmony()`
 <br>
 - List of harmonies to explore? `harmony()`
 <br>]
- ]
+
 .pull-right[
 <br>
 ### Visualization
 --- 
-.smaller[
 - Plot harmonies? `prob_plot()`
 <br>
 - Sufficient observations? `gran_obs()`
 <br>
 - Recommendations on feasibility? `gran_advice()`
  ]
- ]
-
+]
 <!-- class: center,middle -->
 
 <!-- # <span style="color:MediumVioletRed"> Package gravitas </span> -->
