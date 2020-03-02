@@ -13,8 +13,11 @@ library(lvplot)
 library(kableExtra)
 library(gghdr)
 library(tsibbledata)
+library(rvest)
 #remotes::install_github("njtierney/palap")
 library(palap)
+library(htmltools)
+library(transformr)
 
 load("data/sm_cust50.Rdata")
 
@@ -46,6 +49,39 @@ hierarchy_model <- tibble::tibble(
 )
 
 
+
+
+##----motivation-animated
+# p <- data_cust1 %>% 
+#   ggplot(aes(x = reading_datetime, y = general_supply_kwh)) + 
+#   geom_line() + 
+#   transition_states(customer_id, wrap = FALSE) + 
+#   view_step_manual(1,10,
+#                    c(ymd_hms("2012-06-01 10:30:00"), ymd_hms("2013-07-01 00:00:00")),
+#                    c(ymd_hms("2014-03-02 22:00:00"), ymd_hms("2013-07-31 23:30:00")),
+#                    c(0.008, 0.871),
+#                    c(1.14,  0.460),
+#                    wrap = FALSE)
+# 
+# 
+# anim_save("images/ts-zoom.mp4", p, renderer = ffmpeg_renderer(options = list(pix_fmt = "yuv420p")),
+#           width = 900, height = 500)
+# 
+# 
+mp4_vid <- function(src){
+  HTML(
+    paste0(
+      '<video autoplay>
+        <source src="', src, '" type="video/mp4">
+      </video>'
+    )
+  )
+}
+
+mp4_vid("images/ts-zoom.mp4")
+
+
+
 ##----motivation1
 
 
@@ -57,12 +93,11 @@ data_cust1 %>%  ggplot() + geom_line(aes(x =reading_datetime, y = general_supply
 
 ##----motivation3
 
-# smart_p <- smart_meter50 %>%  ggplot() + geom_line(aes(x =reading_datetime, y = general_supply_kwh, color = customer_id))  + theme(legend.position = "None")
+# smart_p <- smart_meter50 %>%  ggplot() + geom_line(aes(x =reading_datetime, y = general_supply_kwh, color = customer_id))  + theme(legend.position = "None") + theme_remark() + theme(legend.position = "none")
 # 
 # smart_anim <-  smart_p + gganimate::transition_states(customer_id)+ labs(title = "{closest_state}")
 # 
-# gganimate::animate(smart_anim, fps = 10, width = 1000, height = 600)
-# 
+# gganimate::animate(smart_anim, fps = 10, width = 1000, height = 600, renderer = gifski_renderer())
 # 
 # anim_save("images/smart_allcust.gif")
 
@@ -654,7 +689,7 @@ search_gran <- cricket_tsibble %>%
 
 knitr::kable(search_gran, row.names = TRUE) %>% 
   kable_styling(font_size = 20)%>% 
-  row_spec(0, background = 	"#808080") %>% 
+  row_spec(0, background = 	"#C0C0C0") %>% 
   row_spec(1:6, background = "White") 
 
 ##----harmony_gran_cric
@@ -666,12 +701,12 @@ harmony_cric <- cricket_tsibble %>%
 
 knitr::kable(harmony_cric, row.names = TRUE) %>% 
   kable_styling(font_size = 20, fixed_thead = F,"striped") %>% 
-  row_spec(0, background = 	"#808080") %>% 
+  row_spec(0, background = 	"#C0C0C0") %>% 
   row_spec(1:8, background = "White") 
 # FFE4E1"
 
 ##----gran-advice_cric
-
+ 
 cricket_tsibble %>% 
   gran_advice("over_inning", 
               "inning_match",

@@ -84,10 +84,7 @@ library(xaringanthemer)
 
 ```{r motivation3, out.height="500px"}
 ```
----
 
-```{r motivation-animated}
-```
 
 ---
 class:center, middle
@@ -101,7 +98,7 @@ class:middle center
 
 #  Research aim 
 
-## **How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behavior?**
+## <span style="color:firebrick"> How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behavior?
 
 ---
 class:left, top
@@ -174,7 +171,9 @@ _* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
 ---
 class: top left
 
-# Computation of cyclic time granularities: Circular
+# Computation of cyclic time granularities
+
+<span style="color:firebrick"> Circular:
 
 $C_{B, G}(z) = {L}(z\mod P(B, G))$,  $\forall z \in \mathbb{Z}_{\geq 0}$
 
@@ -189,7 +188,9 @@ $C_{B, G}(z) = {L}(z\mod P(B, G))$,  $\forall z \in \mathbb{Z}_{\geq 0}$
 ---
 class: top left
 
-# Computation of cyclic time granularities: Quasi- circular
+# Computation of cyclic time granularities
+
+<span style="color:firebrick"> Quasi- circular:
 
 $Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)$, $z \in T_k$
 
@@ -205,7 +206,9 @@ $Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)$, $z \in T_k$
 
 class: top left
 
-# Computation of cyclic time granularities: Aperiodic
+# Computation of cyclic time granularities
+
+<span style="color:firebrick"> Aperiodic:
 
 \begin{align}
 A_{B, M}(z) &= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
@@ -226,7 +229,7 @@ A_{B, M}(z) &= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
 ---
 class:  middle center
 
-## Data structure and Graphical mapping with two cyclic granularities
+# Data structure and Graphical mapping
 
 
 <img src="images/datastructure.png", height = "400px">
@@ -353,7 +356,7 @@ class:  middle center
 .pull-left[
 .checked[
 * Items placed in close proximity assumed to be in the same group 
-(_Gestalt theory_)
+(_Gestalt principles_)
 * Different mapping focus on different periodic behaviors
 ]
 ]
@@ -419,7 +422,7 @@ class: middle center
 .left-column[
 ## Cricket example
 .checked[
-* the data
+* data structure
 <br>
 <br>
 * Hierachy table
@@ -438,7 +441,7 @@ knitr::include_graphics("images/cricket_data.png")
 .left-column[
 ## Cricket example
 .checked[
-* the data
+* data structure
 * search granularities `search_gran()`
 ]
 ]
@@ -471,7 +474,7 @@ cricket_tsibble <- cricket %>%
 .left-column[
 ## Cricket example
 .checked[
-* the data
+* data structure
 * search granularities `search_gran()`
 * set of harmonies `harmony()`
 ]
@@ -487,14 +490,14 @@ cricket_tsibble %>%
 
 ```{r harmony_gran_cric}
 ```
-### Good news! Only 8 out `r length(combn(6,2))` are harmonies 
+### Good news! Only 8 out `r length(combn(6,2))` are harmonies.
 ]
 ---
 
 .left-column[
 ## Cricket example
 .checked[
-* the data
+* data structure
 * search granularities `search_gran()`
 * set of harmonies `harmony()`
 * advice `gran_advice()`
@@ -518,7 +521,7 @@ cricket_tsibble %>%
 .left-column[
 ## Cricket example
 .checked[
-* the data
+* data structure
 * search granularities `search_gran()`
 * set of harmonies `harmony()`
 * advice `gran_advice()`
@@ -541,28 +544,15 @@ filter(batting_team %in% c("Mumbai Indians",
 ```
 ]
 ---
-# Application: aperiodic granularities in cricket
+# Aperiodic cyclic granularities in cricket
 ```{r aperiodic_cric, fig.height = 7.5}
 ```
 ---
 class: left, middle
 
-# Clustering temporal data across cyclic granularities <br> based on probability distribution similarity
+# Clustering temporal data based on <br> probability distributions
 
-
-- Dimension reduction
-- Avoid loss of information due to aggregation
-- Robustness to outliers
-- Non-synchronized observed time periods
-- Similar periodic behavior
-- Handling autocorrelation
-
----
-class: left, middle
-
-# Clustering temporal data across cyclic granularities <br> based on probability distribution similarity
-
-
+## Assumptions
 - $C_1: \mathbb{Z}_+ \mapsto \{L_1, L_2, L_3, \dots, L_m \}$
 - $C_2: \mathbb{Z}_+ \mapsto \{L_1, L_2, L_3, \dots, L_p \}$
 - $S(i, j, k)$: set of measurement variables corresponding to the key $i$ for $k^{th}$ level of $j^{th}$ cyclic granularity
@@ -572,12 +562,26 @@ class: left, middle
 ---
 class: left, middle
 
+# Clustering temporal data based on <br> probability distributions
+
+## Implications
+- Dimension reduction
+- Avoid loss of information due to aggregation
+- Robustness to outliers
+- Non-synchronized observed time periods
+- Similar periodic behavior
+- Handling autocorrelation
+
+
+---
+class: left, middle
+
 # Study of Australian smart meter data
 
 .smaller[
-* Provide preliminary exploratory visualization and summarisation.
-* Employ cluster analysis to obtain households showing similar periodic behavior and combine the findings with external data like weather conditions, socio-economic or other demographic factors of those households.
-* Comparative study with earlier methods which focused on clustering raw data across linear time scales as opposed to clustering probability distributions across periodic scales.
+* Provide preliminary exploratory visualization and summarisation
+* Employ cluster analysis to obtain households showing similar periodic behavior and combine the findings with external data like weather conditions, socio-economic or other demographic factors of those households
+* Comparative study with earlier methods which focused on clustering raw data across linear time scales as opposed to clustering probability distributions across periodic scales
 ]
 ---
 
@@ -601,7 +605,7 @@ Internship with Google Summer of Code
 .arrow-right[
 .timeline-content[
 Young Statistician's Conference -  
-won the 2nd best Presentation award `r emo::ji("trophy")`
+won the 2nd best presentation award `r emo::ji("trophy")`
 .timeline-date[
 2019/10
 ]]]]
@@ -691,7 +695,7 @@ Compstat 2020 (Tentative)
 .timeline-block[
 .arrow-right[
 .timeline-content[
-R package and Draft paper of Research objective-2 ready
+R package and draft paper of Research objective-2 ready
 .timeline-date[
 2020/10
 ]]]]
@@ -715,7 +719,7 @@ R package and Draft paper of Research objective-2 ready
 .timeline-content[
 Pre-submission Review 
 .timeline-date[
-2018/03
+2020/03
 ]]]]
 
 .timeline-block[
@@ -723,7 +727,7 @@ Pre-submission Review
 .timeline-content[
 Research objective-3 draft paper ready 
 .timeline-date[
-2018/03
+2020/03
 ]]]]
 
 .timeline-block[
