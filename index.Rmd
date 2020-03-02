@@ -133,8 +133,9 @@ class: middle center
 #  Time granularities - abstractions of time
 .pull-left[
 ### Arrangement
- **<span style="color:firebrick"> <i> Linear</i>**
+**<span style="color:firebrick"> <i> Linear</i>**
  - .smaller[days, weeks, months, years]
+ 
 **<span style="color:firebrick"> <i> Cyclic</i>**
  - .smaller[<i> Circular: </i>  day-of-week, month-of-year]
  - .smaller[<i> Quasi-circular: </i> day-of-month, week-of-month]
@@ -144,6 +145,7 @@ class: middle center
 ### Order
 **<span style="color:firebrick"> <i> Single-order-up</i>**
  - .smaller[second-of-minute, hour-of-day]
+ 
 **<span style="color:firebrick"> <i> Multiple-order-up</i>**
  - .smaller[second-of-hour, hour-of-week]
 
@@ -171,7 +173,9 @@ knitr::include_graphics("images/linear-arr.png")
 
 <!-- since the linearity imposes a restriction on reflecting periodicity in time -->
 .footnote[
-_* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
+ _1. Bettini, Claudio, and Roberto De Sibi. 2000. “Symbolic Representation of User-Defined Time Granularities.” <br> Annals of Mathematics and Artificial Intelligence 30 (1): 53–92._<br>
+ _2. Bettini, Claudio, Curtis E. Dyreson, William S. Evans, Richard T. Snodgrass, and X. Sean Wang. 1998. <br> “A Glossary of Time Granularity Concepts.”_<br>
+ _3.Ning, Peng, Xiaoyang Sean Wang, and Sushil Jajodia. 2002. “An Algebraic Representation of Calendars.” <br> Annals of Mathematics and Artificial Intelligence 36 (1): 5–38._
 ]
 ---
 class: top left
