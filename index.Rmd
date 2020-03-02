@@ -113,8 +113,8 @@ class:left, top
 #  Research objectives 
 
 .larger[
-- Visualizing probability distributions across bivariate cyclic temporal granularities <br><br>
-- Clustering temporal data across cyclic granularities based on probability distribution similarity <br><br>
+- Visualize probability distributions over different time granularities <br><br>
+- Clustering temporal data based on <br> probability distributions <br><br>
 - Study of Australian smart meter data
 ]
 ---
@@ -126,7 +126,8 @@ class: middle center
 <img src="images/gravitas_sticker.png" height=280px>
 ]
 
-## Visualize probability distributions over different time granularities
+## Visualizing probability distributions across bivariate cyclic temporal granularities
+
 
 
 ---
@@ -605,8 +606,7 @@ class:left, top
 
 ## Implications
 - Dimension reduction
-- Avoid loss of information due to aggregation
-- Robustness to outliers
+- Robust to outliers by trimming the tails
 - Non-synchronized observed time periods
 - Similar periodic behavior
 - Handling autocorrelation
