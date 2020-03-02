@@ -418,7 +418,7 @@ pviolin <-  ggplot(mpg, aes(cls, hwy)) +
 
 plv <-  ggplot(mpg, aes(cls, hwy)) + 
   geom_lv(aes(fill = ..LV..), outlier.colour = "red", outlier.shape = 1) +
-  ylab("") + xlab("") +  xlab("") + ylab("")+  theme(legend.position = "bottom", legend.text = element_text(size=14))
+  ylab("") + xlab("") +  xlab("") + ylab("")+  theme(legend.position = "bottom", legend.text = element_text(size=14)) +  scale_fill_brewer(palette = "Dark2")
 
  p4_quantile <- mpg %>% 
    group_by(cls) %>%  do({
@@ -438,7 +438,7 @@ phdr <- ggplot(data = mpg,
                aes(y = hwy, fill = cls)) + 
   geom_hdr_boxplot(all.modes = FALSE, prob = c(0.5, 0.9)) +
   ylab("") +
-  xlab("") + theme(legend.position = "bottom")
+  xlab("") + theme(legend.position = "bottom") + scale_fill_brewer(palette = "Dark2")
   
 ggarrange(pbox, pviolin, pridge, pquant, plv,  phdr, nrow = 2, ncol = 3, labels = c("box", "violin", "ridge","quantile", "letter-value",  "hdr-box"))
 
@@ -520,7 +520,8 @@ data_cust1 %>%
             plot_type = "quantile", symmetric = FALSE,
             quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9)) + 
             ggtitle("") + 
-  scale_x_discrete(breaks = seq(0, 23, 2)) + theme_remark()
+  scale_x_discrete(breaks = seq(0, 23, 4)) + theme_remark() +
+  scale_color_brewer(palette = "Dark2") + theme(legend.position = "right")
 
 #----EDA2
 
@@ -642,7 +643,7 @@ knitr::include_graphics("images/quasi-periodic-example.png")
 knitr::include_graphics("images/aperiodic-cyclic.png")
 
 ##----load-theme
-knitr::include_graphics("images/theme_words.png")
+knitr::include_graphics("images/theme_refine.png")
 
 ##----clash
 
@@ -657,7 +658,8 @@ VIC %>%
             plot_type = "quantile",
             quantile_prob = c(0.1, 0.25, 0.5, 0.75, 0.9),
             symmetric = FALSE) + ggtitle("") + theme_remark() + 
-  scale_x_discrete(breaks = seq(0, 364, 20))
+  scale_x_discrete(breaks = seq(0, 364, 20)) +
+  scale_color_brewer(palette = "Dark2")
 
 ##----noclash
 
@@ -769,14 +771,16 @@ cricket_data %>% prob_plot("over", "lag_field",
                            hierarchy_model,
                            response = "run_rate",
                            plot_type = "violin",
-) + ggtitle("Does run rate decrease in the subsequent over for at least one wicket in the last over?") + geom_boxplot(width = 0.5, aes(colour = lag_field)) + xlab("Number of wickets in last over") +
+                           width = 0.5, aes(colour = lag_field)) + ggtitle("Does run rate decrease in the subsequent over for at least one wicket in the last over?") + 
+  geom_boxplot(width = 0.5, aes(colour = lag_field)) +
+  xlab("Number of wickets in last over") +
   ylim(0, 4.5) +    theme_remark() + theme(
     axis.text = element_text(size = 14),
     strip.text = element_text(size = 16, margin = margin()),
     axis.title = element_text(size = 16),
     legend.position = "none",
     plot.title =  element_text(size = 16)
-  )
+  ) + scale_color_brewer(palette = "Dark2")
   
 
 

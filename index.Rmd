@@ -262,19 +262,22 @@ Wang, Earo, Dianne Cook, and Rob J. Hyndman. 2019.<br> “A New Tidy Data Struct
 class:left, top
 
 # Why look at multiple cyclic granularities?
-
-$multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$
-
 .pull-left[
-```{r EDA1, out.width = "100%"}
-```
+<!-- <large> $multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$ </large> -->
+<br>
+<br>
+<br>
+(1) Are certain **hour-of-day** are different for different **days-of-week**?
+<br>
+<br><br>
+(2) Are certain **day-of-week** are different for different **month-of-year**?
 ]
 .pull-right[
-
-```{r EDA2, out.width = "100%"}
+```{r EDA1, out.width = "200%"}
+```
+```{r EDA2, out.width = "200%"}
 ```
 ]
-
 
 <!-- Exhaustive sets of visual representation required for multiple perspectives on data? -->
 
@@ -338,7 +341,6 @@ class:left, top
 .left-column[
 .checked[
 .larger[
-* basic plot chosen displays distributions
 * after finding harmonies many plot choices available
 * each focus on different features of the distribution
 ]
@@ -358,14 +360,10 @@ class:left, top
 
 .pull-left[
 .checked[
-
-```{r leveltable}
-
-```
-<br>
-<br>
-
-For example, with too many x-axis levels, avoid ridge plots
+.smaller[
+- not all geoms work well with all number of levels
+- potential approach to categorize levels and define criterion for choice of plots
+]
 ]
 ]
 
@@ -384,9 +382,11 @@ class:left, top
 
 .pull-left[
 .checked[
+.smaller[
 * Items placed in close proximity assumed to be in the same group 
 (_Gestalt principles_)
 * Different mapping focus on different periodic behaviors
+]
 ]
 ]
 .pull-right[
@@ -495,7 +495,10 @@ cricket_tsibble <- cricket %>%
 .pull-right[
 <br>
 <br>
-<large>  So there are $^{6} P_2$ =  `r length(combn(6,2))` pair of granularities to look at.
+.smaller[
+- There are $^{6} P_2$ =  `r length(combn(6,2))` pair of granularities to look at
+- 30 visualizations to interpret?
+]
 ]
 ]
 ---
@@ -519,8 +522,10 @@ cricket_tsibble %>%
 
 ```{r harmony_gran_cric}
 ```
-### Only 8 out `r length(combn(6,2))` are harmonies.<br>
-The other 22 pairs lead to empty combinations and plotting them is not advised.
+.smaller[
+- only 8 out `r length(combn(6,2))` are harmonies<br>
+- plotting other 22 pairs lead to empty combinations
+]
 ]
 ---
 

@@ -9,7 +9,7 @@ theme_remark <- function() {
       legend.text = element_text(size = 24),
       legend.position = "bottom",
       plot.title =  element_text(size = 24)
-    )
+    ) 
 }
 
 ## ---- theme-alldist

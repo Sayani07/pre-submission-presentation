@@ -62,7 +62,7 @@ class:top, center
 
 # Theme of research
 
-&lt;img src="images/theme_words.png" width="3448" style="display: block; margin: auto;" /&gt;
+&lt;img src="images/theme_refine.png" width="3451" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -103,8 +103,9 @@ class: middle center
 #  Time granularities - abstractions of time
 .pull-left[
 ### Arrangement
- **&lt;span style="color:firebrick"&gt; &lt;i&gt; Linear&lt;/i&gt;**
+**&lt;span style="color:firebrick"&gt; &lt;i&gt; Linear&lt;/i&gt;**
  - .smaller[days, weeks, months, years]
+ 
 **&lt;span style="color:firebrick"&gt; &lt;i&gt; Cyclic&lt;/i&gt;**
  - .smaller[&lt;i&gt; Circular: &lt;/i&gt;  day-of-week, month-of-year]
  - .smaller[&lt;i&gt; Quasi-circular: &lt;/i&gt; day-of-month, week-of-month]
@@ -114,6 +115,7 @@ class: middle center
 ### Order
 **&lt;span style="color:firebrick"&gt; &lt;i&gt; Single-order-up&lt;/i&gt;**
  - .smaller[second-of-minute, hour-of-day]
+ 
 **&lt;span style="color:firebrick"&gt; &lt;i&gt; Multiple-order-up&lt;/i&gt;**
  - .smaller[second-of-hour, hour-of-week]
 
@@ -139,7 +141,9 @@ A linear granularity is a mapping `\(G\)` from the integers to subsets of the ti
 
 &lt;!-- since the linearity imposes a restriction on reflecting periodicity in time --&gt;
 .footnote[
-_* "A Glossary of Time Granularity Concepts"* by Bettini et al." _
+ _1. Bettini, Claudio, and Roberto De Sibi. 2000. “Symbolic Representation of User-Defined Time Granularities.” &lt;br&gt; Annals of Mathematics and Artificial Intelligence 30 (1): 53–92._&lt;br&gt;
+ _2. Bettini, Claudio, Curtis E. Dyreson, William S. Evans, Richard T. Snodgrass, and X. Sean Wang. 1998. &lt;br&gt; “A Glossary of Time Granularity Concepts.”_&lt;br&gt;
+ _3.Ning, Peng, Xiaoyang Sean Wang, and Sushil Jajodia. 2002. “An Algebraic Representation of Calendars.” &lt;br&gt; Annals of Mathematics and Artificial Intelligence 36 (1): 5–38._
 ]
 ---
 class: top left
@@ -150,8 +154,9 @@ class: top left
 &lt;br&gt;
 
 .smaller[
-`\(C_{B, G}(z) = {L}(z\mod P(B, G))\)`,  `\(\forall z \in \mathbb{Z}_{\geq 0}\)`
-
+`\begin{align}
+C_{B, G}(z) = {L}(z\mod P(B, G)),  \forall z \in \mathbb{Z}_{\geq 0}
+\end{align}`
  &lt;img src="images/circular-example.png" width="2827" height="150px" style="display: block; margin: auto;" /&gt;
 .checked[
 - `\(z: Index \ set\)`  
@@ -169,8 +174,9 @@ class: top left
 &lt;br&gt;
 
 .smaller[
-`\(Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)\)`, `\(z \in T_k\)`
-
+`\begin{align}
+Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert), z \in T_k
+\end{align}`
  &lt;img src="images/quasi-periodic-example.png" width="2800" height="150px" style="display: block; margin: auto;" /&gt;
 .checked[
 - `\(B: Day\)`  
@@ -211,6 +217,12 @@ class:center, top
 
 &lt;img src="images/data_structure_new.png", height = "400px"&gt;
 
+.footnote[
+.smaller[
+.smaller[
+Wang, Earo, Dianne Cook, and Rob J. Hyndman. 2019.&lt;br&gt; “A New Tidy Data Structure to Support Exploration and Modeling of Temporal Data.”]
+]
+]
 ---
 class:left, top
 
@@ -218,9 +230,12 @@ class:left, top
 .pull-left[
 &lt;!-- &lt;large&gt; `\(multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)\)` &lt;/large&gt; --&gt;
 &lt;br&gt;
-### (1) If certain hours of the day within a week are different?
 &lt;br&gt;
-### (2) If certain days of the week are different for different months?
+&lt;br&gt;
+(1) Are certain **hour-of-day** are different for different **days-of-week**?
+&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+(2) Are certain **day-of-week** are different for different **month-of-year**?
 ]
 .pull-right[
 &lt;img src="figure/EDA1-1.svg" width="200%" style="display: block; margin: auto;" /&gt;
@@ -287,7 +302,6 @@ class:left, top
 .left-column[
 .checked[
 .larger[
-* basic plot chosen displays distributions
 * after finding harmonies many plot choices available
 * each focus on different features of the distribution
 ]
@@ -306,12 +320,10 @@ class:left, top
 
 .pull-left[
 .checked[
-
-&lt;img src="images/levels_graphs.png" width="1485" style="display: block; margin: auto;" /&gt;
-&lt;br&gt;
-&lt;br&gt;
-
-For example, with too many x-axis levels, avoid ridge plots
+.smaller[
+- not all geoms work well with all number of levels
+- potential approach to categorize levels and define criterion for choice of plots
+]
 ]
 ]
 
@@ -328,9 +340,11 @@ class:left, top
 
 .pull-left[
 .checked[
+.smaller[
 * Items placed in close proximity assumed to be in the same group 
 (_Gestalt principles_)
 * Different mapping focus on different periodic behaviors
+]
 ]
 ]
 .pull-right[
@@ -475,7 +489,10 @@ cricket_tsibble &lt;- cricket %&gt;%
 .pull-right[
 &lt;br&gt;
 &lt;br&gt;
-&lt;large&gt;  So there are `\(^{6} P_2\)` =  30 pair of granularities to look at.
+.smaller[
+- There are `\(^{6} P_2\)` =  30 pair of granularities to look at
+- 30 visualizations to interpret?
+]
 ]
 ]
 ---
@@ -566,8 +583,10 @@ cricket_tsibble %&gt;%
   &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-### Only 8 out 30 are harmonies.&lt;br&gt;
-The other 22 pairs lead to empty combinations and plotting them is not advised.
+.smaller[
+- only 8 out 30 are harmonies&lt;br&gt;
+- plotting other 22 pairs lead to empty combinations
+]
 ]
 ---
 
