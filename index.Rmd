@@ -186,8 +186,9 @@ class: top left
 <br>
 
 .smaller[
-$C_{B, G}(z) = {L}(z\mod P(B, G))$,  $\forall z \in \mathbb{Z}_{\geq 0}$
-
+\begin{align}
+C_{B, G}(z) = {L}(z\mod P(B, G)),  \forall z \in \mathbb{Z}_{\geq 0}
+\end{align}
  ```{r computation1, out.height = "150px"}
 ```
 .checked[
@@ -206,8 +207,9 @@ class: top left
 <br>
 
 .smaller[
-$Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)$, $z \in T_k$
-
+\begin{align}
+Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert), z \in T_k
+\end{align}
  ```{r computation2, out.height = "150px"}
 ```
 .checked[
@@ -250,23 +252,29 @@ class:center, top
 
 <img src="images/data_structure_new.png", height = "400px">
 
+.footnote[
+.smaller[
+.smaller[
+Wang, Earo, Dianne Cook, and Rob J. Hyndman. 2019.<br> “A New Tidy Data Structure to Support Exploration and Modeling of Temporal Data.”]
+]
+]
 ---
 class:left, top
 
 # Why look at multiple cyclic granularities?
+
+$multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$
+
 .pull-left[
-<!-- <large> $multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)$ </large> -->
-<br>
-### (1) If certain hours of the day within a week are different?
-<br>
-### (2) If certain days of the week are different for different months?
+```{r EDA1, out.width = "100%"}
+```
 ]
 .pull-right[
-```{r EDA1, out.width = "200%"}
-```
-```{r EDA2, out.width = "200%"}
+
+```{r EDA2, out.width = "100%"}
 ```
 ]
+
 
 <!-- Exhaustive sets of visual representation required for multiple perspectives on data? -->
 
