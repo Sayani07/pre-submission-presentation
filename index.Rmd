@@ -244,7 +244,7 @@ class:center, top
 # Data structure and Graphical mapping
 
 
-<img src="images/datastructure.png", height = "400px">
+<img src="images/data_structure_new.png", height = "400px">
 
 ---
 class:left, top
@@ -325,15 +325,15 @@ class:left, top
 
 .left-column[
 .checked[
+.larger[
 * basic plot chosen displays distributions
-* plot choices dictated by statistical transformations and geometric objects
-* enhances different features of the distribution
-* equipped with benefits and challenges
+* after finding harmonies many plot choices available
+* each focus on different features of the distribution
 ]
 ]
-
+]
 .right-column[
-```{r allplot, out.width= "100%"}
+```{r allplot, out.width = "100%"}
 ```
 ]
 ---
