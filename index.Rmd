@@ -87,7 +87,9 @@ library(xaringanthemer)
 
 
 ---
-class:center, middle
+class:top, center
+
+# Theme of research
 
 ```{r load-theme}
 ```
@@ -131,18 +133,18 @@ class: middle center
 #  Time granularities - abstractions of time
 .pull-left[
 ### Arrangement
- **<span style="color:firebrick"> <i> Linear</i>  **
+ **<span style="color:firebrick"> <i> Linear</i>**
  - .smaller[days, weeks, months, years]
- **<span style="color:firebrick"> <i> Cyclic</i>  **
- - .smaller[<i> Circular: </i>  day-of-week, month-of-year]  
+**<span style="color:firebrick"> <i> Cyclic</i>**
+ - .smaller[<i> Circular: </i>  day-of-week, month-of-year]
  - .smaller[<i> Quasi-circular: </i> day-of-month, week-of-month]
  - .smaller[<i> Aperiodic: </i> public holidays, school vacations]
 ]
 .pull-right[
 ### Order
-**<span style="color:firebrick"> <i> Single-order-up</i>  **
- - .smaller[second-of-minute, hour-of-day]  
-**<span style="color:firebrick"> <i> Multiple-order-up</i>  **
+**<span style="color:firebrick"> <i> Single-order-up</i>**
+ - .smaller[second-of-minute, hour-of-day]
+**<span style="color:firebrick"> <i> Multiple-order-up</i>**
  - .smaller[second-of-hour, hour-of-week]
 
 <!-- # ```{r calendar, out.width="100%"} -->
@@ -505,7 +507,8 @@ cricket_tsibble %>%
 
 ```{r harmony_gran_cric}
 ```
-### Good news! Only 8 out `r length(combn(6,2))` are harmonies.
+### Only 8 out `r length(combn(6,2))` are harmonies.<br>
+The other 22 pairs lead to empty combinations and plotting them is not advised.
 ]
 ---
 

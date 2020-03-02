@@ -642,7 +642,7 @@ knitr::include_graphics("images/quasi-periodic-example.png")
 knitr::include_graphics("images/aperiodic-cyclic.png")
 
 ##----load-theme
-knitr::include_graphics("images/theme.png")
+knitr::include_graphics("images/theme_words.png")
 
 ##----clash
 
