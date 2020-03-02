@@ -685,8 +685,7 @@ class:left, top
 
 ## Implications
 - Dimension reduction
-- Avoid loss of information due to aggregation
-- Robustness to outliers
+- Robust to outliers by trimming the tails
 - Non-synchronized observed time periods
 - Similar periodic behavior
 - Handling autocorrelation
@@ -875,7 +874,16 @@ class: center middle
 .footnote[
 Slides created with &lt;i&gt; Rmarkdown, knitr, xaringan, xaringanthemer&lt;/i&gt;
 ]
---
+---
+
+
+&lt;img src="images/levels_graphs.png" width="1485" style="display: block; margin: auto;" /&gt;
+
+.smaller[
+.smaller[
+low: less than 7 (days in a week), medium: between 7 and 14 (days in a fortnight), high: between 14 and 31 (days in a month), very high: higher than 31
+]
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -795,5 +795,15 @@ class: center middle
 .footnote[
 Slides created with <i> Rmarkdown, knitr, xaringan, xaringanthemer</i>
 ]
---
+---
 
+
+```{r leveltable}
+
+```
+
+.smaller[
+.smaller[
+low: less than 7 (days in a week), medium: between 7 and 14 (days in a fortnight), high: between 14 and 31 (days in a month), very high: higher than 31
+]
+]
