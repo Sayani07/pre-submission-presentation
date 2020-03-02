@@ -128,18 +128,18 @@ class: middle center
 #  Time granularities - abstractions of time
 .pull-left[
 ### Arrangement
- <i> **Linear**</i>  
+ **<span style="color:firebrick"> <i> Linear</i>  **
  - .smaller[days, weeks, months, years]
- <i> **Cyclic**</i>  
+ **<span style="color:firebrick"> <i> Cyclic</i>  **
  - .smaller[<i> Circular: </i>  day-of-week, month-of-year]  
  - .smaller[<i> Quasi-circular: </i> day-of-month, week-of-month]
  - .smaller[<i> Aperiodic: </i> public holidays, school vacations]
 ]
 .pull-right[
 ### Order
- <i>**Single-order-up**</i>
+**<span style="color:firebrick"> <i> Single-order-up</i>  **
  - .smaller[second-of-minute, hour-of-day]  
- <i>**Multiple-order-up**</i>
+**<span style="color:firebrick"> <i> Multiple-order-up</i>  **
  - .smaller[second-of-hour, hour-of-week]
 
 <!-- # ```{r calendar, out.width="100%"} -->
@@ -153,8 +153,8 @@ class:  left middle
 
 #  Linear time granularities
 
-<font size="4">
-A linear **granularity** is a mapping $G$ from the integers to subsets of the time domain such that: <br>  (C1) if $i < j$ and $G(i)$ and $G(j)$ are non-empty, then each element of $G(i)$ is less than all elements of $G(j)$, and <br> (C2) if $i < k < j$ and $G(i)$ and $G(j)$ are non-empty, then $G(k)$ is non-empty.
+<font size="4.5">
+A linear granularity is a mapping $G$ from the integers to subsets of the time domain such that: <br>  (C1) if $i < j$ and $G(i)$ and $G(j)$ are non-empty, then each element of $G(i)$ is less than all elements of $G(j)$, and <br> (C2) if $i < k < j$ and $G(i)$ and $G(j)$ are non-empty, then $G(k)$ is non-empty.
 
 ```{r linear-time, echo=FALSE, out.width="100%"}
 knitr::include_graphics("images/linear-arr.png")
@@ -173,8 +173,10 @@ class: top left
 
 # Computation of cyclic time granularities
 
-<span style="color:firebrick"> Circular:
+**<span style="color:firebrick"> Circular**
+<br>
 
+.smaller[
 $C_{B, G}(z) = {L}(z\mod P(B, G))$,  $\forall z \in \mathbb{Z}_{\geq 0}$
 
  ```{r computation1, out.height = "150px"}
@@ -185,13 +187,16 @@ $C_{B, G}(z) = {L}(z\mod P(B, G))$,  $\forall z \in \mathbb{Z}_{\geq 0}$
 - $G: Week$  
 - $P(B, G) = 7$  
 ]
+]
 ---
 class: top left
 
 # Computation of cyclic time granularities
 
-<span style="color:firebrick"> Quasi- circular:
+**<span style="color:firebrick"> Quasi-circular**
+<br>
 
+.smaller[
 $Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)$, $z \in T_k$
 
  ```{r computation2, out.height = "150px"}
@@ -202,14 +207,17 @@ $Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert)$, $z \in T_k$
 - $G'(w) = \bigcup_{z \in T_w}B(z)$
 - $\vert T_w \vert: cardinality \ of \ T_w$.
 ]
+]
 ---
 
 class: top left
 
 # Computation of cyclic time granularities
 
-<span style="color:firebrick"> Aperiodic:
+**<span style="color:firebrick"> Aperiodic**
+<br>
 
+.smaller[
 \begin{align}
 A_{B, M}(z) &= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
              &= L(0), \text{otherwise}
@@ -217,7 +225,6 @@ A_{B, M}(z) &= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
 
  ```{r computation3, out.height = "150px"}
 ```
-.smaller[
 .checked[
 - $B: Day$  
 - $M_{i}(j) = \bigcup_{z \in T_{i_j}}B(z)$
@@ -281,14 +288,14 @@ class:  middle center
 # Relationship of cyclic granularities
 
 .pull-left[
-**Clashes**: pairs leading to empty sets
+**<span style="color:firebrick"> <i> Clashes</i>:** pairs leading to empty sets
 .x[
 * structural
 * event-based
 * build-based
 ]
 
-**Harmonies**: pairs leading to no empty sets
+**<span style="color:firebrick"> <i> Harmonies</i>:** pairs leading to no empty sets
 .checked[
 * aid exploratory data analysis
 ]
