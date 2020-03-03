@@ -593,12 +593,15 @@ class:left, top
 # Clustering temporal data based on <br> probability distributions
 
 ## Assumptions
+
+.smaller[
 - $C_1: \mathbb{Z}_+ \mapsto \{L_1, L_2, L_3, \dots, L_m \}$
 - $C_2: \mathbb{Z}_+ \mapsto \{L_1, L_2, L_3, \dots, L_p \}$
-- $S(i, j, k)$: set of measurement variables corresponding to the key $i$ for $k^{th}$ level of $j^{th}$ cyclic granularity
+- $S(i, j, k)$: set of measurement variables corresponding to the key $i$ for $k^{th}$ level of $C_1$ and $j^{th}$ level of $C_2$
 - $P(i, j, k)$: probability distribution of the measured variable corresponding to the set $S(i, j, k)$
-- clustering algorithm on $P(i, j, k)$ instead of raw data
-
+- each observational unit $i$ will have $mp$ variables each of which is a probability distribution
+- clustering algorithm on these $P(i, j, k)$ instead of raw data
+]
 ---
 class:left, top
 
