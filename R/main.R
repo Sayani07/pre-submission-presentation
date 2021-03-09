@@ -123,3 +123,16 @@ elec %>%
   theme(strip.text.x = element_blank()) +
   xlab("Time [30m]") +
   ylab("electricity demand in kwh")
+
+
+##----dist-explain
+knitr::include_graphics("figs/dist_explain.png")
+
+##----heatmap
+knitr::include_graphics("figs/heatmap-8.png")
+
+##----rank-table
+knitr::include_graphics("figs/rank-table.png")
+
+##----validate-household1
+knitr::include_graphics("figs/validate-household1.png")

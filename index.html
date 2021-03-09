@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Visualization and analysis of probability   distributions of variables defined on   cyclic temporal granularities</title>
+    <title>Visualization and analysis of probability   distributions of large   temporal data</title>
     <meta charset="utf-8" />
     <link href="index_files/remark-css/ninjutsu.css" rel="stylesheet" />
-    <script src="index_files/kePrint/kePrint.js"></script>
     <link rel="stylesheet" href="assets/animate.css" type="text/css" />
     <link rel="stylesheet" href="assets/monash-logo.css" type="text/css" />
     <link rel="stylesheet" href="assets/monash-brand.css" type="text/css" />
@@ -17,11 +16,11 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Visualization and analysis of probability <br> distributions of variables defined on <br> cyclic temporal granularities
+# Visualization and analysis of probability <br> distributions of large <br> temporal data
 ### <br> Sayani Gupta <br>
 <hr>
   Prof. Rob J Hyndman     Prof. Dianne Cook     Dr. Peter Toscas
-### <font size="5"> Department of Econometrics and Business Statistics <br> Progress Review <br> March 3, 2020
+### <font size="5"> Department of Econometrics and Business Statistics <br> Pre-submission review <br> March 16, 2021
 
 ---
 
@@ -32,7 +31,7 @@ class: center, middle, inverse, title-slide
 
 
 
-# Motivation
+# Motivation: Electricity smart meter data
 
 ### Electricity smart meter technology &lt;br&gt; (~ 0.3 billion half hourly observations)
 
@@ -51,12 +50,30 @@ class: center, middle, inverse, title-slide
 
 ---
 
-# Raw data from from 2012 - 2014 for 50 households
+
+
+# Characteristics of the data
+
+.left-column[
+- missing observations
+- unequal length
+- different start and end date
+- no behavioral pattern visible in the squeezed linear representation
+- many households
+]
+
+
+.right-column[
+&lt;img src="figure/elec-raw-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+---
+class:top, center
+
+# Understanding behavioral pattern
 
 
 
-
-&lt;img src="images/smart_allcust.gif" height="500px" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -64,23 +81,20 @@ class:top, center
 
 # Theme of research
 
-&lt;img src="images/theme_refine.png" width="3451" style="display: block; margin: auto;" /&gt;
+
+
+
+---
+
+# Literature review
+
 
 
 ---
-class:center, top
 
-#  Research question
-
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-## &lt;span style="color:firebrick"&gt; How do we systematically explore large quantities of temporal data across different deconstructions of time (half-hour, day, type of day, year) to find regular patterns or anomalies in behavior?
-
----
 class:left, top
 
-#  Research objectives 
+#  Projects 
 
 .larger[
 - Visualize probability distributions over different time granularities &lt;br&gt;&lt;br&gt;
@@ -101,117 +115,103 @@ class: middle center
 
 
 ---
-&lt;!-- SLIDE 5 --&gt;
 
-#  Time granularities - abstractions of time
+# Main contributions
+
+    * provide a formal characterization of cyclic granularities;
+    * facilitate manipulation of single- and multiple-order-up time granularities through cyclic calendar algebra;
+    * develop an approach to check the feasibility of creating plots or drawing inferences for any two cyclic granularities.
+
+---
+
+class: top left 
+
+# Linear to cyclic
+
 .pull-left[
-### Arrangement
-**&lt;span style="color:firebrick"&gt; &lt;i&gt; Linear&lt;/i&gt;**
- - .smaller[days, weeks, months, years]
- 
-**&lt;span style="color:firebrick"&gt; &lt;i&gt; Cyclic&lt;/i&gt;**
- - .smaller[&lt;i&gt; Circular: &lt;/i&gt;  day-of-week, month-of-year]
- - .smaller[&lt;i&gt; Quasi-circular: &lt;/i&gt; day-of-month, week-of-month]
- - .smaller[&lt;i&gt; Aperiodic: &lt;/i&gt; public holidays, school vacations]
+.checked[
+.smaller[
+- **Cyclic time granularities:** exploring different periodicities e.g. hour-of-day, day-of-month or  hour-of-week, day-of-semester
+
+- **Multiple observations for each level of cyclic granularity**
+
+- summarize distribution of measured variables
 ]
+]
+]
+
+---
+class: top left 
+
+# Summarize distribution
+
+.pull-left[
+.checked[
+.smaller[
+- **Cyclic time granularities:** exploring different periodicities e.g. hour-of-day, day-of-month or  hour-of-week, day-of-semester
+
+- Multiple observations for each level of cyclic granularity
+
+- **summarize distribution of measured variables**
+]
+]
+]
+
 .pull-right[
-### Order
-**&lt;span style="color:firebrick"&gt; &lt;i&gt; Single-order-up&lt;/i&gt;**
- - .smaller[second-of-minute, hour-of-day]
- 
-**&lt;span style="color:firebrick"&gt; &lt;i&gt; Multiple-order-up&lt;/i&gt;**
- - .smaller[second-of-hour, hour-of-week]
 
-&lt;!-- # ```{r calendar, out.width="100%"} --&gt;
-&lt;!-- #  --&gt;
-&lt;!-- # ``` --&gt;
 ]
 
-&lt;!-- --- --&gt;
+.pull-right[
+
+]
+---
+
+class: top left
+
+# Data structure and graphical mapping
+
+.left-column[
+&lt;br&gt;
+&lt;br&gt;
+-  extension of tsibble data structure
+-  choose any two cyclic granularities: 
+`\(C_i = \{A_1, A_2, \dots, A_K\}\)` and `\(C_j = \{B_1, B_2, \dots, B_L\}\)`
+- graphical mapping `\((C_i, C_j, v)\)`
+
+- `\(^{N_C}P_2\)` displays
+]
+
+.right-column[
+
+
+
+]
 ---
 class:left, top
 
-#  Linear time granularities
+# Relationship of cyclic granularities
 
-&lt;font size="4.5"&gt;
-A linear granularity is a mapping `\(G\)` from the integers to subsets of the time domain such that: &lt;br&gt;  (C1) if `\(i &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then each element of `\(G(i)\)` is less than all elements of `\(G(j)\)`, and &lt;br&gt; (C2) if `\(i &lt; k &lt; j\)` and `\(G(i)\)` and `\(G(j)\)` are non-empty, then `\(G(k)\)` is non-empty.
+.pull-left[
+**&lt;span style="color:firebrick"&gt; &lt;i&gt; Clashes&lt;/i&gt;:** pairs leading to empty sets
 
-&lt;img src="images/linear-arr.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-&lt;!-- &lt;span style="color:Crimson"&gt; (C1) implies that the granules in a linear granularity are non-overlapping and their index order is same as time order --&gt;
 
-&lt;span style="color:Crimson"&gt; The definitions, properties and calendar algebra inadequate for conceptualizing cyclic granularities
-
-&lt;!-- since the linearity imposes a restriction on reflecting periodicity in time --&gt;
-.footnote[
- _1. Bettini, Claudio, Curtis E. Dyreson, William S. Evans, Richard T. Snodgrass, and X. Sean Wang. 1998. &lt;br&gt; “A Glossary of Time Granularity Concepts.”_&lt;br&gt;
- _2. Bettini, Claudio, and Roberto De Sibi. 2000. “Symbolic Representation of User-Defined Time Granularities.”_&lt;br&gt;
- _3.Ning, Peng, Xiaoyang Sean Wang, and Sushil Jajodia. 2002. “An Algebraic Representation of Calendars.” &lt;br&gt;_
 ]
+
+.pull-right[
+**&lt;span style="color:firebrick"&gt; &lt;i&gt; Harmonies&lt;/i&gt;:** pairs leading to no empty sets
+
+
+
+
+]
+
+Still too many harmonies for display for large `\(N_C\)`
 ---
-class: top left
 
-# Computation of cyclic time granularities
 
-**&lt;span style="color:firebrick"&gt; Circular**
-&lt;br&gt;
 
-.smaller[
-`\begin{align}
-C_{B, G}(z) = {L}(z\mod P(B, G)),  \forall z \in \mathbb{Z}_{\geq 0}
-\end{align}`
- &lt;img src="images/circular-example.png" width="2827" height="150px" style="display: block; margin: auto;" /&gt;
-.checked[
-- `\(z: Index \ set\)`  
-- `\(B: Day\)`  
-- `\(G: Week\)`  
-- `\(P(B, G) = 7\)`  
-]
-]
 ---
-class: top left
-
-# Computation of cyclic time granularities
-
-**&lt;span style="color:firebrick"&gt; Quasi-circular**
-&lt;br&gt;
-
-.smaller[
-`\begin{align}
-Q_{B, G'}(z) = L(z - \sum_{w=0}^{k-1}\vert T_{w \mod R'} \vert), z \in T_k
-\end{align}`
- &lt;img src="images/quasiex.png" width="3325" height="150px" style="display: block; margin: auto;" /&gt;
-.checked[
-- `\(G'\)`: .smaller[Month] 
-- `\(G'(w) = \bigcup_{z \in T_w}B(z)\)`
-- `\(\vert T_w \vert\)`: .smaller[cardinality] of  `\(T_w\)`
-- `\(R'= 12\)` (.smaller[no leap years]) or `\(R'= 48\)` (.smaller[leap years])
-]
-]
----
-class: top left
-
-# Computation of cyclic time granularities
-
-**&lt;span style="color:firebrick"&gt; Aperiodic**
-&lt;br&gt;
-
-.smaller[
-`\begin{align}
-A_{B, M}(z) &amp;= L(i), z \in T_{i_j}, \forall i \in {1, 2, \dots, n} \\
-             &amp;= L(0), \text{otherwise}
-\end{align}`
-
- &lt;img src="images/aperiodic-examplen.png" width="3229" height="150px" style="display: block; margin: auto;" /&gt;
-.checked[
-- `\(B: Day\)`  
-- `\(M_{i}(j) = \bigcup_{z \in T_{i_j}}B(z)\)`
-- `\(M = \bigcup_{i=1}^{n}M_{i}\)`
-- `\({\{i_j\}}\)`  = `\(j^{\text{th}}\)` granule of the `\(i^{\text{th}}\)` linear aperiodic granularity
-]
-]
----
-class: top left
 
 # Cyclic calendar algebra
 
@@ -223,191 +223,8 @@ class: top left
 ---
 class:center, top
 
-# Data structure and Graphical mapping
-
-
-&lt;img src="images/data_structure_new.png", height = "400px"&gt;
-
-.footnote[
-.smaller[
-.smaller[
-Wang, Earo, Dianne Cook, and Rob J. Hyndman. 2019.&lt;br&gt; “A New Tidy Data Structure to Support Exploration and Modeling of Temporal Data.”]
-]
-]
 ---
-class:left, top
 
-# Why look at multiple cyclic granularities?
-.pull-left[
-&lt;!-- &lt;large&gt; `\(multiple \ cyclic\ granularities \equiv multiple\ perspectives (EDA)\)` &lt;/large&gt; --&gt;
-&lt;br&gt;
-&lt;br&gt;
-&lt;br&gt;
-(1) Are certain **hour-of-day** are different for different **days-of-week**?
-&lt;br&gt;
-&lt;br&gt;&lt;br&gt;
-(2) Are certain **day-of-week** are different for different **month-of-year**?
-]
-.pull-right[
-&lt;img src="figure/EDA1-1.svg" width="200%" style="display: block; margin: auto;" /&gt;
-&lt;img src="figure/EDA2-1.svg" width="200%" style="display: block; margin: auto;" /&gt;
-]
-
-&lt;!-- Exhaustive sets of visual representation required for multiple perspectives on data? --&gt;
-
-
-&lt;!-- # Computation of granularities --&gt;
-
-&lt;!-- `\(z\)`       : index of a tsibble   --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-&lt;!-- `\(x\)`, `\(y\)`  : two units in the hierarchy table with  `\(order(x) &lt;  order(y)\)`   --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-&lt;!-- `\(f(x, y)\)` : accessor function for computing the granularity   --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-&lt;!-- `\(c(x, y)\)` : a constant which relates x and y   --&gt;
-&lt;!-- &lt;br&gt; --&gt;
-
-&lt;!-- #### **Single-order-up** --&gt;
-&lt;!-- `$$f(x, y) = \lfloor z/c(z,x) \rfloor\mod c(x,y)$$` where `\(y = x+1\)` --&gt;
-
-
-&lt;!-- #### **Multiple-order-up** --&gt;
-
-
-&lt;!-- \begin{split} --&gt;
-&lt;!-- f(x,y) &amp; = \sum_{i=0}^{order(y) - order(x) - 1} c(x, x+i)(f(x --&gt;
-&lt;!--   +i, x+i+1) - 1)\\ --&gt;
-&lt;!-- \end{split} --&gt;
-&lt;!-- SLIDE 7 --&gt;
----
-class:left, top
-
-# Relationship of cyclic granularities
-
-.pull-left[
-**&lt;span style="color:firebrick"&gt; &lt;i&gt; Clashes&lt;/i&gt;:** pairs leading to empty sets
-.x[
-* structural
-* event-based
-* build-based
-]
-
-**&lt;span style="color:firebrick"&gt; &lt;i&gt; Harmonies&lt;/i&gt;:** pairs leading to no empty sets
-.checked[
-* aid exploratory data analysis
-]
-]
-
-.pull-right[
-
-&lt;img src="figure/clash-1.svg" style="display: block; margin: auto;" /&gt;
-
-&lt;img src="figure/noclash-1.svg" style="display: block; margin: auto;" /&gt;
-]
----
-class:left, top
-
-&lt;!-- SLIDE 7 --&gt;
-# Statistical transformations and geometric objects
-
-.left-column[
-.checked[
-.larger[
-* after finding harmonies many plot choices available
-* each focus on different features of the distribution
-]
-]
-]
-.right-column[
-&lt;img src="figure/allplot-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
-]
----
-class:left, top
-
-&lt;!-- SLIDE 6 --&gt;
-
-# Number of levels on visualization
-&lt;!-- If certain  hours of the day are different between weekdays and weekends ? --&gt;
-
-.pull-left[
-.checked[
-.smaller[
-- not all geoms work well with all number of levels
-- potential approach to categorize levels and define criterion for choice of plots
-]
-]
-]
-
-.pull-right[
-&lt;img src="figure/effectoflevel1-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
-
-&lt;img src="figure/effectoflevel2-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
-]
----
-class:left, top
-
-&lt;!-- SLIDE 6 --&gt;
-#  Interchanging the mapping
-
-.pull-left[
-.checked[
-.smaller[
-* Items placed in close proximity assumed to be in the same group 
-(_Gestalt principles_)
-* Different mapping focus on different periodic behaviors
-]
-]
-]
-.pull-right[
-&lt;img src="figure/effectofreverse1-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
-
-&lt;img src="figure/effectofreverse2-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
-]
-
----
-class:center, top
-
-# R package gravitas: communicating research findings
-.smaller[
-.center[
-### Computation
---- 
-.left[
-- Compute any cyclic granularity? `create_gran()`
- &lt;br&gt;
-- Exhaustive list of granularities to explore? `search_gran()`
- &lt;br&gt;
-       ]
-       ]
- 
-.pull-left[
-&lt;br&gt;
- ### Interaction
- --- 
-- Check if cyclic granularities are harmonies/clashes? `is.harmony()`
-&lt;br&gt;
-- List of harmonies to explore? `harmony()`
-&lt;br&gt;]
-
-.pull-right[
-&lt;br&gt;
-### Visualization
---- 
-- Plot harmonies? `prob_plot()`
-&lt;br&gt;
-- Sufficient observations? `gran_obs()`
-&lt;br&gt;
-- Recommendations on feasibility? `gran_advice()`
- ]
-]
-&lt;!-- class: center,middle --&gt;
-
-&lt;!-- # &lt;span style="color:MediumVioletRed"&gt; Package gravitas &lt;/span&gt; --&gt;
-
-&lt;!-- ##   granularity visualization of time series data  --&gt;
-
-&lt;!-- SLIDE 8 --&gt;
----
 # Application: Non-temporal case
 .left-column[
 ## Cricket example
@@ -417,15 +234,6 @@ class:center, top
 &lt;br&gt;
 * Hierachy table
 
-```
-#&gt; # A tibble: 4 x 2
-#&gt;   G          P
-#&gt;   &lt;chr&gt;  &lt;dbl&gt;
-#&gt; 1 ball       6
-#&gt; 2 over      20
-#&gt; 3 inning     2
-#&gt; 4 match      1
-```
 ]
 ]
 .right-column[
@@ -456,40 +264,7 @@ cricket_tsibble &lt;- cricket %&gt;%
 *               highest_unit =  "match")
 ```
 .pull-left[
-&lt;table class="table" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;background-color: #C0C0C0 !important;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:left;background-color: #C0C0C0 !important;"&gt; x &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_over &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_inning &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_match &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; over_inning &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; over_match &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; inning_match &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+
 ]
 .pull-right[
 &lt;br&gt;
@@ -519,75 +294,7 @@ cricket_tsibble %&gt;%
 
 ```
 
-&lt;table class="table table-striped" style="font-size: 20px; margin-left: auto; margin-right: auto;"&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;background-color: #C0C0C0 !important;"&gt;   &lt;/th&gt;
-   &lt;th style="text-align:left;background-color: #C0C0C0 !important;"&gt; facet_variable &lt;/th&gt;
-   &lt;th style="text-align:left;background-color: #C0C0C0 !important;"&gt; x_variable &lt;/th&gt;
-   &lt;th style="text-align:right;background-color: #C0C0C0 !important;"&gt; facet_levels &lt;/th&gt;
-   &lt;th style="text-align:right;background-color: #C0C0C0 !important;"&gt; x_levels &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 1 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; over_inning &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_over &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 20 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; inning_match &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_over &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 6 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 3 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; inning_match &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_inning &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 120 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 4 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_over &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; over_inning &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 20 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 5 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; inning_match &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; over_inning &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 2 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 20 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_over &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; over_match &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 40 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 7 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; ball_over &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; inning_match &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 6 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 2 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; 8 &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; over_inning &lt;/td&gt;
-   &lt;td style="text-align:left;background-color: White !important;"&gt; inning_match &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 20 &lt;/td&gt;
-   &lt;td style="text-align:right;background-color: White !important;"&gt; 2 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+
 .smaller[
 - only 8 out 30 are harmonies&lt;br&gt;
 - plotting other 22 pairs lead to empty combinations
@@ -614,27 +321,6 @@ cricket_tsibble %&gt;%
 ```
 &lt;small&gt;
 
-```
-#&gt; The chosen granularities are harmonies 
-#&gt;  
-#&gt; Recommended plots are: ridge violin lv quantile boxplot 
-#&gt;  
-#&gt; Number of observations are homogenous across facets 
-#&gt;  
-#&gt; Number of observations are homogenous within facets 
-#&gt;  
-#&gt; Cross tabulation of granularities : 
-#&gt;  
-#&gt; # A tibble: 2 x 21
-#&gt;   inning_match   `1`   `2`   `3`   `4`   `5`   `6`
-#&gt;   &lt;fct&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-#&gt; 1 1              216   216   216   216   216   216
-#&gt; 2 2              216   216   216   216   216   216
-#&gt; # … with 14 more variables: `7` &lt;dbl&gt;, `8` &lt;dbl&gt;,
-#&gt; #   `9` &lt;dbl&gt;, `10` &lt;dbl&gt;, `11` &lt;dbl&gt;, `12` &lt;dbl&gt;,
-#&gt; #   `13` &lt;dbl&gt;, `14` &lt;dbl&gt;, `15` &lt;dbl&gt;, `16` &lt;dbl&gt;,
-#&gt; #   `17` &lt;dbl&gt;, `18` &lt;dbl&gt;, `19` &lt;dbl&gt;, `20` &lt;dbl&gt;
-```
 &lt;/small&gt;
 ### &lt;large&gt;  Quantile plots recommended for the harmony pair (over_inning, inning_match) &lt;/large&gt;
 ]
@@ -661,11 +347,81 @@ filter(batting_team %in% c("Mumbai Indians",
 *            plot_type = "lv")
 ```
 
-&lt;img src="figure/visualise_cric-1.svg" style="display: block; margin: auto;" /&gt;
+
 ]
 ---
 # Aperiodic cyclic granularities in cricket
-&lt;img src="figure/aperiodic_cric-1.svg" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Project 2: Title slide
+
+
+---
+
+# Project 2: Contributions
+
+ - introduce a new distance measure for quantifying periodic interactions, which allows for identification of patterns in the time series data;
+ 
+ - device a framework for choosing a threshold, which results in detection of only significantly interesting periodic patterns;
+
+ - show that the proposed distance metric could be used to rank the periodic patterns based on how well they capture the variation in the measured variable since they have been normalized for relevant parameters.
+
+---
+
+
+# Project 2: Idea
+
+.pull-left[
+
+]
+
+.pull-right[
+&lt;br&gt;
+- Rank harmonies `\(a (D_{null}) &lt; b (D_{var_f}) &lt; c(D_{var_x}) &lt; d(D_{var_{all}})\)`
+- Gestalt theory
+- within and between facet variation/distances
+- compute a threshold
+]
+
+---
+
+# Project 2: Notations
+
+
+&lt;small&gt;
+- two cyclic granularities `\(A\)` and `\(B\)` placed across x-axis and facet respectively. 
+- `\(A = \{ a_j: j = 1, 2, \dots, J\}\)` and `\(B = \{ b_k: k = 1, 2, \dots, K\}\)`
+- within-facet distances `\((a_{j}b_{k}, a_{j'}b_{k})\)`
+- between-facet distances `\((a_{j}b_{k}, a_{j}b_{k'})\)`
+
+---
+# Project 2: Notations
+
+- NQT performed
+-  Percentiles of `\(v^*_{jk}\)` are computed and stored in `\(q_{jk}\)`. Repeat for all pairs of categories of the form `\((a_{j} b_{k}, a_{j'}b_{k'}): \{a_j: j = 1, 2, \dots, J\}, B = \{ b_k: k = 1, 2, \dots, K\}\)`.
+- The pairwise distances between pairs `\((a_{j} b_{k}, a_{j'}b_{k'})\)`  denoted by `\(d_{(jk, j'k')} = JSD(q_{jk}, q_{j'k'})\)` is computed.
+
+---
+# Project 2: Computation
+
+The pairwise distances `\(d_{(jk, j'k')}\)` is transformed using a suitable tuning parameter ($0&lt;lambda&lt;1$) depending on if they are within-facet($d_w$) or between-facets($d_b$) as follows:  
+
+
+$\begin{equation}
+d*_{(j,k), (j'k')} =
+`\begin{cases}
+\lambda d_{(jk), (j'k')},&amp; \text{if } d = d_w\\
+(1-\lambda)  d_{(jk), (j'k')},              &amp; \text{if } d = d_b\\
+\end{cases}`
+\end{equation}$  
+
+---
+
+
+
+
+
 ---
 class:left, top
 
@@ -880,13 +636,28 @@ Slides created with &lt;i&gt; Rmarkdown, knitr, xaringan, xaringanthemer&lt;/i&g
 ---
 
 
-&lt;img src="images/levels_graphs.png" width="1485" style="display: block; margin: auto;" /&gt;
+
 
 .smaller[
 .smaller[
 low: less than 7 (days in a week), medium: between 7 and 14 (days in a fortnight), high: between 14 and 31 (days in a month), very high: higher than 31
 ]
 ]
+
+
+# Clustering: Missing value analysis
+
+
+
+.right-column[
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="figure/count-gaps-1.svg" alt="The missing data pattern for 100 households are shown. It looks like most missingness happens before 2013 and for a particular data in 2014."  /&gt;
+&lt;p class="caption"&gt;The missing data pattern for 100 households are shown. It looks like most missingness happens before 2013 and for a particular data in 2014.&lt;/p&gt;
+&lt;/div&gt;
+]
+
+
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
