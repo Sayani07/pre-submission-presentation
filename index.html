@@ -395,12 +395,27 @@ filter(batting_team %in% c("Mumbai Indians",
 - between-facet distances `\((a_{j}b_{k}, a_{j}b_{k'})\)`
 
 ---
-# Project 2: Computation
+# Project 2: Computation (Making underlying distribution more symmetric)
 
-- NQT performed
+- NQT performed (explain NQT)
+
+---
+# Project 2: Computation (characterizing distributions through quantiles)
+
+- Quantiles computed (refer to Rob's paper)
 -  Percentiles of `\(v^*_{jk}\)` are computed and stored in `\(q_{jk}\)`.
+
+---
+# Project 2: Computation (computing distances between quantiles)
+
+- JSD equation
+
 - The pairwise distances between pairs `\((a_{j} b_{k}, a_{j'}b_{k'})\)`  denoted by `\(d_{(jk, j'k')} = JSD(q_{jk}, q_{j'k'})\)` is computed.
-- The pairwise distances `\(d_{(jk, j'k')}\)` is transformed using a suitable tuning parameter `\(0&lt;\lambda&lt;1\)` depending on if they are within-facet `\(d_w\)` or between-facets `\(d_b\)` as follows:  
+
+---
+# Project 2: Computation (defining `\(wpd\)` using tuning parameter, within and between facet distances)
+
+The pairwise distances `\(d_{(jk, j'k')}\)` is transformed using a suitable tuning parameter `\(0&lt;\lambda&lt;1\)` depending on if they are within-facet `\(d_w\)` or between-facets `\(d_b\)` as follows:  
 
 .smaller[
 `\begin{align}
@@ -408,6 +423,12 @@ d*_{(j,k), (j'k')} &amp;= \lambda d_{(jk), (j'k')}, d = d_w \\
              &amp;= (1-\lambda)  d_{(jk), (j'k')}, d = d_b
 \end{align}`
 ]
+
+Define `\(wpd\)`
+
+---
+# characteristics of `\(wpd\)`
+
 
 ---
 class:left, top
