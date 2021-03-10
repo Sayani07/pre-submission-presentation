@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Visualization and analysis of probability   distributions of large   temporal data</title>
+    <title>Visualization and analysis of probability   distributions of large temporal data</title>
     <meta charset="utf-8" />
     <link href="index_files/remark-css/ninjutsu.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/animate.css" type="text/css" />
@@ -16,13 +16,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Visualization and analysis of probability <br> distributions of large <br> temporal data
+# Visualization and analysis of probability <br> distributions of large temporal data
 ### <br> Sayani Gupta <br>
 <hr>
   Prof. Rob J Hyndman     Prof. Dianne Cook     Dr. Peter Toscas
 ### <font size="5"> Department of Econometrics and Business Statistics <br> Pre-submission review <br> March 16, 2021
 
 ---
+
+
 
 
 
@@ -89,7 +91,6 @@ class:top, center
 # Literature review
 
 
-
 ---
 
 class:left, top
@@ -102,6 +103,10 @@ class:left, top
 - Study of Australian smart meter data
 ]
 ---
+
+
+
+
 class: middle center
 
 &lt;!-- SLIDE 4 --&gt;
@@ -118,12 +123,11 @@ class: middle center
 
 # Main contributions
 
-    * provide a formal characterization of cyclic granularities;
-    * facilitate manipulation of single- and multiple-order-up time granularities through cyclic calendar algebra;
-    * develop an approach to check the feasibility of creating plots or drawing inferences for any two cyclic granularities.
+ - provide a formal characterization of cyclic granularities;
+ - facilitate manipulation of single- and multiple-order-up time granularities through cyclic calendar algebra;
+ - develop an approach to check the feasibility of creating plots or drawing inferences for any two cyclic granularities.
 
 ---
-
 class: top left 
 
 # Linear to cyclic
@@ -132,40 +136,32 @@ class: top left
 .checked[
 .smaller[
 - **Cyclic time granularities:** exploring different periodicities e.g. hour-of-day, day-of-month or  hour-of-week, day-of-semester
-
-- **Multiple observations for each level of cyclic granularity**
-
-- summarize distribution of measured variables
-]
-]
-]
-
----
-class: top left 
-
-# Summarize distribution
-
-.pull-left[
-.checked[
-.smaller[
-- **Cyclic time granularities:** exploring different periodicities e.g. hour-of-day, day-of-month or  hour-of-week, day-of-semester
-
-- Multiple observations for each level of cyclic granularity
-
-- **summarize distribution of measured variables**
+- **Multiple observations** for each level of cyclic granularity
+- **summarize distribution** of measured variables
 ]
 ]
 ]
 
 .pull-right[
-
+&lt;img src="figure/linear2cyclic-1.png" style="display: block; margin: auto;" /&gt;&lt;img src="figure/linear2cyclic-2.png" style="display: block; margin: auto;" /&gt;
 ]
 
-.pull-right[
-
-]
 ---
 
+# Graphing distribution summary
+
+
+.left-column[
+- several ways to summarize a distribution
+- R package ggdist for visualizing distributions and uncertainty
+]
+
+.right-column[
+&lt;img src="figs/allplots.png" width="4453" style="display: block; margin: auto;" /&gt;
+]
+
+
+---
 class: top left
 
 # Data structure and graphical mapping
@@ -183,7 +179,7 @@ class: top left
 
 .right-column[
 
-
+&lt;img src="figs/graphical_map.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 ---
@@ -194,7 +190,7 @@ class:left, top
 .pull-left[
 **&lt;span style="color:firebrick"&gt; &lt;i&gt; Clashes&lt;/i&gt;:** pairs leading to empty sets
 
-
+&lt;img src="figure/clash-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -203,33 +199,194 @@ class:left, top
 
 
 
-
+&lt;img src="figure/noclash-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
 ]
 
 Still too many harmonies for display for large `\(N_C\)`
+
+---
+class: middle center
+
+# Show me significant harmonies only
+
+&lt;!-- SLIDE 4 --&gt;
+&lt;br&gt;
+&lt;br&gt;
+##  Project 2: A new metric for automatic discovery of periodic patterns in time series
+
+---
+
+# Project 2: Contributions
+
+ - introduce a new distance measure for quantifying periodic interactions, which allows for identification of patterns in the time series data;
+ - device a framework for choosing a threshold, which results in detection of only significantly interesting periodic patterns;
+ - show that the proposed distance metric could be used to rank the periodic patterns based on how well they capture the variation in the measured variable since they have been normalized for relevant parameters.
+
+---
+
+
+# Project 2: Idea
+
+.pull-left[
+&lt;img src="figure/example-design-1.svg" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;br&gt;
+- Rank harmonies `\(a (D_{null}) &lt; b (D_{var_f})\)`  
+`\(&lt;  c(D_{var_x}) &lt; d(D_{var_{all}})\)`
+- Gestalt theory
+- within and between facet variation/distances
+- compute a threshold
+]
+
+---
+
+# Project 2: Notations
+&lt;img src="figs/dist_explain.png" width="2331" style="display: block; margin: auto;" /&gt;
+
+&lt;small&gt;
+- two cyclic granularities `\(A\)` and `\(B\)` placed across x-axis and facet respectively. 
+- `\(A = \{ a_j: j = 1, 2, \dots, J\}\)` and `\(B = \{ b_k: k = 1, 2, \dots, K\}\)`
+- within-facet distances `\((a_{j}b_{k}, a_{j'}b_{k})\)`
+- between-facet distances `\((a_{j}b_{k}, a_{j}b_{k'})\)`
+
+---
+# Project 2: Computation
+
+## Characterizing distributions through quantiles
+
+.small[
+- `\(Q(p)=F^{-1}(p) = inf\{x: F(x) &gt;p\}\)`, where `\(F(x)\)`: distribution function, `\(Q(p)\)`: Population quantile with probability `\(0&lt;p&lt; 1\)`.
+- Non-parameteric estimators : Sample quantiles
+- Median-unbiased estimate of Q(p) regardless of the distribution `\(p_{(k)} = \frac{(k-1/3)}{(n+1/3)}\)`
+]
+
+.smaller[
+.smaller[
+.footnote[
+Hyndman, Rob J., and Yanan Fan. 1996. “Sample Quantiles in Statistical Packages.” The American Statistician 50 (4): 361–65.
+]
+]
+]
+
+---
+
+
+# Project 2: Computation (continued)
+
+## Make asymmetrical distributed real world observed variables more treatable
+
+.smaller[
+The empirical **Normal Quantile Transform** involves the following steps:
+
+  1. 1) Sort the sample of measured variable `\(X\)` from the smallest to the largest observation `\(x_{(1)},\dots, x_{(i)}, .., x_{(n)}\)`.
+  2. 2) Estimate the cumulative probabilities `\(p_{(1)},\dots, p_{(i)}, .., p_{(n)}\)`.
+  3. 3) Transforming each observation `\(x_{(i)}\)` of `\(X\)` into observation `\(y_{(i)} = Q^{-1}(p(i))\)` of the standard normal variate `\(Y\)` , with `\(Q\)` denoting the standard normal distribution and `\(Q^{-1}\)` its inverse.
+]
+
+.smaller[
+.smaller[
+.smaller[
+.footnote[
+Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Normal Quantile Transformation and Its Application in a Flood Forecasting System.” Hydrology and Earth System Sciences 16 (4): 1085–94.
+]
+]
+]
+]
+
+---
+# Project 2: Computation (continued)
+
+## Computing distance between distributions using Jensen-Shannon distance
+
+`$$JSD(q_1||q_2) = \frac{1}{2}D(q_1||M) + \frac{1}{2}D(q_2||M)$$`
+where `\(M = \frac{q_1+q_2}{2}\)` and 
+`\(D(q_1||q_2) := \int^\infty_{-\infty} q_1(x)f(\frac{q_1(x)}{q_2(x)})\)` is the KL divergence between distributions `\(q_1\)` and `\(q_2\)`.  
+
+
+.smaller[
+.smaller[
+.smaller[
+.footnote[
+Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Normal Quantile Transformation and Its Application in a Flood Forecasting System.” Hydrology and Earth System Sciences 16 (4): 1085–94.
+]
+]
+]
+]
+---
+
+# Project 2: Algorithm for computing `\(wpd\)`
+&lt;img src="figs/algorithm1.png" width="80%" style="display: block; margin: auto;" /&gt;
+---
+# Project 2: Simulation study
+
+### Description
+
+ _ **nx** (number of x-axis categories), **nfacet** (number of facet categories), **nsim** (number of simulations to draw the distribution, **ntimes** (number of observations per combination), `\(\lambda\)` (value of tuning parameter)_
+ 
+### Values
+
+`\(nx = \{2, 3, 5, 7, 14, 20, 31, 50\}\)`  
+`\(nfacet = \{2, 3, 5, 7, 14, 20, 31, 50\}\)`  
+`\(nsim=200\)`  
+`\(ntimes = 500\)`  
+`\(\lambda =  0.67\)`  
+
+
+---
+
+# Project 2: Null distribution of `\(wpd\)` 
+
+&lt;img src="figure/raw-dist-1.svg" style="display: block; margin: auto;" /&gt;
+
+**_Distribution changes across different comparisons_**
 ---
 
 
 
+# Project 2: Need to normalize
+
+&lt;br&gt;
+
+`\(wpd\)` values are meant to be different only when there is difference between different categories and not when 
+
+- underlying distributions are different
+(solved by using NQT)
+- number of categories are different
+(solved by normalizing for the number of categories)
+
 ---
 
-# Cyclic calendar algebra
+# Project 2: Normalisation of `\(wpd\)` through GLM
 
 
-- from single to multiple order-up 
-&lt;br&gt; .smaller[e.g. day-of-semester from day-of-month]
-- from  multiple to single order-up
-&lt;br&gt; .smaller[e.g. hour-of-day from hour-of-week]
----
-class:center, top
 
 ---
 
-# Application: Non-temporal case
+# Project 2: Normalisation of `\(wpd\)` through permutations
+
+&lt;img src="figure/perm-dist-1.svg" style="display: block; margin: auto;" /&gt;
+
+
+---
+# Project 2: Combination approach for different comparisons
+
+
+
+---
+
+# Project 2: Choosing a threshold
+
+
+
+---
+
+# Application
 .left-column[
-## Cricket example
+## Melbourne households example
 .checked[
-* data structure
+* Show me the data
 &lt;br&gt;
 &lt;br&gt;
 * Hierachy table
@@ -349,121 +506,70 @@ filter(batting_team %in% c("Mumbai Indians",
 
 
 ]
----
-# Aperiodic cyclic granularities in cricket
+
+
+
+# Application of Project 1 and 2 to 8 Melbourne households
+
+
+
+
 
 ---
 
-# Project 2: Title slide
+# Cyclic granularities considered for analysis
 
 
----
-
-# Project 2: Contributions
-
- - introduce a new distance measure for quantifying periodic interactions, which allows for identification of patterns in the time series data;
- - device a framework for choosing a threshold, which results in detection of only significantly interesting periodic patterns;
- - show that the proposed distance metric could be used to rank the periodic patterns based on how well they capture the variation in the measured variable since they have been normalized for relevant parameters.
-
----
-
-
-# Project 2: Idea
-
-.pull-left[
-
-]
-
-.pull-right[
 &lt;br&gt;
-- Rank harmonies `\(a (D_{null}) &lt; b (D_{var_f})\)`  
-`\(&lt;  c(D_{var_x}) &lt; d(D_{var_{all}})\)`
-- Gestalt theory
-- within and between facet variation/distances
-- compute a threshold
-]
+&lt;br&gt; 
+
+# Number of displays to analyze for exhaustive exploration
+
+There are `\(^{7}P_2 = 42\)` pair of granularities to look at placing one on the x-axis and the other on facet.
+---
+
+# Select only harmonies (16 out of 42 selected)
+
+
+
+---
+class: top left
+
+# Select and rank significant harmonies (6 out of 16 selected)
+
+
+
 
 ---
 
-# Project 2: Notations
-&lt;img src="figs/dist_explain.png" width="2331" style="display: block; margin: auto;" /&gt;
+class: top left
 
-&lt;small&gt;
-- two cyclic granularities `\(A\)` and `\(B\)` placed across x-axis and facet respectively. 
-- `\(A = \{ a_j: j = 1, 2, \dots, J\}\)` and `\(B = \{ b_k: k = 1, 2, \dots, K\}\)`
-- within-facet distances `\((a_{j}b_{k}, a_{j'}b_{k})\)`
-- between-facet distances `\((a_{j}b_{k}, a_{j}b_{k'})\)`
+# ranking table 
+
+
+
+
+# validate ranking table for household 1 
+
+&lt;img src="figs/validate-household1.png" width="1283" style="display: block; margin: auto;" /&gt;
+
 
 ---
-# Project 2: Computation
+class: top left
 
-## Characterizing distributions through quantiles
 
-.small[
-- `\(Q(p)=F^{-1}(p) = inf\{x: F(x) &gt;p\}\)`, where `\(F(x)\)`: distribution function, `\(Q(p)\)`: Population quantile with probability `\(0&lt;p&lt; 1\)`.
-- Non-parameteric estimators : Sample quantiles
-- Median-unbiased estimate of Q(p) regardless of the distribution `\(p_{(k)} = \frac{(k-1/3)}{(n+1/3)}\)`
-]
-
-.smaller[
-.smaller[
-.footnote[
-Hyndman, Rob J., and Yanan Fan. 1996. “Sample Quantiles in Statistical Packages.” The American Statistician 50 (4): 361–65.
-]
-]
-]
+# compare and analyze eight households
+&lt;img src="figs/heatmap-8.png" width="1255" height="80%" style="display: block; margin: auto;" /&gt;
 
 ---
+class: top left
 
 
-# Project 2: Computation (continued)
+# Compare and analyze many households?
 
-## Make asymmetrical distributed real world observed variables more treatable
-
-.smaller[
-The empirical **Normal Quantile Transform** involves the following steps:
-
-  1. 1) Sort the sample of measured variable `\(X\)` from the smallest to the largest observation `\(x_{(1)},\dots, x_{(i)}, .., x_{(n)}\)`.
-  2. 2) Estimate the cumulative probabilities `\(p_{(1)},\dots, p_{(i)}, .., p_{(n)}\)`.
-  3. 3) Transforming each observation `\(x_{(i)}\)` of `\(X\)` into observation `\(y_{(i)} = Q^{-1}(p(i))\)` of the standard normal variate `\(Y\)` , with `\(Q\)` denoting the standard normal distribution and `\(Q^{-1}\)` its inverse.
-]
-
-.smaller[
-.smaller[
-.smaller[
-.footnote[
-Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Normal Quantile Transformation and Its Application in a Flood Forecasting System.” Hydrology and Earth System Sciences 16 (4): 1085–94.
-]
-]
-]
-]
-
----
-# Project 2: Computation (continued)
-
-## Computing distance between distributions using Jensen-Shannon distance
-
-`$$JSD(q_1||q_2) = \frac{1}{2}D(q_1||M) + \frac{1}{2}D(q_2||M)$$`
-where `\(M = \frac{q_1+q_2}{2}\)` and 
-`\(D(q_1||q_2) := \int^\infty_{-\infty} q_1(x)f(\frac{q_1(x)}{q_2(x)})\)` is the KL divergence between distributions `\(q_1\)` and `\(q_2\)`.  
-
-
-.smaller[
-.smaller[
-.smaller[
-.footnote[
-Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Normal Quantile Transformation and Its Application in a Flood Forecasting System.” Hydrology and Earth System Sciences 16 (4): 1085–94.
-]
-]
-]
-]
----
-
-# Project 2: Algorithm
-&lt;img src="figs/algorithm1.png" width="80%" style="display: block; margin: auto;" /&gt;
----
-# characteristics of `\(wpd\)`
-
+&lt;br&gt;
+&lt;br&gt;
+## Project 3: Clustering Australian residential demand
 
 ---
 class:left, top

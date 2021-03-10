@@ -63,6 +63,10 @@ library(xaringanthemer)
 ```
 
 
+```{r load}
+
+```
+
 # Motivation: Electricity smart meter data
 
 ### Electricity smart meter technology <br> (~ 0.3 billion half hourly observations)
@@ -108,7 +112,7 @@ class:top, center
 # Understanding behavioral pattern
 
 ```{r elec-cyclic, eval=FALSE}
-a
+
 ```
 
 
@@ -127,7 +131,6 @@ class:top, center
 # Literature review
 
 
-
 ---
 
 class:left, top
@@ -140,6 +143,10 @@ class:left, top
 - Study of Australian smart meter data
 ]
 ---
+
+
+
+
 class: middle center
 
 <!-- SLIDE 4 -->
@@ -161,7 +168,6 @@ class: middle center
  - develop an approach to check the feasibility of creating plots or drawing inferences for any two cyclic granularities.
 
 ---
-
 class: top left 
 
 # Linear to cyclic
@@ -170,41 +176,33 @@ class: top left
 .checked[
 .smaller[
 - **Cyclic time granularities:** exploring different periodicities e.g. hour-of-day, day-of-month or  hour-of-week, day-of-semester
-
-- **Multiple observations for each level of cyclic granularity**
-
-- summarize distribution of measured variables
+- **Multiple observations** for each level of cyclic granularity
+- **summarize distribution** of measured variables
 ]
 ]
+]
+
+.pull-right[
+```{r linear2cyclic, dev='png', interval=0.2}
+```
 ]
 
 ---
-class: top left 
 
-# Summarize distribution
+# Graphing distribution summary
 
-.pull-left[
-.checked[
-.smaller[
-- **Cyclic time granularities:** exploring different periodicities e.g. hour-of-day, day-of-month or  hour-of-week, day-of-semester
 
-- Multiple observations for each level of cyclic granularity
-
-- **summarize distribution of measured variables**
-]
-]
+.left-column[
+- several ways to summarize a distribution
+- R package ggdist for visualizing distributions and uncertainty
 ]
 
-.pull-right[
-```{r allplot, animation.hook="gifski"}
-
+.right-column[
+```{r allplots}
 ```
 ]
 
-.pull-right[
-```{r linear2cyclic, animation.hook="gifski"}
-```
-]
+
 ---
 class: top left
 
@@ -370,25 +368,61 @@ Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Norma
 ```{r algorithm1, out.width="80%"}
 ```
 ---
-# Project 2: Distribution of $wpd$ for different comparisons
+# Project 2: Simulation study
+
+### Description
+
+ _ **nx** (number of x-axis categories), **nfacet** (number of facet categories), **nsim** (number of simulations to draw the distribution, **ntimes** (number of observations per combination), $\lambda$ (value of tuning parameter)_
+ 
+### Values
+
+$nx = \{2, 3, 5, 7, 14, 20, 31, 50\}$  
+$nfacet = \{2, 3, 5, 7, 14, 20, 31, 50\}$  
+$nsim=200$  
+$ntimes = 500$  
+$\lambda =  0.67$  
+
+
+---
+
+# Project 2: Null distribution of $wpd$ 
+
+```{r raw-dist}
+
+```
+
+**_Distribution changes across different comparisons_**
+---
+
+
+
+# Project 2: Need to normalize
+
+<br>
+
+$wpd$ values are meant to be different only when there is difference between different categories and not when 
+
+- underlying distributions are different
+(solved by using NQT)
+- number of categories are different
+(solved by normalizing for the number of categories)
+
+---
+
+# Project 2: Normalisation of $wpd$ through GLM
 
 ```{r}
 
 ```
 
 ---
-# Project 2: Normalisation of $wpd$ using permutations
 
-```{r}
+# Project 2: Normalisation of $wpd$ through permutations
 
-```
-
----
-# Project 2: Normalisation of $wpd$ by fitting a GLM
-
-```{r}
+```{r perm-dist}
 
 ```
+
 
 ---
 # Project 2: Combination approach for different comparisons
