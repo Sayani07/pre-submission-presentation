@@ -29,7 +29,7 @@ library(readr)
 ## ---- load-elec
 
 
-elec <- read_rds(here("../paper-hakear/paper/data/sm_cust_data.rds"))
+elec <- read_rds(here("data/sm_cust_data.rds"))
 
 
 elec_ts <- elec %>% 
@@ -443,7 +443,7 @@ library(here)
 library(tidyverse)
 library(gghighlight)
 
-elec <- read_rds(here("../paper-hakear/paper/data/elec_all-8.rds")) %>% 
+elec <- read_rds(here("data/elec_all-8.rds")) %>% 
   dplyr::filter(date(reading_datetime) >= ymd("20190701"), date(reading_datetime) < ymd("20191231"), meter_id==1) %>% 
   select(-meter_id) %>% 
   rename("id" = "household_id",
