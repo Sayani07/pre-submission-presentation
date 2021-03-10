@@ -25,6 +25,8 @@ output:
       countIncrementalSlides: false
 preamble: >
   \usepackage{amsmath, mathtools,amssymb, booktabs,amsthm,todonotes,colortbl}
+  \usepackage{algorithm}
+  \usepackage{algorithmicx}
 ---
 
 
@@ -448,39 +450,80 @@ $<  c(D_{var_x}) < d(D_{var_{all}})$
 - between-facet distances $(a_{j}b_{k}, a_{j}b_{k'})$
 
 ---
-# Project 2: Computation (Making underlying distribution more symmetric)
+# Project 2: Computation
 
-- NQT performed (explain NQT)
+## Characterizing distributions through quantiles
 
----
-# Project 2: Computation (characterizing distributions through quantiles)
-
-- Quantiles computed (refer to Rob's paper)
--  Percentiles of $v^*_{jk}$ are computed and stored in $q_{jk}$.
-
----
-# Project 2: Computation (computing distances between quantiles)
-
-- JSD equation
-
-- The pairwise distances between pairs $(a_{j} b_{k}, a_{j'}b_{k'})$  denoted by $d_{(jk, j'k')} = JSD(q_{jk}, q_{j'k'})$ is computed.
-
----
-# Project 2: Computation (defining $wpd$ using tuning parameter, within and between facet distances)
-
-The pairwise distances $d_{(jk, j'k')}$ is transformed using a suitable tuning parameter $0<\lambda<1$ depending on if they are within-facet $d_w$ or between-facets $d_b$ as follows:  
-
-.smaller[
-\begin{align}
-d*_{(j,k), (j'k')} &= \lambda d_{(jk), (j'k')}, d = d_w \\
-             &= (1-\lambda)  d_{(jk), (j'k')}, d = d_b
-\end{align}
+.small[
+- $Q(p)=F^{-1}(p) = inf\{x: F(x) >p\}$, where $F(x)$: distribution function, $Q(p)$: Population quantile with probability $0<p< 1$.
+- Non-parameteric estimators : Sample quantiles
+- Median-unbiased estimate of Q(p) regardless of the distribution $p_{(k)} = \frac{(k-1/3)}{(n+1/3)}$
 ]
 
-Define $wpd$
+.smaller[
+.smaller[
+.footnote[
+Hyndman, Rob J., and Yanan Fan. 1996. “Sample Quantiles in Statistical Packages.” The American Statistician 50 (4): 361–65.
+]
+]
+]
 
 ---
-# characteristics of $wpd$
+
+
+# Project 2: Computation (continued)
+
+## Make asymmetrical distributed real world observed variables more treatable
+
+.smaller[
+The empirical **Normal Quantile Transform** involves the following steps:
+
+  1. 1) Sort the sample of measured variable $X$ from the smallest to the largest observation $x_{(1)},\dots, x_{(i)}, .., x_{(n)}$.
+  2. 2) Estimate the cumulative probabilities $p_{(1)},\dots, p_{(i)}, .., p_{(n)}$.
+  3. 3) Transforming each observation $x_{(i)}$ of $X$ into observation $y_{(i)} = Q^{-1}(p(i))$ of the standard normal variate $Y$ , with $Q$ denoting the standard normal distribution and $Q^{-1}$ its inverse.
+]
+
+.smaller[
+.smaller[
+.smaller[
+.footnote[
+Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Normal Quantile Transformation and Its Application in a Flood Forecasting System.” Hydrology and Earth System Sciences 16 (4): 1085–94.
+]
+]
+]
+]
+
+---
+# Project 2: Computation (continued)
+
+## Computing distance between distributions using Jensen-Shannon distance
+
+$$JSD(q_1||q_2) = \frac{1}{2}D(q_1||M) + \frac{1}{2}D(q_2||M)$$
+where $M = \frac{q_1+q_2}{2}$ and 
+$D(q_1||q_2) := \int^\infty_{-\infty} q_1(x)f(\frac{q_1(x)}{q_2(x)})$ is the KL divergence between distributions $q_1$ and $q_2$.  
+
+
+.smaller[
+.smaller[
+.smaller[
+.footnote[
+Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Normal Quantile Transformation and Its Application in a Flood Forecasting System.” Hydrology and Earth System Sciences 16 (4): 1085–94.
+]
+]
+]
+]
+---
+
+# Project 2: Algorithm for computing $wpd$
+```{r, out.width="80%"}
+knitr::include_graphics("figs/algorithm1.png")
+```
+---
+# Distribution of $wpd$ for different comparisons
+
+```{r}
+
+```
 
 
 ---
