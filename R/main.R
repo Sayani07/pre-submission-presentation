@@ -26,7 +26,7 @@ library(parallel)
 theme_set(theme_bw())
 library(readr)
 
-## ---- load-elec
+## ---- load-elecnew
 
 
 elec <- read_rds(here("data/sm_cust_data.rds"))
@@ -433,7 +433,7 @@ G21_all_data %>%
   xlab("wpd_norm2") +
   scale_x_continuous(breaks = c(-5, -3, 0, 3, 5))
 
-##----linear-scale-8
+##----linear-scale-8new
 
 library(scales)
 library(tidyquant)

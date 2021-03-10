@@ -86,7 +86,7 @@ library(xaringanthemer)
 
 ---
 
-```{r load-elec, message = FALSE, warning=FALSE}
+```{r load-elecnew, message = FALSE, warning=FALSE}
 ```
 
 ```{r elec-raw}
@@ -467,7 +467,7 @@ of times $M$ (M = 200)
 ]
 
 .right-column[
-```{r linear-scale-8}
+```{r linear-scale-8new}
 ```
 ]
 
