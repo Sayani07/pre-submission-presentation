@@ -19,17 +19,15 @@ library(transformr)
 library(hakear)
 library(distributional)
 library(readr)
-
-## ---- load-elec
-library(tidyverse)
 library(lubridate)
-library(tsibble)
-library(fable)
 library(patchwork)
 library(here)
 library(parallel)
 theme_set(theme_bw())
 library(readr)
+
+## ---- load-elec
+
 
 elec <- read_rds(here("../paper-hakear/paper/data/sm_cust_data.rds"))
 
@@ -166,7 +164,7 @@ knitr::include_graphics("figs/dist_explain.png")
 ##----heatmap
 knitr::include_graphics("figs/heatmap-8.png")
 
-##----rank-table0
+##----rank-table
 knitr::include_graphics("figs/rank-table.png")
 
 ##----validate-household1
@@ -175,7 +173,7 @@ knitr::include_graphics("figs/validate-household1.png")
 ##----algorithm1
 knitr::include_graphics("figs/algorithm1.png")
 
-##----example-design
+##----example-design2
 
 sim_varall_normal <- function(nx, nfacet, mean, sd, w) {
   dist_normal((mean + seq(0,
@@ -368,7 +366,7 @@ knitr::include_graphics("figs/graphical_map.png")
 
 VIC <- tsibbledata::vic_elec
 
-VIC %>%
+clash <- VIC %>%
   create_gran("month_year") %>%
   filter(month_year %in% c("Jan", "Jul", "Nov")) %>%
   prob_plot("month_year",
@@ -385,7 +383,7 @@ VIC %>%
 
 VIC <- tsibbledata::vic_elec
 
-VIC %>%
+noclash <- VIC %>%
   create_gran("month_year") %>%
   filter(month_year %in% c("Jan", "Mar", "July", "Dec")) %>%
   prob_plot("month_year", "day_week",
@@ -394,6 +392,9 @@ VIC %>%
   theme(
     axis.text = element_text(size = 16)) + 
   scale_x_discrete(breaks = c("Sun", "Wed", "Fri"))+  ylab("Energy consumption (kwh)")
+
+##----bothclash2
+clash + noclash
 
 ##----same-scale
 

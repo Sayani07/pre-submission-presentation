@@ -89,28 +89,24 @@ library(xaringanthemer)
 ```{r load-elec, message = FALSE, warning=FALSE}
 ```
 
-# Characteristics of the data
-
-.left-column[
-- missing observations
-- unequal length
-- different start and end date
-- no behavioral pattern visible in the squeezed linear representation
-- many households
-]
-
-
-.right-column[
 ```{r elec-raw}
 
 ```
+
+.smaller[
+.smaller[
+missing observations, unequal length, different start and end date
+, no behavioral pattern visible in the squeezed linear representation, many households
 ]
+]
+
+
 
 ---
 
 class:top, center
 
-# Theme of research
+# Thematic diagram
 
 ```{r load-theme}
 ```
@@ -123,13 +119,11 @@ class:left, top
 #  Projects 
 
 .larger[
-- Visualize probability distributions over different time granularities <br><br>
-- Clustering temporal data based on <br> probability distributions <br><br>
-- Study of Australian smart meter data
+- Visualizing probability distributions across bivariate cyclic temporal granularities <br><br>
+- A new metric for automatic discovery of periodic patterns in time series <br><br>
+- Clustering of residential Australian smart meter customers
 ]
 ---
-
-
 
 
 class: middle center
@@ -179,7 +173,6 @@ class: top left
 
 .left-column[
 - several ways to summarize a distribution
-- R package ggdist for visualizing distributions and uncertainty
 ]
 
 .right-column[
@@ -216,27 +209,32 @@ class:left, top
 
 # Relationship of cyclic granularities
 
-.pull-left[
+.left-column[
+<br>
+.larger[
 **<span style="color:firebrick"> <i> Clashes</i>:** pairs leading to empty sets
+<br>
+<br>
+**<span style="color:firebrick"> <i> Harmonies</i>:** pairs leading to no empty sets
+]
+]
+
+.right-column[
 
 ```{r clash, out.width="100%"}
 ```
-
-]
-
-.pull-right[
-**<span style="color:firebrick"> <i> Harmonies</i>:** pairs leading to no empty sets
-
-
-
 ```{r noclash, out.width="100%"}
 ```
+
+```{r bothclash2, out.width="100%"}
+```
+
 ]
 
-Still too many harmonies for display for large $N_C$
+**_Still too many harmonies for display for large $N_C$_**
 
 ---
-class: middle center
+class: top left
 
 # Show me significant harmonies only
 
@@ -258,20 +256,22 @@ class: middle center
 
 # Project 2: Idea
 
-.pull-left[
-```{r example-design}
-```
-]
-
-.pull-right[
+.left-column[
 <br>
+.smaller[
 - Rank harmonies $a (D_{null}) < b (D_{var_f})$  
 $<  c(D_{var_x}) < d(D_{var_{all}})$
 - Gestalt theory
 - within and between facet variation/distances
 - compute a threshold
 ]
+]
 
+
+.right-column[
+```{r example-design2, out.width="100%"}
+```
+]
 ---
 
 # Project 2: Notations
@@ -472,10 +472,10 @@ of times $M$ (M = 200)
 ]
 
 ---
+#  Melbourne households example
 
 <!-- SLIDE 9 -->
 .left-column[
-## Melbourne households example
 .checked[
 * Show me the data
 * search granularities `search_gran()`
@@ -504,9 +504,10 @@ elec %>%
 ]
 ]
 ---
+#  Melbourne households example
 
 .left-column[
-##  Melbourne households example
+
 .checked[
 * data structure
 * search granularities `search_gran()`
@@ -530,65 +531,56 @@ harmonies <- elec %>% harmony(ugran = "month",
 ]
 ]
 ---
+#  Melbourne households example
 
-# Application of Project 1 and 2 to 8 Melbourne households
+.left-column[
+.checked[
+* data structure
+* search granularities `search_gran()`
+* set of harmonies `harmony()`
+* select and rank harmonies `select_harmonies()`
+]
+]
 
-
-```{r linear-scale-8}
+.right-column[
+```{r rank-table, out.width="90%"}
 ```
+]
 ---
-
-# Cyclic granularities considered for analysis
-
-
-# Number of displays to analyze for exhaustive exploration
-
-There are $^{7}P_2 = 42$ pair of granularities to look at placing one on the x-axis and the other on facet.
----
-
-# Select only harmonies (16 out of 42 selected)
-
-```{r rank harmony}
-
-```
-
----
-class: top left
-
-# Select and rank significant harmonies (6 out of 16 selected)
-
-```{r global_harmony}
+#  Melbourne households example
+.left-column[
+.checked[
+* data structure
+* search granularities `search_gran()`
+* set of harmonies `harmony()`
+* select and rank harmonies `select_harmonies()`
+* validate one household
+]
+]
+.right-column[
+```{r validate-household1, out.width="90%"}
 
 ```
-
-
----
-
-class: top left
-
-# ranking table 
-
-```{r rank-table}
-
-```
-
-
-# validate ranking table for household 1 
-
-```{r validate-household1}
-
-```
-
+]
 
 ---
-class: top left
+#  Melbourne households example
 
-
-# compare and analyze eight households
-```{r heatmap, out.height="80%"}
+.left-column[
+.checked[
+* data structure
+* search granularities `search_gran()`
+* set of harmonies `harmony()`
+* select and rank harmonies `select_harmonies()`
+* validate one household
+* compare households
+]
+]
+.right-column[
+```{r heatmap, out.width="90%"}
 
 ```
-
+]
 ---
 class: top left
 
@@ -597,46 +589,67 @@ class: top left
 
 <br>
 <br>
+<br>
+
 ## Project 3: Clustering Australian residential demand
 
 ---
-class:left, top
 
-# Clustering temporal data based on <br> probability distributions
+# Project 3: Main contributions
 
-## Assumptions
+- present a cluster analysis of SGSC dataset to group households with similar periodic behavior;
+- cluster validation through simulations and relating to external data like census and geography [Australian Bureau of Statistics](https://www.abs.gov.au/websitedbs/censushome.nsf/home/tablebuilder) along with weather from [Bureau of Meteorology](www.bom.gov.au)
+
+---
+# Project 3: Preliminary exploration
 
 .smaller[
-- $C_1: \mathbb{Z}_+ \mapsto \{L_1, L_2, L_3, \dots, L_m \}$
-- $C_2: \mathbb{Z}_+ \mapsto \{L_1, L_2, L_3, \dots, L_p \}$
-- $S(i, j, k)$: set of measurement variables corresponding to the key $i$ for $k^{th}$ level of $C_1$ and $j^{th}$ level of $C_2$
-- $P(i, j, k)$: probability distribution of the measured variable corresponding to the set $S(i, j, k)$
-- each observational unit $i$ will have $mp$ variables each of which is a probability distribution
-- clustering algorithm on these $P(i, j, k)$ instead of raw data
+_Getting to know the SGSC dataset using missingness/ number of observations/number of customers and their related information_
+]
+
+```{r elec-gaps, warning=FALSE}
+```
+
+```{r count-gaps, out.width="80%"}
+
+```
+
+.smaller[
+.smaller[
+**_The missing data pattern for 100 households are shown. It looks like most missingness happens before 2013 and for a particular data in 2014._**
+]
+]
+.smaller[
+.smaller[
+.smaller[
+Wang, Earo, Dianne Cook, and Rob J. Hyndman. 2020. “A New Tidy Data Structure to Support Exploration and Modeling of Temporal Data.” Journal of Computational and Graphical Statistics
+]
+]
+]
+
+---
+
+# Project 3: Notations and Methodology
+
+.smaller[
+
+- $f_s(v)$: distribution of household $s$ and $v$ is electricity demand
+- $(A, B)$: harmony pair such that $A = \{ a_j: j = 1, 2, \dots, J\}$ and $B = \{ b_k: k = 1, 2, \dots, K\}$
+- $J*K$ distributions of the form $f_s^{j, k}(v)$ for each combination of categories for household $s$
+- $wpd_{norm_s}(A,B)$: distance measure for the harmony pair $(A, B)$
+- clustering algorithm on these $wpd_{norm_s}(A,B)$ instead of raw data
 ]
 ---
 class:left, top
 
-# Clustering temporal data based on <br> probability distributions
+# Project 3: Implications for using probability distributions
 
-## Implications
 - Dimension reduction
 - Robust to outliers by trimming the tails
+- Robust to missing observations
 - Non-synchronized observed time periods
 - Similar periodic behavior
-- Handling autocorrelation
 
-
----
-class:left, top
-
-# Study of Australian smart meter data
-
-.smaller[
-* Provide preliminary exploratory visualization and summarisation
-* Employ cluster analysis to obtain households showing similar periodic behavior and combine the findings with external data like weather conditions, socio-economic or other demographic factors of those households
-* Comparative study with earlier methods which focused on clustering raw data across linear time scales as opposed to clustering probability distributions across periodic scales
-]
 ---
 .left-column[
 ## Timeline
@@ -712,73 +725,21 @@ Thesis submission `r emo::ji("v")`
 ]
 
 ---
-class: center middle 
+class: middle center
 
 # Thank you
 
 <br>
-## Joint work with Rob J Hyndman & Dianne Cook
+## Rob J Hyndman & Dianne Cook
 <br>
-<br>
-### <span style="color:black"> Special thanks to NUMBATS
-<br>
+### <span style="color:black"> Panel members
 <br>
 
-
-.footnote[
-Slides created with <i> Rmarkdown, knitr, xaringan, xaringanthemer</i>
-]
----
+### <span style="color:black"> <small> NUMBATS
+### <span style="color:black"> <small> Monash Data Fluency community
+### <span style="color:black"><small> MonARCH (high performance computing cluster)
 
 
-```{r leveltable}
 
-```
-
-.smaller[
-.smaller[
-low: less than 7 (days in a week), medium: between 7 and 14 (days in a fortnight), high: between 14 and 31 (days in a month), very high: higher than 31
-]
-]
-
-
-# Clustering: Missing value analysis
-
-```{r elec-gaps, warning=FALSE}
-```
-
-.right-column[
-```{r count-gaps, fig.height = 8, fig.cap="The missing data pattern for 100 households are shown. It looks like most missingness happens before 2013 and for a particular data in 2014."}
-
-```
-]
-
-
----
-
-
-```{r load}
-```
-
-
-```{r motivation3, out.height="500px"}
-```
-
----
-# Appendix
-
-.smaller[
-.smaller[
-## 
-$$y = a+b*log(z) + e$$ where
-$y = median(wpd)$
-$z = nx*nfacet$ 
-$e_l$ are idiosyncratic errors.  
-
-Let $E(y) = \mu$ and $a + b*log(z) = g(\mu)$ where $g$ is the link function.
-$g(\mu)=  1/\mu$ and $\hat \mu  = 1/(\hat a + \hat b log(z))$. 
-$wpd_{glm}= (y-\hat y) = (y-1/(\hat a + \hat b log(z)))$ 
-]
-]
-
+Slides created with <i> Rmarkdown, knitr, xaringan, xaringanthemer</i> and template created by [Emi Tanaka](https://github.com/emitanaka/MBATemplate)  
 
