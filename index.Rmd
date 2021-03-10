@@ -638,66 +638,8 @@ class:left, top
 * Comparative study with earlier methods which focused on clustering raw data across linear time scales as opposed to clustering probability distributions across periodic scales
 ]
 ---
-
 .left-column[
 ## Timeline
-### - 2019
-]
-.right-column[
-.timeline.timeline-left.timeline-with-arrows[
-.timeline-block[
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-Internship with Google Summer of Code
-.timeline-date[
-2019/08
-]]]]
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-Young Statistician's Conference -  
-won the 2nd best presentation award `r emo::ji("trophy")`
-.timeline-date[
-2019/10
-]]]]
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-R package `gravitas` on CRAN
-.timeline-date[
-2019/11
-]]]]
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-R package `gghdr`: graphing highest density regions at [rOpenSci](https://ropensci.org/) 
-.timeline-date[
-2019/12
-]]]]
-
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-International Indian Statistical Association 
-.timeline-date[
-2019/12
-]]]]
-
-]
-]
-]
-
----
-
-.left-column[
-## Timeline
-### - 2019
 ### - 2020
 ]
 .right-column[
@@ -716,42 +658,9 @@ Mid-Candidature Review
 .timeline-block[
 .arrow-right[
 .timeline-content[
-R package `gghdr` to be submitted on CRAN 
+Paper submitted to Journal of Computational and Graphical Statistics (JCGS)
 .timeline-date[
-2020/03
-]]]]
-
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-Paper to be submitted to Journal of Computational and Graphical Statistics (JCGS)
-.timeline-date[
-2020/04
-]]]]
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-useR! 2020 (Tentative)
-.timeline-date[
-2020/07
-]]]]
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-Compstat 2020 (Tentative)
-.timeline-date[
-2020/08
-]]]]
-
-.timeline-block[
-.arrow-right[
-.timeline-content[
-R package and draft paper of Research objective-2 ready
-.timeline-date[
-2020/10
+2020/09
 ]]]]
 ]
 ]
@@ -760,7 +669,6 @@ R package and draft paper of Research objective-2 ready
 
 .left-column[
 ## Timeline
-### - 2019
 ### - 2020
 ### - 2021
 ]
@@ -779,20 +687,30 @@ Pre-submission Review
 .timeline-block[
 .arrow-right[
 .timeline-content[
-Research objective-3 draft paper ready 
+Paper 2 ready for submission
 .timeline-date[
-2021/03
+2021/04
 ]]]]
+
+.timeline-block[
+.arrow-right[
+.timeline-content[
+Paper 3 ready for submission
+.timeline-date[
+2021/06
+]]]]
+
 
 .timeline-block[
 .arrow-right[
 .timeline-content[
 Thesis submission `r emo::ji("v")`
 .timeline-date[
-2021/06
+2021/08
 ]]]]
 ]
 ]
+
 ---
 class: center middle 
 
