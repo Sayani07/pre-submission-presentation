@@ -23,6 +23,8 @@ output:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
+preamble: >
+  \usepackage{amsmath, mathtools,amssymb, booktabs,amsthm,todonotes,colortbl}
 ---
 
 
@@ -411,9 +413,7 @@ filter(batting_team %in% c("Mumbai Indians",
 # Project 2: Contributions
 
  - introduce a new distance measure for quantifying periodic interactions, which allows for identification of patterns in the time series data;
- 
  - device a framework for choosing a threshold, which results in detection of only significantly interesting periodic patterns;
-
  - show that the proposed distance metric could be used to rank the periodic patterns based on how well they capture the variation in the measured variable since they have been normalized for relevant parameters.
 
 ---
@@ -428,7 +428,8 @@ filter(batting_team %in% c("Mumbai Indians",
 
 .pull-right[
 <br>
-- Rank harmonies $a (D_{null}) < b (D_{var_f}) < c(D_{var_x}) < d(D_{var_{all}})$
+- Rank harmonies $a (D_{null}) < b (D_{var_f})$  
+$<  c(D_{var_x}) < d(D_{var_{all}})$
 - Gestalt theory
 - within and between facet variation/distances
 - compute a threshold
@@ -447,31 +448,19 @@ filter(batting_team %in% c("Mumbai Indians",
 - between-facet distances $(a_{j}b_{k}, a_{j}b_{k'})$
 
 ---
-# Project 2: Notations
-
-- NQT performed
--  Percentiles of $v^*_{jk}$ are computed and stored in $q_{jk}$. Repeat for all pairs of categories of the form $(a_{j} b_{k}, a_{j'}b_{k'}): \{a_j: j = 1, 2, \dots, J\}, B = \{ b_k: k = 1, 2, \dots, K\}$.
-- The pairwise distances between pairs $(a_{j} b_{k}, a_{j'}b_{k'})$  denoted by $d_{(jk, j'k')} = JSD(q_{jk}, q_{j'k'})$ is computed.
-
----
 # Project 2: Computation
 
-The pairwise distances $d_{(jk, j'k')}$ is transformed using a suitable tuning parameter ($0<lambda<1$) depending on if they are within-facet($d_w$) or between-facets($d_b$) as follows:  
+- NQT performed
+-  Percentiles of $v^*_{jk}$ are computed and stored in $q_{jk}$.
+- The pairwise distances between pairs $(a_{j} b_{k}, a_{j'}b_{k'})$  denoted by $d_{(jk, j'k')} = JSD(q_{jk}, q_{j'k'})$ is computed.
+- The pairwise distances $d_{(jk, j'k')}$ is transformed using a suitable tuning parameter $0<\lambda<1$ depending on if they are within-facet $d_w$ or between-facets $d_b$ as follows:  
 
-
-$\begin{equation}
-d*_{(j,k), (j'k')} =
-\begin{cases}
-\lambda d_{(jk), (j'k')},& \text{if } d = d_w\\
-(1-\lambda)  d_{(jk), (j'k')},              & \text{if } d = d_b\\
-\end{cases}
-\end{equation}$  
-
----
-
-
-
-
+.smaller[
+\begin{align}
+d*_{(j,k), (j'k')} &= \lambda d_{(jk), (j'k')}, d = d_w \\
+             &= (1-\lambda)  d_{(jk), (j'k')}, d = d_b
+\end{align}
+]
 
 ---
 class:left, top
