@@ -27,6 +27,7 @@ library(tsibble)
 library(fable)
 library(patchwork)
 library(here)
+library(parallel)
 theme_set(theme_bw())
 library(readr)
 
@@ -272,7 +273,7 @@ ggpubr::ggarrange(p_null, p_varf,  p_varx, p_varall, nrow = 2, ncol = 2,
 
 G21 <- read_rds("simulations/raw/all_data_wpd_Gamma21.rds")
 
-G21 %>% 
+G21_dist <- G21 %>% 
   ggplot(aes(x = value)) + 
   geom_density(fill = "blue") +
   facet_grid(nx~nfacet,
@@ -280,6 +281,14 @@ G21 %>%
   scale_x_continuous(breaks = scales::breaks_extended(3)) + 
   xlab("wpd")
 
+G21_rel <- G21 %>% 
+  ggplot(aes(x=nx*nfacet, y = value)) +
+  geom_point(alpha = 0.5, size = 0.5) + stat_summary(fun=median, geom="line", aes(group=1), color = "blue") + xlab("nx*nfacet") + ylab("wpd")
+
+library(patchwork)
+#G21_rel +
+  G21_dist 
+#+ plot_layout(widths = c(1,2))
 ##----perm-dist
 G21_norm <- read_rds("simulations/norm/all_data_wpd_Gamma21.rds")
 
@@ -316,7 +325,7 @@ G21_sd  = G21 %>%
 scale_fac <- 1/G21_sd$wpd_glm %>% sd()
 
 
-G21 %>% 
+G21_residual <- G21 %>% 
   ggplot(aes(x=log(nx*nfacet),
              y = (value - (1/(intercept + slope*log(nx*nfacet)
              )
@@ -325,7 +334,7 @@ G21 %>%
   )
   ) +
   geom_point(alpha = 0.5, size = 0.5) + stat_summary(fun=mean, geom="line", aes(group=1), color = "blue") + 
-  ylab("wpd_glm = wpd - 1/(a  + b*log(nx*nfacet))")
+  ylab("wpd_glm = wpd - 1/(intercept  + slope*log(nx*nfacet))") + ggtitle("Residual plot")
 
 
 G21_glm <- G21 %>% 
@@ -336,7 +345,7 @@ G21_glm <- G21 %>%
   wpd_glm_scaled = ((wpd_glm*320)))
 
 
-G21_glm %>% 
+G21_dist <- G21_glm %>% 
   ggplot() +
   geom_density(aes(x = wpd_glm), 
                fill = "blue") +
@@ -345,10 +354,11 @@ G21_glm %>%
   theme(legend.position = "bottom") 
 
 
+G21_residual  + 
+  G21_dist +  plot_layout(widths = c(1,2))
 ##----allplots
 
 knitr::include_graphics("figs/allplots.png")
-
 
 ##----graphical map
 
@@ -384,3 +394,162 @@ VIC %>%
   theme(
     axis.text = element_text(size = 16)) + 
   scale_x_discrete(breaks = c("Sun", "Wed", "Fri"))+  ylab("Energy consumption (kwh)")
+
+##----same-scale
+
+G21_permutation <- read_rds("simulations/norm/all_data_wpd_N01.rds") %>%
+  rename("wpd_permutation" = "value")
+
+
+# G21_model_data <- G21 %>%
+#   mutate(model =
+#            ((1/value)
+#                   - intercept -
+#                     slope*log(nx*nfacet))/slope) %>%
+#   mutate(model_trans =
+#            (model - mean(model))/sd(model))
+
+# G21_model_data$model %>% summary()
+
+G21_all_data <- G21_permutation %>% 
+  # left_join(G21_lm, by = c("nx", "nfacet", "perm_id")) %>% 
+  left_join(G21_glm, by = c("nx", "nfacet", "perm_id")) %>% 
+  pivot_longer(cols = c(3, 7),
+               names_to = "type_estimate",
+               values_to = "value_estimate")
+G21_all_data$type_estimate = factor(G21_all_data$type_estimate , levels = c( "wpd_permutation", "wpd_glm_scaled"))
+
+
+G21_all_data %>% 
+  filter(type_estimate %in% c("wpd_glm_scaled", "wpd_permutation")) %>% 
+  ggplot() +
+  geom_density(aes(x = value_estimate, 
+                   fill = type_estimate), alpha = 0.5) +
+  facet_grid(nx~nfacet,
+             labeller = "label_both") +
+  theme(legend.position = "bottom") +
+  scale_fill_manual(values = c( "#D55E00", "#0072B2")) +
+  xlab("wpd_norm2") +
+  scale_x_continuous(breaks = c(-5, -3, 0, 3, 5))
+
+##----linear-scale-8
+
+library(scales)
+library(tidyquant)
+library(gghighlight)
+library(lubridate)
+library(here)
+library(tidyverse)
+library(gghighlight)
+
+elec <- read_rds(here("../paper-hakear/paper/data/elec_all-8.rds")) %>% 
+  dplyr::filter(date(reading_datetime) >= ymd("20190701"), date(reading_datetime) < ymd("20191231"), meter_id==1) %>% 
+  select(-meter_id) %>% 
+  rename("id" = "household_id",
+         "date_time" = "reading_datetime") %>% 
+  mutate(date = date(date_time))
+
+
+elec_linear <- elec %>% 
+  ggplot() +
+  geom_line(aes(x = date_time, y = kwh),alpha = 0.7) +
+  facet_wrap(~id, nrow = 8, labeller = "label_both",
+             strip.position =  "right",
+             scales = "free_y") + ggtitle("a")
+
+elec_zoom <-  elec %>%
+  as_tibble() %>% 
+  filter(date >as.Date("2019-09-01") & date < (as.Date("2019-09-30"))) %>% 
+  ggplot(aes(x=date_time, y = kwh)) +
+  geom_line(size = 0.1, colour = "blue") +
+  facet_wrap(~id, 
+             scales = "free_y",
+             ncol = 1,
+             strip.position =  "right") +
+  gghighlight(date > as.Date("2019-09-15") & date < (as.Date("2019-09-21")), unhighlighted_params = list(colour = "black")) + ggtitle("b")
+
+elec_linear + elec_zoom
+
+##----search-gran
+
+elec %>% 
+  search_gran(lowest_unit = "hour",
+              highest_unit = "month", 
+              filter_in = "wknd_wday", 
+              filter_out = "fortnight") 
+
+##---- harmony
+elec %>% harmony(ugran = "month",
+                 filter_in = "wknd_wday",
+                 filter_out = c("hhour", "fortnight")
+  )
+
+##---- select-harmonies
+elec_select_harmony = parallel::mclapply(1:8, function(x){
+  
+  data_id <-  elec_split %>% magrittr::extract2(x) %>% 
+    as_tsibble(index = date_time)
+  
+  harmonies <- data_id %>%
+    harmony(
+      ugran = "month",
+      filter_in = "wknd_wday",
+      filter_out = c("hhour", "fortnight")
+    )
+  
+  hakear::select_harmonies(data_id,
+                           harmony_tbl = harmonies,
+                           response = kwh,
+                           nperm = 200,
+                           nsamp = 200
+  )
+  
+}, mc.cores = parallel::detectCores() - 1, mc.preschedule = FALSE, mc.set.seed = FALSE)
+#toc()
+
+
+elec_harmony_all <- elec_select_harmony %>% 
+  bind_rows(.id = "id") %>% 
+  mutate(facet_variable = case_when(
+    facet_variable == "hour_day" ~ "hod" ,
+    facet_variable == "day_month" ~ "dom" ,
+    facet_variable == "day_week" ~ "dow" ,
+    facet_variable == "week_month" ~ "wom" ,
+    facet_variable == "wknd_wday" ~ "wdwnd"
+  )) %>% 
+  mutate(x_variable = case_when(
+    x_variable == "hour_day" ~ "hod" ,
+    x_variable == "day_month" ~ "dom" ,
+    x_variable == "day_week" ~ "dow" ,
+    x_variable == "week_month" ~ "wom" ,
+    x_variable == "wknd_wday" ~ "wdwnd"
+  )) %>% 
+  mutate(id = paste("id", id, sep = " ")) %>% 
+  group_by(id) %>% 
+  mutate(rank = row_number())
+
+select_split <- str_split(elec_harmony_all$select_harmony, " ", simplify = TRUE)[,2]
+
+elec_sig_split <- elec_harmony_all %>% 
+  bind_cols(select_split = select_split) %>% 
+  mutate(significant = case_when(
+    select_split == "***" ~ "highest",
+    select_split == "**" ~ "high",
+    select_split == "*" ~ "medium",
+    select_split == "" ~ "low"
+  )) %>% 
+  mutate(rank = case_when(
+    select_split == "***" ~ paste(rank, "***", sep = " "),
+    select_split == "**" ~  paste(rank, "**", sep = " "),
+    select_split == "*" ~  paste(rank, "*", sep = " "),
+    select_split == "" ~  paste(rank, "", sep = " ")
+  ))
+
+elec_rank <- elec_sig_split %>% 
+  select(-c(6,7, 9, 10)) %>% 
+  pivot_wider(
+    names_from = id,
+    values_from = rank) %>% 
+  rename("facet variable" = "facet_variable",
+         "x variable" = "x_variable") %>% 
+  select(-facet_levels, -x_levels)

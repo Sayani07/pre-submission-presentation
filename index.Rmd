@@ -107,28 +107,13 @@ library(xaringanthemer)
 ]
 
 ---
-class:top, center
 
-# Understanding behavioral pattern
-
-```{r elec-cyclic, eval=FALSE}
-
-```
-
-
-
----
 class:top, center
 
 # Theme of research
 
 ```{r load-theme}
 ```
-
-
----
-
-# Literature review
 
 
 ---
@@ -409,36 +394,68 @@ $wpd$ values are meant to be different only when there is difference between dif
 
 ---
 
-# Project 2: Normalisation of $wpd$ through GLM
+# Project 2: Normalization 
 
-```{r}
+### Gamma generalized linear model with inverse link
+
+```{r glm, out.width="90%"}
 
 ```
+
+**_Distributions look similar for higher levels_**
 
 ---
 
-# Project 2: Normalisation of $wpd$ through permutations
+# Project 2: Normalization 
 
-```{r perm-dist}
+### Permutation approach
+
+```{r perm-dist, out.width="90%"}
 
 ```
 
+.smaller[
+**_Location and scale of distributions look similar for different comparisons_**
+]
 
 ---
 # Project 2: Combination approach for different comparisons
 
-```{r}
 
+```{r same-scale, out.width="90%"}
 ```
 
+.smaller[
+**_The two approaches mostly overlap for higher levels and are different for smaller levels. Hence, permutation for smaller levels and model for higher level is chosen as normalization method for computational efficiency._**
+]
 ---
 
-# Project 2: Choosing a threshold
+# Project 2: Choosing a threshold and significant harmonies
 
-```{r}
+.smaller[
+.smaller[
 
-```
+1. 1) Fix harmony pair $(A, B)$.
 
+2. 2) Given the data; $\{v_t: t=0, 1, 2, \dots, T-1\}$, the $wpd_{norm}$ is computed and is represented by $wpd_{obs}$.
+
+3. 3) From the original sequence a random permutation is obtained: $\{v_t^*: t=0, 1, 2, \dots, T-1\}$
+
+4. 4) $wpd_{norm}$ is computed for the permuted sequence of the data and is represented by $wpd_{perm_1}$
+
+5. 5) Steps (3) and (4) are repeated a large number
+of times $M$ (M = 200)
+
+6. 6) For each permutation, one $wpd_{perm_i}$ is obtained.   Define $wpd_{sample} = \{wpd_{perm_1}, wpd_{perm_2}, \dots, wpd_{perm_M}\}$
+
+7. 7) Repeat Steps (1-6) for all harmony pairs $(A, B) \in H_{N_C}$ and store it in $wpd^{all}_{sample}$
+
+8. 8) $99^{th}$ percentiles of $wpd^{all}_{sample}$ is computed and stored in $wpd_{threshold99}$
+
+9. 9) If $wpd_{obs_{A, B}} > wpd_{threshold99}$, harmony pair $(A, B)$ is selected with a 99% level of significance and otherwise rejected
+
+]
+]
 ---
 
 # Application
@@ -446,59 +463,50 @@ $wpd$ values are meant to be different only when there is difference between dif
 ## Melbourne households example
 .checked[
 * Show me the data
-<br>
-<br>
-* Hierachy table
-```{r hierarchy2}
-```
 ]
 ]
+
 .right-column[
-```{r cricket-glimpse}
-knitr::include_graphics("images/cricket_data.png")
+```{r linear-scale-8}
 ```
 ]
+
 ---
 
 <!-- SLIDE 9 -->
 .left-column[
-## Cricket example
+## Melbourne households example
 .checked[
-* data structure
+* Show me the data
 * search granularities `search_gran()`
 ]
 ]
+
 .right-column[
-
 ```r
-cricket_tsibble <- cricket %>%
-*  mutate(data_index = row_number()) %>%
-*  as_tsibble(index = data_index)
+elec %>% 
+*  search_gran(lowest_unit = "hour",
+*              highest_unit = "month", 
+*              filter_in = "wknd_wday", 
+*              filter_out = "fortnight")
 ```
 
-```r
-* cricket_tsibble %>%
-*  search_gran(hierarchy_model, 
-*              lowest_unit = "ball",
-*               highest_unit =  "match")
+```{r search-gran}
+
 ```
-.pull-left[
-```{r search_gran_cric}
-```
-]
-.pull-right[
+
 <br>
 <br>
 .smaller[
-- There are $^{6} P_2$ =  `r length(combn(6,2))` pair of granularities to look at
-- 30 visualizations to interpret?
-]
+- There are $$^{7} P_2 = 42$$ pair of granularities to look at looking at two at a time.
+- 42 visualizations to interpret?
+
 ]
 ]
 ---
 
 .left-column[
-## Cricket example
+##  Melbourne households example
 .checked[
 * data structure
 * search granularities `search_gran()`
@@ -507,90 +515,31 @@ cricket_tsibble <- cricket %>%
 ]
 .right-column[
 ```r
-cricket_tsibble %>%
-*  harmony(hierarchy_model, 
-*          lgran = "ball",
-*          ugran =  "match")
-
+harmonies <- elec %>% harmony(ugran = "month",
+                 filter_in = "wknd_wday",
+                 filter_out = c("hhour", "fortnight")
+  )
 ```
 
-```{r harmony_gran_cric}
+```{r harmony}
 ```
+
 .smaller[
-- only 8 out `r length(combn(6,2))` are harmonies<br>
-- plotting other 22 pairs lead to empty combinations
+- only 14 out 42 are harmonies <br>
+- plotting other 28 pairs lead to empty combinations
 ]
 ]
 ---
-
-.left-column[
-## Cricket example
-.checked[
-* data structure
-* search granularities `search_gran()`
-* set of harmonies `harmony()`
-* advice `gran_advice()`
-]
-]
-.right-column[
-
-```r
-cricket_tsibble %>% 
-*  gran_advice("hierarchy_model",
-*              "over_inning", 
-*              "inning_match")
-```
-<small>
-```{r gran-advice_cric, out.width="100%"}
-```
-</small>
-### <large>  Quantile plots recommended for the harmony pair (over_inning, inning_match) </large>
-]
----
-.left-column[
-## Cricket example
-.checked[
-* data structure
-* search granularities `search_gran()`
-* set of harmonies `harmony()`
-* advice `gran_advice()`
-* visualize harmonies `prob_plot()`
-]
-]
-.right-column[
-```r
-cricket_tsibble %>% 
-filter(batting_team %in% c("Mumbai Indians",
-                           "Chennai Super Kings")) %>%
-* prob_plot("inning_match",
-*            "over_inning",
-*            response = "runs_per_over",
-*            hierarchy_model,
-*            plot_type = "lv")
-```
-
-```{r visualise_cric}
-```
-]
-
-
 
 # Application of Project 1 and 2 to 8 Melbourne households
 
-```{r}
-```
 
-
-```{r read}
+```{r linear-scale-8}
 ```
 ---
 
 # Cyclic granularities considered for analysis
 
-```{r search_gran}
-```
-<br>
-<br> 
 
 # Number of displays to analyze for exhaustive exploration
 
@@ -896,4 +845,22 @@ low: less than 7 (days in a week), medium: between 7 and 14 (days in a fortnight
 
 ```{r motivation3, out.height="500px"}
 ```
+
+---
+# Appendix
+
+.smaller[
+.smaller[
+## 
+$$y = a+b*log(z) + e$$ where
+$y = median(wpd)$
+$z = nx*nfacet$ 
+$e_l$ are idiosyncratic errors.  
+
+Let $E(y) = \mu$ and $a + b*log(z) = g(\mu)$ where $g$ is the link function.
+$g(\mu)=  1/\mu$ and $\hat \mu  = 1/(\hat a + \hat b log(z))$. 
+$wpd_{glm}= (y-\hat y) = (y-1/(\hat a + \hat b log(z)))$ 
+]
+]
+
 
