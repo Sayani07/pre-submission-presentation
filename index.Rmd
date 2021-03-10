@@ -89,7 +89,7 @@ library(xaringanthemer)
 ```{r load-elecnew, message = FALSE, warning=FALSE}
 ```
 
-```{r elec-raw}
+```{r elec-rawnew}
 
 ```
 

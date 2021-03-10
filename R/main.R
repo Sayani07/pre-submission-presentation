@@ -89,7 +89,7 @@ p_other <- lumped_na_df %>%
 p_other + plot_layout(ncol = 1, heights = c(10, 1))
 
 
-## ---- elec-raw
+## ---- elec-rawnew
 
 sm_50 <- elec %>% 
   distinct(customer_id) %>% 
