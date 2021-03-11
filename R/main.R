@@ -166,6 +166,7 @@ knitr::include_graphics("figs/heatmap-8.png")
 
 ##----rank-table
 knitr::include_graphics("figs/rank-table.png")
+#read_rds("data/elec_rank.rds")
 
 ##----validate-household1
 knitr::include_graphics("figs/validate-household1.png")
@@ -554,3 +555,118 @@ elec_rank <- elec_sig_split %>%
   rename("facet variable" = "facet_variable",
          "x variable" = "x_variable") %>% 
   select(-facet_levels, -x_levels)
+
+##----heatplot-new
+
+
+elec_sig_split <- read_rds("data/elec_sig_split.rds")
+  
+heatplot <- elec_sig_split %>% 
+  mutate(significance_95 = if_else(significant %in% c("high", "highest"), "*", "")) %>% 
+  ggplot(aes(x = x_variable,
+             y = facet_variable)) +
+  geom_tile(aes(fill = wpd)) + 
+  #color = as.factor(significance_95)),
+  #size = 0.3) +
+  geom_text(aes(label = significance_95), color = "#42275a") +
+  scale_fill_gradient(low = "white",high = "#ba5370") +
+  #scale_fill_manual(palette = "Dark2") +
+  #scale_colour_manual(values = c("white","red")) + 
+  theme(legend.position = "bottom") +
+  coord_fixed() + 
+  guides(fill = guide_legend()) +
+  theme_void() +
+  theme_gray(base_size = 12, base_family = "Times") +
+  theme(panel.grid = element_blank(),
+        axis.text.x = element_text(angle = 60, hjust=1),legend.position = "bottom") + ggtitle("") +
+  theme(
+    strip.background = element_blank(),
+    strip.text.y  = element_blank(), plot.margin = unit(c(0, -2, 0, 0), "cm"))
+
+elec <- read_rds(here("data/elec_all-8.rds")) %>% 
+  dplyr::filter(date(reading_datetime) >= ymd("20190701"), date(reading_datetime) < ymd("20191231"), meter_id==1) %>% 
+  select(-meter_id) %>% 
+  rename("id" = "household_id",
+         "date_time" = "reading_datetime")
+
+elec_zoom <-  elec %>%
+  as_tibble() %>% 
+  dplyr::filter(date(date_time) > as.Date("2019-09-01") & date(date_time) < (as.Date("2019-09-30"))) %>%
+  ggplot(aes(x=date_time, y = kwh)) +
+  #geom_point(size = 0.1, colour = "black", alpha = 0.3) +
+  geom_line(size = 0.1, colour = "blue") +
+  facet_wrap(~id, 
+             scales = "free_y",
+             ncol = 1,
+             strip.position =  "right",
+             labeller = "label_both") + 
+  xlab("Time [30m]") + 
+  theme_grey() + 
+  ylab("linear energy demand (kwh) for Sep-19") + ggtitle("")
+
+heatplot +  facet_grid(id~.) + elec_zoom +
+  theme( plot.margin = unit(c(0, 0, 0, 0), "cm")) +
+  plot_layout(widths = c(1, 2)) 
+
+##----gravitas-plot
+id1_tsibble <- elec %>%
+  filter(id== 1)
+
+p1 <- id1_tsibble %>% 
+  prob_plot("hour_day",
+            "wknd_wday",
+            response = "kwh",
+            plot_type = "quantile",
+            symmetric = FALSE,
+            quantile_prob = c(0.25, 0.5, 0.75)) +
+  ggtitle("a) hod vs wdwnd (Rank 1)") + 
+  scale_colour_brewer(name = "", palette = "Set2") +
+  theme(legend.position = "none",
+        strip.text = element_text(size = 7, margin = margin()),)
+
+
+p2 <- id1_tsibble %>%
+  prob_plot("wknd_wday",
+            "hour_day",
+            response = "kwh",
+            plot_type = "quantile",
+            symmetric = FALSE,
+            quantile_prob = c(0.25,0.5,0.75)) +
+  ggtitle("c) wdwnd vs hod (Rank 3)") +
+  scale_colour_brewer(name = "", palette = "Set2")   +
+  theme(legend.position = "none",
+        strip.text = element_text(size = 7,
+                                  margin = margin()))  +
+  scale_x_discrete(breaks = seq(0, 23, 5))
+
+p3 <- id1_tsibble %>%
+  prob_plot("week_month",
+            "wknd_wday",
+            response = "kwh",
+            plot_type = "quantile",
+            symmetric = FALSE,
+            quantile_prob = 
+              c(0.25,0.5,0.75)) +
+  scale_colour_brewer(name = "", palette = "Set2") +
+  theme(
+    strip.text = element_text(size = 10, margin = margin(b = 0, t = 0))) + theme(legend.position = "bottom",
+                                                                                 strip.text = element_text(size = 7, margin = margin())) +
+  ggtitle("d) wom vs wdwnd (insignificant)")
+
+p4 <- id1_tsibble %>%
+  prob_plot("day_month",
+            "hour_day",
+            response = "kwh",
+            plot_type = "quantile",
+            symmetric = FALSE,
+            quantile_prob = 
+              c(0.25,0.5,0.75)) +
+  scale_colour_brewer(name = "", palette = "Set2") +
+  theme(
+    strip.text = element_text(size = 10, margin = margin(b = 0, t = 0))) + theme(legend.position = "bottom",
+                                                                                 strip.text = element_text(size = 7, margin = margin())) +
+  ggtitle("b) dom vs hod (Rank 2)") +
+  scale_x_discrete(breaks = seq(0, 31, 5))
+
+(p1 + p4)/(p2 + p3) + theme_minimal()
+

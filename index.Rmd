@@ -558,7 +558,7 @@ harmonies <- elec %>% harmony(ugran = "month",
 ]
 ]
 .right-column[
-```{r validate-household1, out.width="90%"}
+```{r gravitas-plot, fig.height=8}
 
 ```
 ]
@@ -577,7 +577,7 @@ harmonies <- elec %>% harmony(ugran = "month",
 ]
 ]
 .right-column[
-```{r heatmap, out.width="90%"}
+```{r heatplot-new, fig.height=10}
 
 ```
 ]
