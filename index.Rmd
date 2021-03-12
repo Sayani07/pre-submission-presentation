@@ -123,7 +123,6 @@ class:left, top
 
 #  Papers
 
-
 - Visualizing probability distributions across bivariate cyclic temporal granularities (submitted to JCGS in September, 2020) <br><br>
 - A new metric for automatic discovery of periodic patterns in time series <br><br> (draft prepared and incorporating comments from supervisors)
 - Clustering of residential Australian smart meter customers (draft in preparation)
@@ -356,19 +355,27 @@ Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Norma
 ```{r algorithm1, out.width="80%"}
 ```
 ---
-# Project 2: Simulation study
+# Project 2: Simulation setup
 
-### Description
+.smaller[
+- Design correspond to $D_{null}$
+- $nx = nfacet =  \{2, 3, 5, 7, 14, 20, 31, 50\}$  
+- Observations are generated from a Gamma(2,1) distribution for each combination of $nx$ and $nfacet$
+- $ntimes = 500$ observations are drawn for each combination of the categories
+- For eg, for the panel with $\{nx = 2, nfacet = 2\}$, $500$ observations are generated for each of $\{(1, 1), (1, 2), (2, 1), (2, 2)\}$
+- Data is simulated for each of the panels $nsim=200$ times
+- $wpd$ computed for each of the simulation and panel for $\lambda =  0.67$
+]
 
- _ **nx** (number of x-axis categories), **nfacet** (number of facet categories), **nsim** (number of simulations to draw the distribution, **ntimes** (number of observations per combination), $\lambda$ (value of tuning parameter)_
- 
-### Values
+<!--  _ **nx** (number of x-axis categories), **nfacet** (number of facet categories), **nsim** (number of simulations to draw the distribution, **ntimes** (number of observations per combination), $\lambda$ (value of tuning parameter)_ -->
 
-$nx = \{2, 3, 5, 7, 14, 20, 31, 50\}$  
-$nfacet = \{2, 3, 5, 7, 14, 20, 31, 50\}$  
-$nsim=200$  
-$ntimes = 500$  
-$\lambda =  0.67$  
+<!-- ### Values -->
+
+<!-- $nx = \{2, 3, 5, 7, 14, 20, 31, 50\}$   -->
+<!-- $nfacet = \{2, 3, 5, 7, 14, 20, 31, 50\}$   -->
+<!-- $nsim=200$   -->
+<!-- $ntimes = 500$   -->
+<!-- $\lambda =  0.67$   -->
 
 
 ---
