@@ -51,6 +51,7 @@ class: center, middle, inverse, title-slide
 &lt;br&gt;
 
 ---
+# Characteristics of electricity demand across time
 
 
 
@@ -71,20 +72,23 @@ class:top, center
 
 # Thematic diagram
 
+&lt;img src="figs/theme.png" width="2365" style="display: block; margin: auto;" /&gt;
 
 
+???
 
+thisd is mynotes 
 ---
 
 class:left, top
 
-#  Projects 
+#  Papers
 
-.larger[
-- Visualizing probability distributions across bivariate cyclic temporal granularities &lt;br&gt;&lt;br&gt;
-- A new metric for automatic discovery of periodic patterns in time series &lt;br&gt;&lt;br&gt;
-- Clustering of residential Australian smart meter customers
-]
+
+- Visualizing probability distributions across bivariate cyclic temporal granularities (submitted to JCGS in September, 2020) &lt;br&gt;&lt;br&gt;
+- A new metric for automatic discovery of periodic patterns in time series &lt;br&gt;&lt;br&gt; (draft prepared and incorporating comments from supervisors)
+- Clustering of residential Australian smart meter customers (draft in preparation)
+
 ---
 
 
@@ -132,13 +136,11 @@ class: top left
 # Graphing distribution summary
 
 
-.left-column[
-- several ways to summarize a distribution
-]
-
-.right-column[
 &lt;img src="figs/allplots.png" width="4453" style="display: block; margin: auto;" /&gt;
-]
+
+
+**_several ways to summarize a distribution_**
+
 
 
 ---
@@ -354,9 +356,19 @@ Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Norma
 
 ---
 
-# Project 2: Normalization 
+# Project 2: Normalization approach (Permutation)
 
-### Permutation approach
+&lt;img src="figure/permutation-test-1.svg" style="display: block; margin: auto;" /&gt;
+.smaller[
+.smaller[
+- `\(wpd_{orig}\)` : `\(wpd\)` computed for original data
+- `\(wpd_{perm_i}\)`: `\(wpd\)` computed for `\(i^{th}\)` permutation of data
+- Repeated for many (200) permutations
+- `\(wpd_{norm} =  \frac{(wpd_{orig} - \bar{wpd_{perm}})}{\sigma(wpd_{perm})}\)`
+]
+]
+---
+# Project 2: Normalization results (Permutation)
 
 &lt;img src="figure/perm-dist-1.svg" width="90%" style="display: block; margin: auto;" /&gt;
 
@@ -538,7 +550,12 @@ harmonies &lt;- elec %&gt;% harmony(ugran = "month",
 ]
 ]
 .right-column[
-&lt;img src="figure/heatplot-new-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="figs/heatplot.png" width="4799" style="display: block; margin: auto;" /&gt;
+
+
+
+
+
 ]
 ---
 class: top left

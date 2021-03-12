@@ -268,6 +268,113 @@ ggpubr::ggarrange(p_null, p_varf,  p_varx, p_varall, nrow = 2, ncol = 2,
                   common.legend = TRUE,
                   labels = c("a", "b", "c", "d"))
 
+## ----permutation-test
+
+theme_permutation <- function(){
+  theme(
+    axis.text = element_text(size = 24),
+    strip.text = element_text(size = 24,
+                              margin = margin()),
+    axis.title = element_text(size = 24),
+    legend.title = element_text(size = 24),
+    legend.text = element_text(size = 24),
+    legend.position = "bottom",
+    plot.title =  element_text(size = 24)
+  ) +
+  #geom_point(size = 2, alpha = 0.7) +
+  theme_classic() +
+    theme(panel.spacing =unit(0, "lines"),
+          panel.border = element_rect(color = "black", fill = NA, size = 1), 
+          strip.background = element_rect(color = "black", size = 1),
+          legend.position = "none",
+          axis.text.y=element_blank(),
+          axis.ticks.y=element_blank(),
+          plot.title = element_text(hjust = 0.5)) 
+}
+
+set.seed(123)
+sim_panel_null <- sim_panel(
+  nx = 2,
+  nfacet = 3,
+  ntimes = 10,
+  sim_dist = distributional
+  ::dist_normal(5, 10)
+) %>% unnest(c(data)) %>% 
+  mutate(colour = paste(id_facet, id_x, sep = "-"))
+
+sim_obs <- sim_panel_null %>% 
+  ggplot(aes(x = as.factor(id_x),
+             y = sim_data, color = as.factor(colour))) + 
+           facet_wrap(~id_facet) +
+  geom_point(size = 2, alpha = 0.7) + 
+  xlab("") +
+  ylab("") +
+  #scale_color_manual(values = c("#0072B2", "#D55E00")) +
+  scale_color_viridis_d() +
+  theme_remark() +
+      theme_permutation() +
+  ggtitle("original")
+
+  
+sim_panel_null$colour <- sample(sim_panel_null$colour)
+
+sim_perm <- sim_panel_null %>% 
+  ggplot(aes(x = as.factor(id_x),
+             y = sim_data, color = colour)) + 
+  facet_wrap(~id_facet) +
+  geom_point(size = 2, alpha = 0.7) + 
+  xlab("") +
+  ylab("") +
+  #scale_color_manual(values = c("#0072B2", "#D55E00")) +
+  scale_color_viridis_d() +
+theme_remark() +
+  theme_permutation() +
+  ggtitle("perm id: 1")
+
+sim_panel_null$colour <- sample(sim_panel_null$colour)
+
+sim_perm1 <- sim_panel_null %>% 
+  ggplot(aes(x = as.factor(id_x),
+             y = sim_data, color = colour)) + 
+  facet_wrap(~id_facet) +
+  geom_point(size = 2, alpha = 0.7) + 
+  xlab("") +
+  ylab("") +
+  #scale_color_manual(values = c("#0072B2", "#D55E00")) +
+  scale_color_viridis_d() +
+  theme_remark() +
+  theme_permutation()+
+  ggtitle("perm id: 2")
+  
+
+sim_panel_null$colour <- sample(sim_panel_null$colour)
+
+sim_perm2 <- sim_panel_null %>% 
+  ggplot(aes(x = as.factor(id_x),
+             y = sim_data, color = colour)) + 
+  facet_wrap(~id_facet) +
+  geom_point(size = 2, alpha = 0.7) + 
+  xlab("") +
+  ylab("") +
+  #scale_color_manual(values = c("#0072B2", "#D55E00")) +
+  scale_color_viridis_d() +
+  theme_remark() +
+  theme_permutation()+
+  ggtitle("perm id: 199")
+
+
+sim_ob2 <- sim_obs +
+  #scale_color_manual(values = c("#D55E00", "#0072B2")) +
+  scale_color_viridis_d(direction = -1) +
+  theme_remark() +
+  theme_permutation()+
+  ggtitle("perm id: 200")
+
+sim_final <- sim_obs  + (sim_perm + sim_perm1)/ (sim_perm2 + sim_ob2)
+
+sim_final
+
+
 ##----raw-dist
 
 G21 <- read_rds("simulations/raw/all_data_wpd_Gamma21.rds")
@@ -604,9 +711,15 @@ elec_zoom <-  elec %>%
   theme_grey() + 
   ylab("linear energy demand (kwh) for Sep-19") + ggtitle("")
 
-heatplot +  facet_grid(id~.) + elec_zoom +
+p <- heatplot +  facet_grid(id~.) + elec_zoom +
   theme( plot.margin = unit(c(0, 0, 0, 0), "cm")) +
   plot_layout(widths = c(1, 2)) 
+
+
+ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 300, height = 25, unit = "cm")
+
+##---heatplot-call
+knitr::include_graphics("figs/heatplot.png")
 
 ##----gravitas-plot
 id1_tsibble <- elec %>%
@@ -670,3 +783,5 @@ p4 <- id1_tsibble %>%
 
 (p1 + p4)/(p2 + p3) + theme_minimal()
 
+## ---- theme
+knitr::include_graphics("figs/theme.png")

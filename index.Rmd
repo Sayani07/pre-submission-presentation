@@ -85,6 +85,7 @@ library(xaringanthemer)
 <br>
 
 ---
+# Characteristics of electricity demand across time
 
 ```{r load-elecnew, message = FALSE, warning=FALSE}
 ```
@@ -108,21 +109,24 @@ class:top, center
 
 # Thematic diagram
 
-```{r load-theme}
+```{r theme}
 ```
 
 
+???
+
+thisd is mynotes 
 ---
 
 class:left, top
 
-#  Projects 
+#  Papers
 
-.larger[
-- Visualizing probability distributions across bivariate cyclic temporal granularities <br><br>
-- A new metric for automatic discovery of periodic patterns in time series <br><br>
-- Clustering of residential Australian smart meter customers
-]
+
+- Visualizing probability distributions across bivariate cyclic temporal granularities (submitted to JCGS in September, 2020) <br><br>
+- A new metric for automatic discovery of periodic patterns in time series <br><br> (draft prepared and incorporating comments from supervisors)
+- Clustering of residential Australian smart meter customers (draft in preparation)
+
 ---
 
 
@@ -171,14 +175,12 @@ class: top left
 # Graphing distribution summary
 
 
-.left-column[
-- several ways to summarize a distribution
-]
-
-.right-column[
 ```{r allplots}
 ```
-]
+
+
+**_several ways to summarize a distribution_**
+
 
 
 ---
@@ -406,9 +408,21 @@ $wpd$ values are meant to be different only when there is difference between dif
 
 ---
 
-# Project 2: Normalization 
+# Project 2: Normalization approach (Permutation)
 
-### Permutation approach
+```{r permutation-test, fig.height=5}
+
+```
+.smaller[
+.smaller[
+- $wpd_{orig}$ : $wpd$ computed for original data
+- $wpd_{perm_i}$: $wpd$ computed for $i^{th}$ permutation of data
+- Repeated for many (200) permutations
+- $wpd_{norm} =  \frac{(wpd_{orig} - \bar{wpd_{perm}})}{\sigma(wpd_{perm})}$
+]
+]
+---
+# Project 2: Normalization results (Permutation)
 
 ```{r perm-dist, out.width="90%"}
 
@@ -580,6 +594,12 @@ harmonies <- elec %>% harmony(ugran = "month",
 ```{r heatplot-new, fig.height=10}
 
 ```
+
+
+```{r heatplot-call}
+```
+
+
 ]
 ---
 class: top left
