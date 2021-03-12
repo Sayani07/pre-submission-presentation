@@ -27,6 +27,7 @@ preamble: >
   \usepackage{amsmath, mathtools,amssymb, booktabs,amsthm,todonotes,colortbl}
   \usepackage{algorithm}
   \usepackage{algorithmicx}
+  \usetheme{Copenhagen}
 ---
 
 
@@ -396,18 +397,6 @@ $wpd$ values are meant to be different only when there is difference between dif
 
 ---
 
-# Project 2: Normalization 
-
-### Gamma generalized linear model with inverse link
-
-```{r glm, out.width="90%"}
-
-```
-
-**_Distributions look similar for higher levels_**
-
----
-
 # Project 2: Normalization approach (Permutation)
 
 ```{r permutation-test, fig.height=5}
@@ -419,10 +408,14 @@ $wpd$ values are meant to be different only when there is difference between dif
 - $wpd_{perm_i}$: $wpd$ computed for $i^{th}$ permutation of data
 - Repeated for many (200) permutations
 - $wpd_{norm} =  \frac{(wpd_{orig} - \bar{wpd_{perm}})}{\sigma(wpd_{perm})}$
+**_Computationally expensive_**
+
 ]
 ]
+
+
 ---
-# Project 2: Normalization results (Permutation)
+# Project 2: Simulation results (Permutation)
 
 ```{r perm-dist, out.width="90%"}
 
@@ -431,10 +424,50 @@ $wpd$ values are meant to be different only when there is difference between dif
 .smaller[
 **_Location and scale of distributions look similar for different comparisons_**
 ]
+---
+# Project 2: Normalization approach (GLM)
+
+.pull-left[
+
+.smaller[
+$y = a+b*log(z) + \epsilon \quad \epsilon \sim IID$
+]
+
+.smaller[
+.smaller[
+- Response: $y = median(wpd)$
+- Linear predictor: $z = log(nx*nfacet)$
+- Distribution: Gamma
+- Link function (g): inverse
+- $E(y) = \mu$  
+- $g(\mu)=  1/\mu$  
+- $\hat \mu  = 1/(\hat a + \hat b log(z))$
+- Residuals: $y - \frac{1}{\hat a + \hat b*log(z)}$
+- $wpd_{norm} = Residuals$
+]
+]
+]
+
+.pull-right[
+
+```{r glm2, out.width="100%"}
+```
+
+]
+
+**_ The normalized measure is chosen as residuals to make it independent of the linear predictor_**
+
+---
+# Project 2: Simulation results (GLM)
+
+```{r glm-dist, out.width="90%"}
+
+```
+
+**_Locations of distributions for different comparison look similar for higher levels, but not scale_**
 
 ---
 # Project 2: Combination approach for different comparisons
-
 
 ```{r same-scale, out.width="90%"}
 ```

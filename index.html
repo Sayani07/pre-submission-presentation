@@ -346,16 +346,6 @@ Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Norma
 
 ---
 
-# Project 2: Normalization 
-
-### Gamma generalized linear model with inverse link
-
-&lt;img src="figure/glm-1.svg" width="90%" style="display: block; margin: auto;" /&gt;
-
-**_Distributions look similar for higher levels_**
-
----
-
 # Project 2: Normalization approach (Permutation)
 
 &lt;img src="figure/permutation-test-1.svg" style="display: block; margin: auto;" /&gt;
@@ -365,20 +355,61 @@ Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Norma
 - `\(wpd_{perm_i}\)`: `\(wpd\)` computed for `\(i^{th}\)` permutation of data
 - Repeated for many (200) permutations
 - `\(wpd_{norm} =  \frac{(wpd_{orig} - \bar{wpd_{perm}})}{\sigma(wpd_{perm})}\)`
+**_Computationally expensive_**
+
 ]
 ]
+
+
 ---
-# Project 2: Normalization results (Permutation)
+# Project 2: Simulation results (Permutation)
 
 &lt;img src="figure/perm-dist-1.svg" width="90%" style="display: block; margin: auto;" /&gt;
 
 .smaller[
 **_Location and scale of distributions look similar for different comparisons_**
 ]
+---
+# Project 2: Normalization approach (GLM)
+
+.pull-left[
+
+.smaller[
+`\(y = a+b*log(z) + \epsilon \quad \epsilon \sim IID\)`
+]
+
+.smaller[
+.smaller[
+- Response: `\(y = median(wpd)\)`
+- Linear predictor: `\(z = log(nx*nfacet)\)`
+- Distribution: Gamma
+- Link function (g): inverse
+- `\(E(y) = \mu\)`  
+- `\(g(\mu)=  1/\mu\)`  
+- `\(\hat \mu  = 1/(\hat a + \hat b log(z))\)`
+- Residuals: `\(y - \frac{1}{\hat a + \hat b*log(z)}\)`
+- `\(wpd_{norm} = Residuals\)`
+]
+]
+]
+
+.pull-right[
+
+&lt;img src="figure/glm2-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+**_ The normalized measure is chosen as residuals to make it independent of the linear predictor_**
+
+---
+# Project 2: Simulation results (GLM)
+
+&lt;img src="figure/glm-dist-1.svg" width="90%" style="display: block; margin: auto;" /&gt;
+
+**_Locations of distributions for different comparison look similar for higher levels, but not scale_**
 
 ---
 # Project 2: Combination approach for different comparisons
-
 
 &lt;img src="figure/same-scale-1.svg" width="90%" style="display: block; margin: auto;" /&gt;
 

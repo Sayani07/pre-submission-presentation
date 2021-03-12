@@ -389,7 +389,7 @@ G21_dist <- G21 %>%
 
 G21_rel <- G21 %>% 
   ggplot(aes(x=nx*nfacet, y = value)) +
-  geom_point(alpha = 0.5, size = 0.5) + stat_summary(fun=median, geom="line", aes(group=1), color = "blue") + xlab("nx*nfacet") + ylab("wpd")
+  geom_point(alpha = 0.5, size = 0.5) + stat_summary(fun=median, geom="line", aes(group=1), color = "blue") + xlab("nx*nfacet") + ylab("wpd") + theme_remark()
 
 library(patchwork)
 #G21_rel +
@@ -406,7 +406,7 @@ G21_norm %>%
   scale_x_continuous(breaks = scales::breaks_extended(3)) + 
   xlab("wpd normalised using permutation approach")
 
-##----glm
+##----glm2
 G21 <- read_rds("simulations/raw/all_data_wpd_N01.rds")
 
 G21_median <- G21 %>% 
@@ -439,8 +439,8 @@ G21_residual <- G21 %>%
              )
   )
   ) +
-  geom_point(alpha = 0.5, size = 0.5) + stat_summary(fun=mean, geom="line", aes(group=1), color = "blue") + 
-  ylab("wpd_glm = wpd - 1/(intercept  + slope*log(nx*nfacet))") + ggtitle("Residual plot")
+  geom_point(alpha = 1, size = 1) + stat_summary(fun=mean, geom="line", aes(group=1), color = "blue") + 
+  ylab("residuals") + ggtitle("Residual plot")
 
 
 G21_glm <- G21 %>% 
@@ -460,8 +460,21 @@ G21_dist <- G21_glm %>%
   theme(legend.position = "bottom") 
 
 
-G21_residual  + 
-  G21_dist +  plot_layout(widths = c(1,2))
+G21_residual + 
+  theme(
+    axis.text = element_text(size = 32),
+    strip.text = element_text(size = 32,
+                              margin = margin()),
+    axis.title = element_text(size = 32),
+    legend.title = element_text(size = 32),
+    legend.text = element_text(size = 32),
+    legend.position = "bottom",
+    plot.title =  element_text(size = 32)
+  ) + 
+  theme(plot.title = element_text(hjust = 0.5))
+
+##----glm-dist
+G21_dist
 ##----allplots
 
 knitr::include_graphics("figs/allplots.png")
