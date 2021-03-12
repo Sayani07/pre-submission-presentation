@@ -124,7 +124,7 @@ class:left, top
 #  Papers
 
 - Visualizing probability distributions across bivariate cyclic temporal granularities (submitted to JCGS in September, 2020) <br><br>
-- A new metric for automatic discovery of periodic patterns in time series <br><br> (draft prepared and incorporating comments from supervisors)
+- A new metric for automatic discovery of periodic patterns in time series (draft prepared and incorporating comments from supervisors) <br><br>
 - Clustering of residential Australian smart meter customers (draft in preparation)
 
 ---
