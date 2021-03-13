@@ -798,3 +798,6 @@ p4 <- id1_tsibble %>%
 
 ## ---- theme
 knitr::include_graphics("figs/theme.png")
+
+## ---- motivation
+knitr::include_graphics("figs/motivation.png")

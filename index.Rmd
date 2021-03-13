@@ -68,22 +68,11 @@ library(xaringanthemer)
 
 ```
 
-# Motivation: Electricity smart meter data
+# Motivation: Electricity smart meter data 
 
-### Electricity smart meter technology <br> (~ 0.3 billion half hourly observations)
+```{r motivation}
 
-- Source: Department of the Environment and Energy, Australia
-<br>
-<br>
-- Frequency:  Half hourly (interval meter reading (Kwh))
-<br>
-<br>
-- Time Span: 2012 to 2014
-<br>
-<br>
-- Spread: 14K (approx.) households based in Newcastle, New South Wales, and parts of Sydney
-<br>
-<br>
+```
 
 ---
 # Characteristics of electricity demand across time
@@ -512,7 +501,7 @@ of times $M$ (M = 200)
 ]
 ---
 
-# Application
+# Application to Melbourne households
 .left-column[
 ## Melbourne households example
 .checked[
