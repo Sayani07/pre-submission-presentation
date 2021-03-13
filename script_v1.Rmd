@@ -43,7 +43,7 @@ So my research question is how can I systematically explore large quantities of 
 
 ## Slide 9
 
-Now, I have broken down the research aim into three objectives each of which will form the main chapters in my thesis. I will discuss the work done for the first chapter in details and briefly discuss about the next two chapters.
+ 
 
 
 <!-- The first one is to develop methods to visualize probability distributions over different time granularities. This approach helps in comprehending periodic behavior of one or few households from multiple perspectives. However, when we have large number of households to analyze, we need to move on to clustering these households to explore similar pockets of behavior and then characterize their patterns or irregularities through visualization. In the third chapter, I want to study the Australian smart data thoroughly and provide a preliminary exploratory visualization and summarisation to characterize this data which could be a foundation for any future work with the same data. Further, employ cluster analysis to obtain households showing similar periodic behavior and combine the findings with external data like weather conditions, socio-economic or other demographic factors of those households. Lastly, since earlier studies mostly focussed on clustering raw data across linear time scales we compare how this method compare to clustering probability distributions across periodic scales. -->

@@ -75,21 +75,26 @@ library(xaringanthemer)
 ```
 
 ---
-# Characteristics of electricity demand across time
+# Time series of electricity demand for different households
 
 ```{r load-elecnew, message = FALSE, warning=FALSE}
 ```
 
-```{r elec-rawnew}
+```{r elec-rawnew, out.width="90%"}
 
 ```
 
-.smaller[
-.smaller[
-missing observations, unequal length, different start and end date
-, no behavioral pattern visible in the squeezed linear representation, many households
+
+.center[
+.card[.smaller[fine time resolutions]]
+.card[.smaller[many measurements]]
+.card[.smaller[no behavior visible in the squeezed linear view]]  
+.card[.smaller[many households]]
+.card[.smaller[unequal length]]
+.card[.smaller[different start and end date]]
+.card[.smaller[missing observations]]
 ]
-]
+
 
 
 

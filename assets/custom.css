@@ -4,6 +4,18 @@
 
 .larger {font-size: 120%}
 
+.card {
+  display: inline-block;
+  background: #0277bd;
+  box-shadow: 0 2px 4px 0 #00000033;
+  transition: all 0.2s ease-out;
+  margin: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 22px;
+  padding: 5px;
+  color: white;
+}
 
 body {
   font-family: 'Assistant', sans-serif;
