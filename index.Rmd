@@ -112,7 +112,7 @@ class:left, top
 
 #  Papers
 
-- Visualizing probability distributions across bivariate cyclic temporal granularities (submitted to JCGS in September, 2020) <br><br>
+- Visualizing probability distributions across bivariate cyclic temporal granularities (tentatively accepted in JCGS in March, 2021) <br><br>
 - A new metric for automatic discovery of periodic patterns in time series (draft prepared and incorporating comments from supervisors) <br><br>
 - Clustering of residential Australian smart meter customers (draft in preparation)
 
@@ -594,46 +594,20 @@ harmonies <- elec %>% harmony(ugran = "month",
 ```
 ]
 ---
-#  Melbourne households example
-.left-column[
-.checked[
-* data structure
-* search granularities `search_gran()`
-* set of harmonies `harmony()`
-* select and rank harmonies `select_harmonies()`
-* validate one household
-]
-]
-.right-column[
+#  Melbourne households example: validate one household
+
 ```{r gravitas-plot, fig.height=8}
 
 ```
-]
 
 ---
-#  Melbourne households example
+#  Melbourne households example: Compare households
 
-.left-column[
-.checked[
-* data structure
-* search granularities `search_gran()`
-* set of harmonies `harmony()`
-* select and rank harmonies `select_harmonies()`
-* validate one household
-* compare households
-]
-]
-.right-column[
-```{r heatplot-new, fig.height=10}
+
+```{r heatplot-call2, out.height="70%"}
 
 ```
 
-
-```{r heatplot-call}
-```
-
-
-]
 ---
 class: top left
 

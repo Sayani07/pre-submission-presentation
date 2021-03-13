@@ -724,14 +724,13 @@ elec_zoom <-  elec %>%
              labeller = "label_both") + 
   xlab("Time [30m]") + 
   theme_grey() + 
-  ylab("linear energy demand (kwh) for Sep-19") + ggtitle("")
+  ylab("") + ggtitle("")
 
 p <- heatplot +  facet_grid(id~.) + elec_zoom +
   theme( plot.margin = unit(c(0, 0, 0, 0), "cm")) +
   plot_layout(widths = c(1, 2)) 
 
-
-ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 300, height = 20, unit = "cm")
+p
 
 # ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 700, height = 25, unit = "cm")
 # 
@@ -739,9 +738,10 @@ ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 300, height = 20, unit =
 
 # ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 300, height = 25, unit = "cm")
 
-knitr::include_graphics("figs/eleclinear8.tiff")
+#knitr::include_graphics("figs/eleclinear8.tiff")
 
 ##----heatplot-call2
+ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 300, height = 20, unit = "cm")
 knitr::include_graphics("figs/heatplot.png")
 
 ##----gravitas-plot
@@ -753,8 +753,8 @@ p1 <- id1_tsibble %>%
             "wknd_wday",
             response = "kwh",
             plot_type = "quantile",
-            symmetric = FALSE,
-            quantile_prob = c(0.25, 0.5, 0.75)) +
+            symmetric = TRUE,
+            quantile_prob = c(0.01, 0.1, 0.25, 0.5, 0.75, 0.9, 0.99)) +
   ggtitle("a) hod vs wdwnd (Rank 1)") + 
   scale_colour_brewer(name = "", palette = "Set2") +
   theme(legend.position = "none",
@@ -804,7 +804,8 @@ p4 <- id1_tsibble %>%
   ggtitle("b) dom vs hod (Rank 2)") +
   scale_x_discrete(breaks = seq(0, 31, 5))
 
-(p1 + p4)/(p2 + p3) + theme_minimal()
+(p1 + p4)/(p2 + p3) + theme_classic() 
+  
 
 ## ---- theme
 knitr::include_graphics("figs/theme.png")
