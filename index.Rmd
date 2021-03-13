@@ -475,27 +475,31 @@ $y = a+b*log(z) + \epsilon \quad \epsilon \sim IID$
 
 # Project 2: Choosing a threshold and significant harmonies
 
+
+
+```{r, out.width="70%"}
+knitr::include_graphics("figs/threshold.png")
+```
+
 .smaller[
 .smaller[
 
-1. 1) Fix harmony pair $(A, B)$.
+.pull-left[
+**Threshold**  
+- $wpd_{threshold}$ = $99^{th}$ percentile of $wpd_{perm}$  
+.smaller[
+where, $wpd_{perm}=\{w_{1,perm_{1}},w_{1,perm_{2}},\dots, w_{N, permM}\}$
+]
+]
+.pull-right[
+**Selection criterion**    
 
-2. 2) Given the data; $\{v_t: t=0, 1, 2, \dots, T-1\}$, the $wpd_{norm}$ is computed and is represented by $wpd_{obs}$.
-
-3. 3) From the original sequence a random permutation is obtained: $\{v_t^*: t=0, 1, 2, \dots, T-1\}$
-
-4. 4) $wpd_{norm}$ is computed for the permuted sequence of the data and is represented by $wpd_{perm_1}$
-
-5. 5) Steps (3) and (4) are repeated a large number
-of times $M$ (M = 200)
-
-6. 6) For each permutation, one $wpd_{perm_i}$ is obtained.   Define $wpd_{sample} = \{wpd_{perm_1}, wpd_{perm_2}, \dots, wpd_{perm_M}\}$
-
-7. 7) Repeat Steps (1-6) for all harmony pairs $(A, B) \in H_{N_C}$ and store it in $wpd^{all}_{sample}$
-
-8. 8) $99^{th}$ percentiles of $wpd^{all}_{sample}$ is computed and stored in $wpd_{threshold99}$
-
-9. 9) If $wpd_{obs_{A, B}} > wpd_{threshold99}$, harmony pair $(A, B)$ is selected with a 99% level of significance and otherwise rejected
+**<span style="color:black"> for** $(i \in {1, 2, \dots, N})$  
+**<span style="color:black">if** $w_i > wpd_{threshold}$ _select_  
+**<span style="color:black"> else**  _reject_  
+]  
+  
+- The threshold is defined for 99% but can be extended to define for 95% and 90% significance levels by choosing appropriate percentiles 
 
 ]
 ]

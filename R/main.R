@@ -577,7 +577,7 @@ elec_linear <- elec %>%
   geom_line(aes(x = date_time, y = kwh),alpha = 0.7) +
   facet_wrap(~id, nrow = 8, labeller = "label_both",
              strip.position =  "right",
-             scales = "free_y") + ggtitle("a")
+             scales = "free_y") + ggtitle("Jun-19 to Dec-19 demand") + ylab("Demand (kwh)")
 
 elec_zoom <-  elec %>%
   as_tibble() %>% 
@@ -588,9 +588,11 @@ elec_zoom <-  elec %>%
              scales = "free_y",
              ncol = 1,
              strip.position =  "right") +
-  gghighlight(date > as.Date("2019-09-15") & date < (as.Date("2019-09-21")), unhighlighted_params = list(colour = "black")) + ggtitle("b")
+  gghighlight(date > as.Date("2019-09-15") & date < (as.Date("2019-09-21")), unhighlighted_params = list(colour = "black")) + ggtitle("Zoomed in for Sep-19") + ylab("Demand (kwh)")
 
-elec_linear + elec_zoom
+p <- elec_linear + elec_zoom
+
+p
 
 ##----search-gran
 
@@ -729,9 +731,17 @@ p <- heatplot +  facet_grid(id~.) + elec_zoom +
   plot_layout(widths = c(1, 2)) 
 
 
-ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 300, height = 25, unit = "cm")
+ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 300, height = 20, unit = "cm")
 
-##---heatplot-call
+# ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 700, height = 25, unit = "cm")
+# 
+# ggsave("eleclinear8.tiff", p, units = "in",  path = "./figs/", width = 5,  device = "tiff", dpi = 700)
+
+# ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 300, height = 25, unit = "cm")
+
+knitr::include_graphics("figs/eleclinear8.tiff")
+
+##----heatplot-call2
 knitr::include_graphics("figs/heatplot.png")
 
 ##----gravitas-plot

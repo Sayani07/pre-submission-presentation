@@ -414,33 +414,35 @@ Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Norma
 
 # Project 2: Choosing a threshold and significant harmonies
 
+
+
+&lt;img src="figs/threshold.png" width="70%" style="display: block; margin: auto;" /&gt;
+
 .smaller[
 .smaller[
 
-1. 1) Fix harmony pair `\((A, B)\)`.
+.pull-left[
+**Threshold**  
+- `\(wpd_{threshold}\)` = `\(99^{th}\)` percentile of `\(wpd_{perm}\)`  
+.smaller[
+where, `\(wpd_{perm}=\{w_{1,perm_{1}},w_{1,perm_{2}},\dots, w_{N, permM}\}\)`
+]
+]
+.pull-right[
+**Selection criterion**    
 
-2. 2) Given the data; `\(\{v_t: t=0, 1, 2, \dots, T-1\}\)`, the `\(wpd_{norm}\)` is computed and is represented by `\(wpd_{obs}\)`.
-
-3. 3) From the original sequence a random permutation is obtained: `\(\{v_t^*: t=0, 1, 2, \dots, T-1\}\)`
-
-4. 4) `\(wpd_{norm}\)` is computed for the permuted sequence of the data and is represented by `\(wpd_{perm_1}\)`
-
-5. 5) Steps (3) and (4) are repeated a large number
-of times `\(M\)` (M = 200)
-
-6. 6) For each permutation, one `\(wpd_{perm_i}\)` is obtained.   Define `\(wpd_{sample} = \{wpd_{perm_1}, wpd_{perm_2}, \dots, wpd_{perm_M}\}\)`
-
-7. 7) Repeat Steps (1-6) for all harmony pairs `\((A, B) \in H_{N_C}\)` and store it in `\(wpd^{all}_{sample}\)`
-
-8. 8) `\(99^{th}\)` percentiles of `\(wpd^{all}_{sample}\)` is computed and stored in `\(wpd_{threshold99}\)`
-
-9. 9) If `\(wpd_{obs_{A, B}} &gt; wpd_{threshold99}\)`, harmony pair `\((A, B)\)` is selected with a 99% level of significance and otherwise rejected
+**&lt;span style="color:black"&gt; for** `\((i \in {1, 2, \dots, N})\)`  
+**&lt;span style="color:black"&gt;if** `\(w_i &gt; wpd_{threshold}\)` _select_  
+**&lt;span style="color:black"&gt; else**  _reject_  
+]  
+  
+- The threshold is defined for 99% but can be extended to define for 95% and 90% significance levels by choosing appropriate percentiles 
 
 ]
 ]
 ---
 
-# Application
+# Application to Melbourne households
 .left-column[
 ## Melbourne households example
 .checked[
@@ -575,7 +577,7 @@ harmonies &lt;- elec %&gt;% harmony(ugran = "month",
 ]
 ]
 .right-column[
-&lt;img src="figs/heatplot.png" width="4799" style="display: block; margin: auto;" /&gt;
+&lt;img src="figs/eleclinear8.tiff" style="display: block; margin: auto;" /&gt;
 
 
 
