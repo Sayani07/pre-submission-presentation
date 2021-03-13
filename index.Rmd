@@ -68,11 +68,11 @@ library(xaringanthemer)
 
 ```
 
-# Motivation: Electricity smart meter data 
 
-```{r motivation}
+background-image: url("figs/motivation2.png")
 
-```
+background-position: center
+background-size: contain
 
 ---
 # Time series of electricity demand for different households
@@ -586,19 +586,15 @@ class: top left
 - cluster validation through simulations and relating to external data like census and geography [Australian Bureau of Statistics](https://www.abs.gov.au/websitedbs/censushome.nsf/home/tablebuilder) along with weather from [Bureau of Meteorology](www.bom.gov.au)
 
 ---
-# Project 3: Preliminary exploration
+# Project 3: Preliminary exploration (Missingness)
 
-.smaller[
-_Getting to know the SGSC dataset using missingness/ number of observations/number of customers and their related information_
-]
 
 ```{r elec-gaps, warning=FALSE}
 ```
 
-```{r count-gaps, out.width="80%"}
+```{r count-gaps, out.width="90%"}
 
 ```
-
 .smaller[
 .smaller[
 **_The missing data pattern for 100 households are shown. It looks like most missingness happens before 2013 and for a particular data in 2014._**
@@ -607,7 +603,7 @@ _Getting to know the SGSC dataset using missingness/ number of observations/numb
 .smaller[
 .smaller[
 .smaller[
-Wang, Earo, Dianne Cook, and Rob J. Hyndman. 2020. “A New Tidy Data Structure to Support Exploration and Modeling of Temporal Data.” Journal of Computational and Graphical Statistics
+_Wang, Earo, Dianne Cook, and Rob J. Hyndman. 2020. “A New Tidy Data Structure to Support Exploration and Modeling of Temporal Data.” Journal of Computational and Graphical Statistics_
 ]
 ]
 ]
@@ -673,6 +669,15 @@ Paper submitted to Journal of Computational and Graphical Statistics (JCGS)
 
 .right-column[
 .timeline.timeline-left.purple-flirt.timeline-with-arrows[
+
+.timeline-block[
+.arrow-right[
+.timeline-content[
+Paper tentatively accepted
+.timeline-date[
+2021/03
+]]]]
+
 
 .timeline-block[
 .arrow-right[

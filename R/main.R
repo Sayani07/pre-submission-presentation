@@ -813,4 +813,4 @@ p4 <- id1_tsibble %>%
 knitr::include_graphics("figs/theme-roadmap2.png")
 
 ## ---- motivation
-knitr::include_graphics("figs/motivation.png")
+knitr::include_graphics("figs/motivation2.png")
