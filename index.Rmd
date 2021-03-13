@@ -507,7 +507,7 @@ where, $wpd_{perm}=\{w_{1,perm_{1}},w_{1,perm_{2}},\dots, w_{N, permM}\}$
 
 # Melbourne households example: show me the data
 
-```{r linear-scale-8new}
+```{r heatplot-call3}
 ```
 
 
@@ -560,10 +560,6 @@ elec %>%
 ---
 #  Melbourne households example: compare households
 
-
-```{r heatplot-call3}
-
-```
 
 ---
 class: top left
