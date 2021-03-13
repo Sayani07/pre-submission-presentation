@@ -99,7 +99,7 @@ class:top, center
 
 # Thematic diagram
 
-```{r theme}
+```{r theme, out.width="80%"}
 ```
 
 
@@ -505,31 +505,15 @@ where, $wpd_{perm}=\{w_{1,perm_{1}},w_{1,perm_{2}},\dots, w_{N, permM}\}$
 ]
 ---
 
-# Application to Melbourne households
-.left-column[
-## Melbourne households example
-.checked[
-* Show me the data
-]
-]
+# Melbourne households example: show me the data
 
-.right-column[
 ```{r linear-scale-8new}
 ```
-]
+
 
 ---
-#  Melbourne households example
+#  Melbourne households example: systematic search
 
-<!-- SLIDE 9 -->
-.left-column[
-.checked[
-* Show me the data
-* search granularities `search_gran()`
-]
-]
-
-.right-column[
 ```r
 elec %>% 
 *  search_gran(lowest_unit = "hour",
@@ -541,57 +525,30 @@ elec %>%
 ```{r search-gran}
 
 ```
+<br>
 
-<br>
-<br>
-.smaller[
-- There are $$^{7} P_2 = 42$$ pair of granularities to look at looking at two at a time.
+- There are $^{7} P_2 = 42$ pair of granularities to look at looking at two at a time.
 - 42 visualizations to interpret?
 
-]
-]
 ---
-#  Melbourne households example
-
-.left-column[
-
-.checked[
-* data structure
-* search granularities `search_gran()`
-* set of harmonies `harmony()`
-]
-]
-.right-column[
-```r
-harmonies <- elec %>% harmony(ugran = "month",
-                 filter_in = "wknd_wday",
-                 filter_out = c("hhour", "fortnight")
-  )
-```
+#  Melbourne households example: harmonies
 
 ```{r harmony}
 ```
 
 .smaller[
-- only 14 out 42 are harmonies <br>
+- only 14 out of 42 are harmonies <br>
 - plotting other 28 pairs lead to empty combinations
 ]
-]
+
 ---
-#  Melbourne households example
+#  Melbourne households example: significant harmonies
 
-.left-column[
-.checked[
-* data structure
-* search granularities `search_gran()`
-* set of harmonies `harmony()`
-* select and rank harmonies `select_harmonies()`
-]
-]
-
-.right-column[
-```{r rank-table, out.width="90%"}
+```{r rank-table, out.width="60%"}
 ```
+.smaller[
+- Only 2 or 3 harmony pairs out of 14 are significant for any household 
+- Significant pairs differ across households
 ]
 ---
 #  Melbourne households example: validate one household
@@ -601,10 +558,10 @@ harmonies <- elec %>% harmony(ugran = "month",
 ```
 
 ---
-#  Melbourne households example: Compare households
+#  Melbourne households example: compare households
 
 
-```{r heatplot-call2, out.height="70%"}
+```{r heatplot-call3}
 
 ```
 

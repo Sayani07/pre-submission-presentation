@@ -740,8 +740,9 @@ p
 
 #knitr::include_graphics("figs/eleclinear8.tiff")
 
-##----heatplot-call2
+##----heatplot-call3
 ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 300, height = 20, unit = "cm")
+
 knitr::include_graphics("figs/heatplot.png")
 
 ##----gravitas-plot
@@ -758,7 +759,7 @@ p1 <- id1_tsibble %>%
   ggtitle("a) hod vs wdwnd (Rank 1)") + 
   scale_colour_brewer(name = "", palette = "Set2") +
   theme(legend.position = "none",
-        strip.text = element_text(size = 7, margin = margin()),)
+        strip.text = element_text(size = 7, margin = margin()))
 
 
 p2 <- id1_tsibble %>%
@@ -808,7 +809,8 @@ p4 <- id1_tsibble %>%
   
 
 ## ---- theme
-knitr::include_graphics("figs/theme.png")
+#knitr::include_graphics("figs/theme.png")
+knitr::include_graphics("figs/theme-roadmap2.png")
 
 ## ---- motivation
 knitr::include_graphics("figs/motivation.png")
