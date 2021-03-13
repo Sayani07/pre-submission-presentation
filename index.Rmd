@@ -97,7 +97,7 @@ missing observations, unequal length, different start and end date
 
 class:top, center
 
-# Thematic diagram
+# Research roadmap
 
 ```{r theme, out.width="80%"}
 ```
