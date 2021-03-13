@@ -172,7 +172,7 @@ knitr::include_graphics("figs/rank-table.png")
 knitr::include_graphics("figs/validate-household1.png")
 
 ##----algorithm1
-knitr::include_graphics("figs/algorithm1.png")
+knitr::include_graphics("figs/algorithm_revise.png")
 
 ##----example-design2
 
