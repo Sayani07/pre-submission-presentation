@@ -102,11 +102,17 @@ background-size: contain
 
 class:top, center
 
-# Research roadmap
+# Research theme and roadmap
 
+.left-column[
+- fine resolution data could be analyzed at any coarser temporal scales
+- application beyond smart meters
+- solutions to be developed for any temporal data observed more than once per year
+]
+.right-column[
 ```{r theme, out.width="80%"}
 ```
-
+]
 
 ???
 
@@ -254,9 +260,8 @@ class: top left
 - define a threshold for significance
 ]
 
-
 .right-column[
-```{r example-design2, out.width="100%"}
+```{r example-design2, out.width="90%"}
 ```
 ]
 
@@ -366,6 +371,7 @@ Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Norma
 <br>
 
 $wpd$ values are meant to be different only when there is difference between different categories and not when 
+<br>
 
 - underlying distributions are different
 (solved by using NQT)
@@ -488,7 +494,7 @@ where, $wpd_{perm}=\{w_{1,perm_{1}},w_{1,perm_{2}},\dots, w_{N, permM}\}$
 
 # Melbourne households example: show me the data
 
-```{r heatplot-call3, eval = FALSE}
+```{r linear-scale-8new}
 ```
 
 
@@ -532,15 +538,20 @@ elec %>%
 - Significant pairs differ across households
 ]
 ---
+
 #  Melbourne households example: validate one household
 
-```{r gravitas-plot, fig.height=8}
-
+```{r gravitas-new}
+knitr::include_graphics("figs/plot_final.png")
 ```
+
 
 ---
 #  Melbourne households example: compare households
 
+```{r,out.width="70%"}
+knitr::include_graphics("figs/heatplot.png")
+```
 
 ---
 class: top left

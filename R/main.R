@@ -749,12 +749,12 @@ heatplot <- elec_sig_split %>%
   geom_tile(aes(fill = wpd)) + 
   #color = as.factor(significance_95)),
   #size = 0.3) +
-  geom_text(aes(label = significance_95), color = "#42275a") +
-  scale_fill_gradient(low = "white",high = "#ba5370") +
+  geom_text(aes(label = significance_95), color = "#42275a", size = 5) +
+  scale_fill_gradient(low = "#BFD5E3",high = "#B02A0F") +
   #scale_fill_manual(palette = "Dark2") +
   #scale_colour_manual(values = c("white","red")) + 
   theme(legend.position = "bottom") +
-  coord_fixed() + 
+  #coord_fixed() + 
   guides(fill = guide_legend()) +
   theme_void() +
   theme_gray(base_size = 12, base_family = "Times") +
@@ -762,20 +762,23 @@ heatplot <- elec_sig_split %>%
         axis.text.x = element_text(angle = 60, hjust=1),legend.position = "bottom") + ggtitle("") +
   theme(
     strip.background = element_blank(),
-    strip.text.y  = element_blank(), plot.margin = unit(c(0, -2, 0, 0), "cm"))
+    strip.text.y  = element_blank(), plot.margin = unit(c(0, -2, 0, 0), "cm")) +
+  theme(panel.background= element_rect(fill = "white", colour = "grey"),
+        plot.margin=unit(c(1,-5,1,1), "cm"))
+
 
 elec <- read_rds(here("data/elec_all-8.rds")) %>% 
   dplyr::filter(date(reading_datetime) >= ymd("20190701"), date(reading_datetime) < ymd("20191231"), meter_id==1) %>% 
   select(-meter_id) %>% 
   rename("id" = "household_id",
-         "date_time" = "reading_datetime")
+         "date_time" = "reading_datetime") 
 
 elec_zoom <-  elec %>%
   as_tibble() %>% 
   dplyr::filter(date(date_time) > as.Date("2019-09-01") & date(date_time) < (as.Date("2019-09-30"))) %>%
   ggplot(aes(x=date_time, y = kwh)) +
   #geom_point(size = 0.1, colour = "black", alpha = 0.3) +
-  geom_line(size = 0.1, colour = "blue") +
+  geom_line(size = 0.4, colour = "blue") +
   facet_wrap(~id, 
              scales = "free_y",
              ncol = 1,
@@ -783,15 +786,18 @@ elec_zoom <-  elec %>%
              labeller = "label_both") + 
   xlab("Time [30m]") + 
   theme_grey() + 
-  ylab("") + ggtitle("")
+  ylab("") + ggtitle("") + theme(
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_blank(),
+    plot.margin=unit(c(1,1,1,-2), "cm"))
 
-p <- heatplot +  facet_grid(id~.) + elec_zoom +
+p <- heatplot +  facet_grid(id~.) + coord_fixed() + elec_zoom +
   theme( plot.margin = unit(c(0, 0, 0, 0), "cm")) +
   plot_layout(widths = c(1, 2)) 
 
 p
 
-# ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 700, height = 25, unit = "cm")
+ggsave("heatplot.png", p, "png", path = "./figs/", dpi= 700, height = 25, unit = "cm")
 # 
 # ggsave("eleclinear8.tiff", p, units = "in",  path = "./figs/", width = 5,  device = "tiff", dpi = 700)
 
@@ -808,17 +814,17 @@ knitr::include_graphics("figs/heatplot.png")
 id1_tsibble <- elec %>%
   filter(id== 1)
 
-p1 <- id1_tsibble %>% 
+p1  <- id1_tsibble %>% 
   prob_plot("hour_day",
             "wknd_wday",
             response = "kwh",
             plot_type = "quantile",
-            symmetric = TRUE,
-            quantile_prob = c(0.01, 0.1, 0.25, 0.5, 0.75, 0.9, 0.99)) +
+            symmetric = FALSE,
+            quantile_prob = c(0.25, 0.5, 0.75), size = 5) + 
   ggtitle("a) hod vs wdwnd (Rank 1)") + 
   scale_colour_brewer(name = "", palette = "Set2") +
   theme(legend.position = "none",
-        strip.text = element_text(size = 7, margin = margin()))
+        strip.text = element_text(size = 7, margin = margin()), panel.background = element_blank())
 
 
 p2 <- id1_tsibble %>%
@@ -864,8 +870,22 @@ p4 <- id1_tsibble %>%
   ggtitle("b) dom vs hod (Rank 2)") +
   scale_x_discrete(breaks = seq(0, 31, 5))
 
-(p1 + p4)/(p2 + p3) + theme_classic() 
+( p1 + p4)/(p2 + p3) + theme_classic() 
   
+##----gravitas-plot1
+knitr::include_graphics("figs/plot1.png")
+
+##----gravitas-plot2
+knitr::include_graphics("figs/plot2.png")
+
+
+##----gravitas-plot3
+knitr::include_graphics("figs/plot3.png")
+
+##----gravitas-plot4
+knitr::include_graphics("figs/plot4.png")
+
+
 
 ## ---- theme
 #knitr::include_graphics("figs/theme.png")
@@ -873,3 +893,234 @@ knitr::include_graphics("figs/theme-roadmap2.png")
 
 ## ---- motivation
 knitr::include_graphics("figs/motivation2.png")
+
+## ---- check
+elec <- read_rds(here("data/elec_all-8.rds")) %>% 
+dplyr::filter(date(reading_datetime) >= ymd("20190701"), date(reading_datetime) < ymd("20191231"), meter_id==1) %>% 
+  select(-meter_id) %>% 
+  rename("id" = "household_id",
+         "date_time" = "reading_datetime") 
+id1_tsibble <- elec %>%
+  filter(id == 1)
+
+id1_tsibble1 <- id1_tsibble %>% 
+  create_gran("hour_day") %>% 
+  create_gran("wknd_wday") %>% 
+  as_tibble() %>% 
+  select(hour_day, wknd_wday, kwh)
+
+#prob <- seq(0.01,0.99,by=0.1)
+#prob <- c(0.01,0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
+prob <- c(0.25, 0.5, 0.75)
+
+# id1_tsibble1 %>% 
+#   group_by(hour_day, wknd_wday) %>% 
+#   summarise()
+
+nhour = unique(id1_tsibble1$hour_day) 
+nwday = unique(id1_tsibble1$wknd_wday) 
+
+percetile_data <- lapply(seq_len(length(nhour)),
+                         function(x){
+                           lapply(seq_len(length(nwday)), function(y){
+                             data <- id1_tsibble1 %>% filter(hour_day==nhour[x], wknd_wday==nwday[y])
+                             quantile(data$kwh, prob = prob, type = 8)
+                           }) %>% bind_rows(.id = "x")
+                         }) %>% bind_rows(.id = "hod")
+
+
+all_data <- percetile_data %>% 
+  pivot_longer(-c(1:2),
+               values_to = "values", names_to= "percentiles")
+
+all_data$hod = as_factor(all_data$hod)
+all_data$x = as_factor(all_data$x)
+
+levels(all_data$x) = c("weekday", "weekend")
+
+
+p1 <- all_data %>% 
+  ggplot(aes(x = x, y = values, colour = percentiles, group = percentiles))+
+  geom_line(size = 1) +
+  theme(legend.position = "none",
+        panel.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 10, margin = margin(b = 0, t = 0)),
+        panel.grid.major = element_blank()) +
+  scale_color_viridis_d(direction = -1) +
+  facet_wrap(~hod, labeller = "label_both") +ylab("demand (kwh)") + xlab("")
+
+#ggsave("plot1.png", p1, "png", path = "./figs/", dpi= 300, height = 19, unit = "cm")
+
+## ---- check2
+library(tidyverse)
+library(ggplot2)
+library(gravitas)
+
+id1_tsibble1 <- id1_tsibble %>% 
+  create_gran("day_month") %>% 
+  create_gran("hour_day") %>% 
+  as_tibble() %>% 
+  select(day_month, hour_day, kwh)
+
+#prob <- seq(0.01,0.99,by=0.1)
+#prob <- c(0.01,0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
+prob <- c(0.25, 0.5, 0.75)
+
+# id1_tsibble1 %>% 
+#   group_by(day_month, hour_day) %>% 
+#   summarise()
+
+nhour = unique(id1_tsibble1$day_month) 
+nwday = unique(id1_tsibble1$hour_day) 
+
+percetile_data <- lapply(seq_len(length(nhour)),
+                         function(x){
+                           lapply(seq_len(length(nwday)), function(y){
+                             data <- id1_tsibble1 %>% filter(day_month==nhour[x], hour_day==nwday[y])
+                             quantile(data$kwh, prob = prob, type = 8)
+                           }) %>% bind_rows(.id = "x")
+                         }) %>% bind_rows(.id = "dom")
+
+
+all_data <- percetile_data %>% 
+  pivot_longer(-c(1:2),
+               values_to = "values", names_to= "percentiles")
+
+all_data$dom = as_factor(all_data$dom)
+all_data$x = as_factor(all_data$x)
+
+p2 <- all_data %>% 
+  filter(dom!=31) %>% 
+  ggplot(aes(x = x, y = values, colour = percentiles, group = percentiles))+
+  geom_line(size = 1) +
+  theme(legend.position = "bottom",
+        panel.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 10, margin = margin(b = 0, t = 0)),
+        panel.grid.major = element_blank()) +
+  scale_color_viridis_d(direction = -1) +
+  facet_wrap(~dom, labeller = "label_both") + 
+  scale_x_discrete(breaks = seq(0, 31, 5)) +
+  xlab("hour_day") +
+  theme(legend.position = "none",
+        panel.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 10, margin = margin(b = 0, t = 0)))  + ylab("")
+
+#ggsave("plot2.png", p2, "png", path = "./figs/", dpi= 300, height = 19, unit = "cm")
+
+
+## ---- check3
+library(tidyverse)
+library(ggplot2)
+library(gravitas)
+
+id1_tsibble1 <- id1_tsibble %>% 
+  create_gran("wknd_wday") %>% 
+  create_gran("hour_day") %>% 
+  as_tibble() %>% 
+  select(wknd_wday, hour_day, kwh)
+
+#prob <- seq(0.01,0.99,by=0.1)
+#prob <- c(0.01,0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
+prob <- c(0.25, 0.5, 0.75)
+
+nhour = unique(id1_tsibble1$wknd_wday) 
+nwday = unique(id1_tsibble1$hour_day) 
+
+percetile_data <- lapply(seq_len(length(nhour)),
+                         function(x){
+                           lapply(seq_len(length(nwday)), function(y){
+                             data <- id1_tsibble1 %>% filter(wknd_wday==nhour[x], hour_day==nwday[y])
+                             quantile(data$kwh, prob = prob, type = 8)
+                           }) %>% bind_rows(.id = "x")
+                         }) %>% bind_rows(.id = "f")
+
+
+all_data <- percetile_data %>% 
+  pivot_longer(-c(1:2),
+               values_to = "values", names_to= "percentiles")
+
+all_data$f = as_factor(all_data$f)
+
+all_data$x = as_factor(all_data$x)
+levels(all_data$f) = c("weekday", "weekend")
+
+p3 <- all_data %>% 
+  filter(f !=31) %>% 
+  ggplot(aes(x = x, y = values, colour = percentiles, group = percentiles))+
+  geom_line(size = 1) +
+  theme(legend.position = "bottom",
+        panel.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 10, margin = margin(b = 0, t = 0)),
+        panel.grid.major = element_blank(),
+  ) +
+  scale_color_viridis_d(direction = -1) +
+  facet_wrap(~f) +
+  scale_x_discrete(breaks = seq(0, 24, 5)) +
+  xlab("hour_day") +
+  theme(
+        panel.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 10, margin = margin(b = 0, t = 0))) + ylab("demand (kwh)")
+
+#ggsave("plot3.png", p3, "png", path = "./figs/", dpi= 300, height = 19, unit = "cm")
+
+
+## ---- check4
+library(tidyverse)
+library(ggplot2)
+library(gravitas)
+
+id1_tsibble1 <- id1_tsibble %>% 
+  create_gran("week_month") %>% 
+  create_gran("wknd_wday") %>% 
+  as_tibble() %>% 
+  select(week_month, wknd_wday, kwh)
+
+#prob <- seq(0.01,0.99,by=0.1)
+#prob <- c(0.01,0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
+prob <- c(0.25, 0.5, 0.75)
+
+nhour = unique(id1_tsibble1$week_month) 
+nwday = unique(id1_tsibble1$wknd_wday) 
+
+percetile_data <- lapply(seq_len(length(nhour)),
+                         function(x){
+                           lapply(seq_len(length(nwday)), function(y){
+                             data <- id1_tsibble1 %>% filter(week_month==nhour[x], wknd_wday==nwday[y])
+                             quantile(data$kwh, prob = prob, type = 8)
+                           }) %>% bind_rows(.id = "x")
+                         }) %>% bind_rows(.id = "wom")
+
+
+all_data <- percetile_data %>% 
+  pivot_longer(-c(1:2),
+               values_to = "values", names_to= "percentiles")
+
+all_data$wom = as_factor(all_data$wom)
+all_data$x = as_factor(all_data$x)
+
+p4 <- all_data %>% 
+  filter(wom != 5) %>% 
+  ggplot(aes(x = x, y = values, colour = percentiles, group = percentiles))+
+  geom_line(size = 1) +
+  theme(legend.position = "bottom",
+        panel.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 10, margin = margin(b = 0, t = 0)),
+        panel.grid.major = element_blank()) +
+  scale_color_viridis_d(direction = -1) +
+  facet_wrap(~wom, labeller = "label_both") +  xlab("") +
+  scale_x_discrete(labels = c("weekday", "weekend")) +
+  ylab("")
+
+
+#ggsave("plot4.png", p4, "png", path = "./figs/", dpi= 300, height = 19, unit = "cm")
+
+## ---- gravitas-plot-new3
+
+ p_final <- (p1 + p2)/(p3 + p4)
+ p_final
+# # ggsave("plot_final.png", p_final, "png", path = "./figs/", dpi= 300, height = 19, unit = "cm")
+# 
+# knitr::include_graphics("figs/plot_final.png")
+
+
+#knitr::include_graphics("figs/plot_final.png")

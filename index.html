@@ -64,10 +64,16 @@ background-size: contain
 
 class:top, center
 
-# Research roadmap
+# Research theme and roadmap
 
+.left-column[
+- fine resolution data could be analyzed at any coarser temporal scales
+- application beyond smart meters
+- solutions to be developed for any temporal data observed more than once per year
+]
+.right-column[
 &lt;img src="figs/theme-roadmap2.png" width="80%" style="display: block; margin: auto;" /&gt;
-
+]
 
 ???
 
@@ -208,9 +214,8 @@ class: top left
 - define a threshold for significance
 ]
 
-
 .right-column[
-&lt;img src="figs/example-design.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="figs/example-design.png" width="90%" style="display: block; margin: auto;" /&gt;
 ]
 
 .smaller[
@@ -315,6 +320,7 @@ Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Norma
 &lt;br&gt;
 
 `\(wpd\)` values are meant to be different only when there is difference between different categories and not when 
+&lt;br&gt;
 
 - underlying distributions are different
 (solved by using NQT)
@@ -427,7 +433,7 @@ where, `\(wpd_{perm}=\{w_{1,perm_{1}},w_{1,perm_{2}},\dots, w_{N, permM}\}\)`
 
 # Melbourne households example: show me the data
 
-
+&lt;img src="figure/linear-scale-8new-1.svg" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -456,7 +462,7 @@ elec %&gt;%
 
 
 ```
-#&gt; # A tibble: 16 x 4
+#&gt; # A tibble: 14 x 4
 #&gt;    facet_variable x_variable facet_levels x_levels
 #&gt;    &lt;chr&gt;          &lt;chr&gt;             &lt;int&gt;    &lt;int&gt;
 #&gt;  1 day_week       hour_day              7       24
@@ -464,17 +470,15 @@ elec %&gt;%
 #&gt;  3 week_month     hour_day              5       24
 #&gt;  4 wknd_wday      hour_day              2       24
 #&gt;  5 hour_day       day_week             24        7
-#&gt;  6 day_month      day_week             31        7
-#&gt;  7 week_month     day_week              5        7
-#&gt;  8 hour_day       day_month            24       31
-#&gt;  9 day_week       day_month             7       31
-#&gt; 10 wknd_wday      day_month             2       31
-#&gt; 11 hour_day       week_month           24        5
-#&gt; 12 day_week       week_month            7        5
-#&gt; 13 wknd_wday      week_month            2        5
-#&gt; 14 hour_day       wknd_wday            24        2
-#&gt; 15 day_month      wknd_wday            31        2
-#&gt; 16 week_month     wknd_wday             5        2
+#&gt;  6 week_month     day_week              5        7
+#&gt;  7 hour_day       day_month            24       31
+#&gt;  8 wknd_wday      day_month             2       31
+#&gt;  9 hour_day       week_month           24        5
+#&gt; 10 day_week       week_month            7        5
+#&gt; 11 wknd_wday      week_month            2        5
+#&gt; 12 hour_day       wknd_wday            24        2
+#&gt; 13 day_month      wknd_wday            31        2
+#&gt; 14 week_month     wknd_wday             5        2
 ```
 
 .smaller[
@@ -491,13 +495,16 @@ elec %&gt;%
 - Significant pairs differ across households
 ]
 ---
+
 #  Melbourne households example: validate one household
 
-&lt;img src="figure/gravitas-plot-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="figs/plot_final.png" width="6928" style="display: block; margin: auto;" /&gt;
+
 
 ---
 #  Melbourne households example: compare households
 
+&lt;img src="figs/heatplot.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 class: top left
