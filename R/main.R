@@ -483,6 +483,11 @@ knitr::include_graphics("figs/allplots.png")
 
 knitr::include_graphics("figs/graphical_map.png")
 
+##----data-structure2
+
+knitr::include_graphics("figs/data-structure2.png")
+
+
 ##----clash
 
 VIC <- tsibbledata::vic_elec

@@ -144,17 +144,20 @@ class: top left
 .left-column[
 &lt;br&gt;
 &lt;br&gt;
--  extension of tsibble data structure
--  choose any two cyclic granularities: 
-`\(C_i = \{A_1, A_2, \dots, A_K\}\)` and `\(C_j = \{B_1, B_2, \dots, B_L\}\)`
+&lt;br&gt;
+.smaller[
+- extension of tsibble data structure
+- Many possible cyclic granularities (e.g. _hod_ read as hour-of-day, _dow_ day-of-week and so on)
+- choose any two `\(C_i = \{A_1, A_2, \dots, A_K\}\)` and `\(C_j = \{B_1, B_2, \dots, B_L\}\)`
 - graphical mapping `\((C_i, C_j, v)\)`
-
 - `\(^{N_C}P_2\)` displays
+- Too many displays for large `\({N_C}\)`
+]
 ]
 
 .right-column[
 
-&lt;img src="figs/graphical_map.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="figs/data-structure2.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 ---
