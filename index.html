@@ -99,7 +99,7 @@ class: middle center
 
 ---
 
-# Main contributions
+# Project 1: Main contributions
 
  - provide a formal characterization of cyclic granularities;
  - facilitate manipulation of single- and multiple-order-up time granularities through cyclic calendar algebra;
@@ -108,7 +108,7 @@ class: middle center
 ---
 class: top left 
 
-# Linear to cyclic
+# Project 1: Linear to cyclic
 
 .pull-left[
 .checked[
@@ -126,7 +126,7 @@ class: top left
 
 ---
 
-# Graphing distribution summary
+# Project 1: Graphing distribution summary
 
 
 &lt;img src="figs/allplots.png" width="4453" style="display: block; margin: auto;" /&gt;
@@ -134,12 +134,10 @@ class: top left
 
 **_several ways to summarize a distribution_**
 
-
-
 ---
 class: top left
 
-# Data structure and graphical mapping
+# Project 1: Data structure and graphical mapping
 
 .left-column[
 &lt;br&gt;
@@ -151,7 +149,7 @@ class: top left
 - choose any two `\(C_i = \{A_1, A_2, \dots, A_K\}\)` and `\(C_j = \{B_1, B_2, \dots, B_L\}\)`
 - graphical mapping `\((C_i, C_j, v)\)`
 - `\(^{N_C}P_2\)` displays
-- Too many displays for large `\({N_C}\)`
+- Too many for large `\({N_C}\)`
 ]
 ]
 
@@ -163,29 +161,21 @@ class: top left
 ---
 class:left, top
 
-# Relationship of cyclic granularities
+# Project 1: Relationship between cyclic granularities
 
-.left-column[
-&lt;br&gt;
-.larger[
-**&lt;span style="color:firebrick"&gt; &lt;i&gt; Clashes&lt;/i&gt;:** pairs leading to empty sets
-&lt;br&gt;
-&lt;br&gt;
-**&lt;span style="color:firebrick"&gt; &lt;i&gt; Harmonies&lt;/i&gt;:** pairs leading to no empty sets
+
+
+
+&lt;img src="figure/bothclash2-1.svg" width="80%" style="display: block; margin: auto;" /&gt;
+
+.smaller[
+.card[_Clashes_: pairs leading to empty sets]
+.card[_Harmonies_: pairs leading to no empty sets]  
+.smaller[
+_1.Still too many harmonies to display for large `\(N_C\)`_  
+_2.**Significant harmonies:** The harmonies along which patterns are significant enough to be an interesting display_
 ]
 ]
-
-.right-column[
-
-
-
-
-&lt;img src="figure/bothclash2-1.svg" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
-
-**_Still too many harmonies for display for large `\(N_C\)`_**
-
 ---
 class: top left
 
@@ -201,7 +191,7 @@ class: top left
 # Project 2: Contributions
 
  - introduce a new distance measure for quantifying periodic interactions;
- - device a framework for choosing a threshold for detecting only significantly interesting periodic patterns;
+ - devise a framework for choosing a threshold for detecting only significantly interesting periodic patterns;
  - show that the proposed distance metric is useful for ranking different periodic patterns since they have been normalized for relevant parameters.
 
 ---
@@ -434,7 +424,7 @@ where, `\(wpd_{perm}=\{w_{1,perm_{1}},w_{1,perm_{2}},\dots, w_{N, permM}\}\)`
 
 # Melbourne households example: show me the data
 
-&lt;img src="figs/heatplot.png" width="4799" style="display: block; margin: auto;" /&gt;
+
 
 
 ---
@@ -463,7 +453,7 @@ elec %&gt;%
 
 
 ```
-#&gt; # A tibble: 14 x 4
+#&gt; # A tibble: 16 x 4
 #&gt;    facet_variable x_variable facet_levels x_levels
 #&gt;    &lt;chr&gt;          &lt;chr&gt;             &lt;int&gt;    &lt;int&gt;
 #&gt;  1 day_week       hour_day              7       24
@@ -471,15 +461,17 @@ elec %&gt;%
 #&gt;  3 week_month     hour_day              5       24
 #&gt;  4 wknd_wday      hour_day              2       24
 #&gt;  5 hour_day       day_week             24        7
-#&gt;  6 week_month     day_week              5        7
-#&gt;  7 hour_day       day_month            24       31
-#&gt;  8 wknd_wday      day_month             2       31
-#&gt;  9 hour_day       week_month           24        5
-#&gt; 10 day_week       week_month            7        5
-#&gt; 11 wknd_wday      week_month            2        5
-#&gt; 12 hour_day       wknd_wday            24        2
-#&gt; 13 day_month      wknd_wday            31        2
-#&gt; 14 week_month     wknd_wday             5        2
+#&gt;  6 day_month      day_week             31        7
+#&gt;  7 week_month     day_week              5        7
+#&gt;  8 hour_day       day_month            24       31
+#&gt;  9 day_week       day_month             7       31
+#&gt; 10 wknd_wday      day_month             2       31
+#&gt; 11 hour_day       week_month           24        5
+#&gt; 12 day_week       week_month            7        5
+#&gt; 13 wknd_wday      week_month            2        5
+#&gt; 14 hour_day       wknd_wday            24        2
+#&gt; 15 day_month      wknd_wday            31        2
+#&gt; 16 week_month     wknd_wday             5        2
 ```
 
 .smaller[
@@ -524,7 +516,7 @@ class: top left
 - cluster validation through simulations and relating to external data like census and geography [Australian Bureau of Statistics](https://www.abs.gov.au/websitedbs/censushome.nsf/home/tablebuilder) along with weather from [Bureau of Meteorology](www.bom.gov.au)
 
 ---
-# Project 3: Preliminary exploration (MissingnessOTI)
+# Project 3: Preliminary exploration (Missingness)
 
 
 

@@ -503,7 +503,10 @@ clash <- VIC %>%
             symmetric = FALSE) + ggtitle("") + theme_remark() + 
   scale_x_discrete(breaks = seq(0, 364, 40)) +
   scale_color_brewer(palette = "Dark2") +
-  ylab("Energy consumption (kwh)")
+  ylab("Energy consumption (kwh)") +
+  theme(
+    axis.text = element_text(size = 16),
+    legend.text=element_text(size=14))
 
 ##----noclash
 
@@ -516,8 +519,9 @@ noclash <- VIC %>%
             response = "Demand",
             plot_type = "lv") + ggtitle("") + theme_remark() +
   theme(
-    axis.text = element_text(size = 16)) + 
-  scale_x_discrete(breaks = c("Sun", "Wed", "Fri"))+  ylab("Energy consumption (kwh)")
+    axis.text = element_text(size = 16), 
+    legend.text=element_text(size=14)) + 
+  scale_x_discrete(breaks = c("Sun", "Wed", "Fri"))+  ylab("")
 
 ##----bothclash2
 clash + noclash

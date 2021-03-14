@@ -138,7 +138,7 @@ class: middle center
 
 ---
 
-# Main contributions
+# Project 1: Main contributions
 
  - provide a formal characterization of cyclic granularities;
  - facilitate manipulation of single- and multiple-order-up time granularities through cyclic calendar algebra;
@@ -147,7 +147,7 @@ class: middle center
 ---
 class: top left 
 
-# Linear to cyclic
+# Project 1: Linear to cyclic
 
 .pull-left[
 .checked[
@@ -166,7 +166,7 @@ class: top left
 
 ---
 
-# Graphing distribution summary
+# Project 1: Graphing distribution summary
 
 
 ```{r allplots}
@@ -175,12 +175,10 @@ class: top left
 
 **_several ways to summarize a distribution_**
 
-
-
 ---
 class: top left
 
-# Data structure and graphical mapping
+# Project 1: Data structure and graphical mapping
 
 .left-column[
 <br>
@@ -192,7 +190,7 @@ class: top left
 - choose any two $C_i = \{A_1, A_2, \dots, A_K\}$ and $C_j = \{B_1, B_2, \dots, B_L\}$
 - graphical mapping $(C_i, C_j, v)$
 - $^{N_C}P_2$ displays
-- Too many displays for large ${N_C}$
+- Too many for large ${N_C}$
 ]
 ]
 
@@ -206,32 +204,24 @@ class: top left
 ---
 class:left, top
 
-# Relationship of cyclic granularities
-
-.left-column[
-<br>
-.larger[
-**<span style="color:firebrick"> <i> Clashes</i>:** pairs leading to empty sets
-<br>
-<br>
-**<span style="color:firebrick"> <i> Harmonies</i>:** pairs leading to no empty sets
-]
-]
-
-.right-column[
+# Project 1: Relationship between cyclic granularities
 
 ```{r clash, out.width="100%"}
 ```
 ```{r noclash, out.width="100%"}
 ```
 
-```{r bothclash2, out.width="100%"}
+```{r bothclash2, out.width="80%"}
 ```
 
+.smaller[
+.card[_Clashes_: pairs leading to empty sets]
+.card[_Harmonies_: pairs leading to no empty sets]  
+.smaller[
+_1.Still too many harmonies to display for large $N_C$_  
+_2.**Significant harmonies:** The harmonies along which patterns are significant enough to be an interesting display_
 ]
-
-**_Still too many harmonies for display for large $N_C$_**
-
+]
 ---
 class: top left
 
@@ -247,7 +237,7 @@ class: top left
 # Project 2: Contributions
 
  - introduce a new distance measure for quantifying periodic interactions;
- - device a framework for choosing a threshold for detecting only significantly interesting periodic patterns;
+ - devise a framework for choosing a threshold for detecting only significantly interesting periodic patterns;
  - show that the proposed distance metric is useful for ranking different periodic patterns since they have been normalized for relevant parameters.
 
 ---
@@ -495,7 +485,7 @@ where, $wpd_{perm}=\{w_{1,perm_{1}},w_{1,perm_{2}},\dots, w_{N, permM}\}$
 
 # Melbourne households example: show me the data
 
-```{r heatplot-call3}
+```{r heatplot-call3, eval = FALSE}
 ```
 
 
@@ -569,7 +559,7 @@ class: top left
 - cluster validation through simulations and relating to external data like census and geography [Australian Bureau of Statistics](https://www.abs.gov.au/websitedbs/censushome.nsf/home/tablebuilder) along with weather from [Bureau of Meteorology](www.bom.gov.au)
 
 ---
-# Project 3: Preliminary exploration (MissingnessOTI)
+# Project 3: Preliminary exploration (Missingness)
 
 
 ```{r elec-gaps, warning=FALSE}

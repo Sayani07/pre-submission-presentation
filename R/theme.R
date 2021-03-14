@@ -2,14 +2,14 @@
 theme_remark <- function() {
   theme_grey() +
     theme(
-      axis.text = element_text(size = 24),
-      strip.text = element_text(size = 24,
+      axis.text = element_text(size = 18),
+      strip.text = element_text(size = 18,
                                 margin = margin()),
-      axis.title = element_text(size = 24),
-      legend.title = element_text(size = 24),
-      legend.text = element_text(size = 24),
+      axis.title = element_text(size = 18),
+      legend.title = element_text(size = 18),
+      legend.text = element_text(size = 18),
       legend.position = "bottom",
-      plot.title =  element_text(size = 24)
+      plot.title =  element_text(size = 18)
     ) 
 }
 
