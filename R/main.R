@@ -193,10 +193,20 @@ p_varall <- sim_panel_varall %>%
   rename("facet level" = "id_facet" ) %>% 
   ggplot(aes(x = as.factor(id_x), y = sim_data)) + 
   facet_wrap(~`facet level`,labeller = "label_both") + 
-  geom_boxplot() +
+  geom_boxplot(fatten = 2.5) +
   ggtitle("") +
   xlab("x level") +
-  ylab("")
+  ylab("") + geom_jitter(alpha = 0.05,color = "blue")+
+  theme(
+    axis.text = element_text(size = 14),
+    strip.text = element_text(size = 14,
+                              margin = margin()),
+    axis.title = element_text(size = 14),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    plot.title =  element_text(size = 16)
+  ) 
+
 
 
 sim_varx_normal <- function(nx, nfacet, mean, sd, w) {
@@ -215,9 +225,20 @@ p_varx <- sim_panel_varx %>%
   ggplot(aes(x = as.factor(id_x), y = sim_data)) + 
   facet_wrap(~`facet level`,labeller = "label_both") + 
   ggtitle("") +
-  geom_boxplot() +
+  geom_boxplot(fatten = 2.5) +
   xlab("x level") +
-  ylab("simulated response")
+  ylab("simulated response") + geom_jitter(alpha = 0.05,color = "blue")+
+  theme(
+    axis.text = element_text(size = 14),
+    strip.text = element_text(size = 14,
+                              margin = margin()),
+    axis.title = element_text(size = 14),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    plot.title =  element_text(size = 16)
+  ) 
+
+
 
 
 
@@ -236,10 +257,21 @@ p_varf <- sim_panel_varf %>%
   rename("facet level" = "id_facet" ) %>% 
   ggplot(aes(x = as.factor(id_x), y = sim_data)) +
   facet_wrap(~`facet level`,labeller = "label_both") + 
-  geom_boxplot() +
+  geom_boxplot(fatten = 2.5) +
   ggtitle("") +
   xlab("x level") +
-  ylab("")
+  ylab("") + geom_jitter(alpha = 0.05,color = "blue")+
+  theme(
+    axis.text = element_text(size = 14),
+    strip.text = element_text(size = 14,
+                              margin = margin()),
+    axis.title = element_text(size = 14),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    plot.title =  element_text(size = 16)
+  ) 
+
+
 
 
 
@@ -258,15 +290,33 @@ p_null <- sim_panel_null %>%
   rename("facet level" = "id_facet" ) %>% 
   ggplot(aes(x = as.factor(id_x), y = sim_data)) +
   facet_wrap(~`facet level`,labeller = "label_both") +
-  geom_boxplot() +
+  geom_boxplot(fatten = 2.5) +
   ggtitle("") +
   xlab("x level") +
-  ylab("simulated response")
+  ylab("simulated response") + geom_jitter(alpha = 0.05,color = "blue")+
+  theme(
+    axis.text = element_text(size = 14),
+    strip.text = element_text(size = 14,
+                              margin = margin()),
+    axis.title = element_text(size = 14),
+    legend.title = element_text(size = 16),
+    legend.text = element_text(size = 16),
+    plot.title =  element_text(size = 16)
+  ) 
 
 
-ggpubr::ggarrange(p_null, p_varf,  p_varx, p_varall, nrow = 2, ncol = 2,
+
+
+p_all <- ggpubr::ggarrange(p_null, p_varf,  p_varx, p_varall, nrow = 2, ncol = 2,
                   common.legend = TRUE,
-                  labels = c("a", "b", "c", "d"))
+                  labels = c("a", "b", "c", "d")) 
+
+ggsave("example-design.png", p_all, "png", path = "./figs/", dpi= 300, height = 19, unit = "cm")
+
+knitr::include_graphics("figs/example-design.png")
+
+
+
 
 ## ----permutation-test
 

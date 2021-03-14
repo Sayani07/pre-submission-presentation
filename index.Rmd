@@ -247,19 +247,22 @@ class: top left
 
 .left-column[
 <br>
-.smaller[
-- Rank harmonies $a (D_{null}) < b (D_{var_f})$  
-$<  c(D_{var_x}) < d(D_{var_{all}})$
+- Sample designs
+- Rank harmonies $a<b<c<d$
 - Gestalt theory
 - within and between facet variation/distances
-- compute a threshold
-]
+- define a threshold for significance
 ]
 
 
 .right-column[
 ```{r example-design2, out.width="100%"}
 ```
+]
+
+.smaller[
+**Designs:** 
+$a \gets D_{null}$, $b\gets D_{var_f}$,  $c\gets D_{var_x}$, $d \gets D_{var_{all}}$
 ]
 ---
 
