@@ -17,7 +17,7 @@ output:
       - "assets/custom.css" # add your own CSS here!
       - "timeline.css"
     # [ "libs/myremark.css", "xaringan-themer.css" , "libs/font-awesome/css/fontawesome-all.css"]
-    self_contained: true
+    self_contained: false
     nature:
       ratio: 16:9
       highlightStyle: github
@@ -326,7 +326,7 @@ Menéndez, M. L., J. A. Pardo, L. Pardo, and M. C. Pardo. 1997. “The Jensen-Sh
 ]
 ---
 
-# Project 2: Algorithm for computing $wpd$
+# Project 2: Weighted pairwise distances (wpd)
 ```{r algorithm1, out.width="80%"}
 ```
 ---
