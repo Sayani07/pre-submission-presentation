@@ -148,7 +148,7 @@ class: middle center
 
  - provide a formal characterization of cyclic granularities;
  - facilitate manipulation of single- and multiple-order-up time granularities through cyclic calendar algebra;
- - develop an approach to check the feasibility of creating plots or drawing inferences for any two cyclic granularities.
+ - develop an approach to check the feasibility of creating plots for any two cyclic granularities.
 
 ---
 class: top left 
@@ -546,20 +546,16 @@ background-size: contain
 ---
 #  Melbourne households example: compare households
 
-```{r,out.width="70%"}
+```{r,out.width="60%"}
 knitr::include_graphics("figs/heatplot-4.png")
 ```
 
 ---
-#  Melbourne households example: compare households
 
-```{r heatplot-new}
+background-image: url("figs/heatplot.png")
 
-```
-
-```{r heatplot-only}
-```
-
+background-position: center
+background-size: contain
 ---
 class: top left
 
