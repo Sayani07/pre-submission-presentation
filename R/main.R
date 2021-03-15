@@ -867,7 +867,7 @@ elec <- read_rds(here("data/elec_all-8.rds")) %>%
 
 elec_zoom <- elec %>%
   as_tibble() %>%
-  dplyr::filter(date(date_time) > as.Date("2019-09-01") & date(date_time) < (as.Date("2019-09-30"))) %>%
+ # dplyr::filter(date(date_time) > as.Date("2019-09-01") & date(date_time) < (as.Date("2019-09-30"))) %>%
   ggplot(aes(x = date_time, y = kwh)) +
   # geom_point(size = 0.1, colour = "black", alpha = 0.3) +
   geom_line(size = 0.4, colour = "blue") +
@@ -889,11 +889,11 @@ elec_zoom <- elec %>%
 
 p <- heatplot + facet_grid(id ~ .) + coord_fixed() + elec_zoom +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm")) +
-  plot_layout(widths = c(1, 2))
+  plot_layout(widths = c(1, 3))
 
 p
 
-ggsave("heatplot.png", p, "png", path = "./figs/", dpi = 700, height = 25, unit = "cm")
+ggsave("heatplot.png", p, "png", path = "./figs/", dpi = 700, height = 25, width = 42, unit = "cm")
 #
 # ggsave("eleclinear8.tiff", p, units = "in",  path = "./figs/", width = 5,  device = "tiff", dpi = 700)
 
@@ -1087,10 +1087,10 @@ library(ggplot2)
 library(gravitas)
 
 id1_tsibble1 <- id1_tsibble %>%
-  create_gran("day_month") %>%
   create_gran("hour_day") %>%
+  create_gran("week_month") %>%
   as_tibble() %>%
-  select(day_month, hour_day, kwh)
+  select(hour_day, week_month, kwh)
 
 # prob <- seq(0.01,0.99,by=0.1)
 # prob <- c(0.01,0.1, 0.25, 0.5, 0.75, 0.9, 0.99)
@@ -1100,18 +1100,18 @@ prob <- c(0.25, 0.5, 0.75)
 #   group_by(day_month, hour_day) %>%
 #   summarise()
 
-nhour <- unique(id1_tsibble1$day_month)
-nwday <- unique(id1_tsibble1$hour_day)
+nhour <- unique(id1_tsibble1$hour_day)
+nwday <- unique(id1_tsibble1$week_month)
 
 percetile_data <- lapply(
   seq_len(length(nhour)),
   function(x) {
     lapply(seq_len(length(nwday)), function(y) {
-      data <- id1_tsibble1 %>% filter(day_month == nhour[x], hour_day == nwday[y])
+      data <- id1_tsibble1 %>% filter(hour_day == nhour[x], week_month == nwday[y])
       quantile(data$kwh, prob = prob, type = 8)
     }) %>% bind_rows(.id = "x")
   }
-) %>% bind_rows(.id = "dom")
+) %>% bind_rows(.id = "hod")
 
 
 all_data <- percetile_data %>%
@@ -1119,11 +1119,11 @@ all_data <- percetile_data %>%
     values_to = "values", names_to = "percentiles"
   )
 
-all_data$dom <- as_factor(all_data$dom)
+all_data$hod <- as_factor(all_data$hod)
 all_data$x <- as_factor(all_data$x)
 
-p2 <- all_data %>%
-  filter(dom != 31) %>%
+p2 <- all_data  %>%
+  filter(x!=5) %>% 
   ggplot(aes(x = x, y = values, colour = percentiles, group = percentiles)) +
   geom_line(size = 1) +
   theme(
@@ -1133,15 +1133,15 @@ p2 <- all_data %>%
     panel.grid.major = element_blank()
   ) +
   scale_color_viridis_d(direction = -1) +
-  facet_wrap(~dom, labeller = "label_both") +
+  facet_wrap(~hod, labeller = "label_both") +
   scale_x_discrete(breaks = seq(0, 31, 5)) +
-  xlab("hour_day") +
+  xlab("week_month") +
   theme(
     legend.position = "none",
     panel.background = element_rect(fill = "white"),
     strip.text = element_text(size = 10, margin = margin(b = 0, t = 0))
   ) +
-  ylab("") + ggtitle("b) dom vs hod (Rank 2)") 
+  ylab("") + ggtitle("b) hod vs wom (insignificant)") 
 
 # ggsave("plot2.png", p2, "png", path = "./figs/", dpi= 300, height = 19, unit = "cm")
 
@@ -1272,13 +1272,14 @@ knitr::include_graphics("figs/plot_final.png")
 
 #  p_final <- (p1 + p2)/(p3 + p4) + theme_fonts()
 #  p_final
-# ggsave("plot_final_scales-free.png", p_final, "png", path = "./figs/", dpi= 300, height = 25, width = 44, unit = "cm")
+# ggsave("plot_final3.png", p_final, "png", path = "./figs/", dpi= 300, height = 25, width = 44, unit = "cm")
 
 # knitr::include_graphics("figs/plot_final.png")
 
 
 
 ## ----heatplot-new-4
+
 
 elec_sig_split <- read_rds("data/elec_sig_split.rds") %>% 
   filter(id %in% c("id 5", "id 6", "id 7", "id 8"))
@@ -1313,13 +1314,11 @@ heatplot <- elec_sig_split %>%
   theme(
     panel.background = element_rect(fill = "white", colour = "grey"),
     plot.margin = unit(c(1, -1, 1, 1), "cm")
-  )+ facet_grid(id ~ .) + 
-  coord_fixed() +
-  theme_fonts() 
+  )
 
 
 elec <- read_rds(here("data/elec_all-8.rds")) %>% 
-  dplyr::filter(meter_id == 1) %>%
+  dplyr::filter(date(reading_datetime) >= ymd("20190701"), date(reading_datetime) < ymd("20191231"), meter_id == 1) %>%
   select(-meter_id) %>%
   rename(
     "id" = "household_id",
@@ -1329,7 +1328,7 @@ elec <- read_rds(here("data/elec_all-8.rds")) %>%
 
 elec_zoom <- elec %>%
   as_tibble() %>%
-  #dplyr::filter(date(date_time) > as.Date("2019-09-01") & date(date_time) < (as.Date("2019-09-30"))) %>%
+  dplyr::filter(date(date_time) > as.Date("2019-09-01") & date(date_time) < (as.Date("2019-10-30"))) %>%
   ggplot(aes(x = date_time, y = kwh)) +
   # geom_point(size = 0.1, colour = "black", alpha = 0.3) +
   geom_line(size = 0.4, colour = "blue") +
@@ -1349,15 +1348,17 @@ elec_zoom <- elec %>%
     plot.margin = unit(c(1, 1, 1, -1), "cm")
   )
 
-p <- heatplot +
+p <- heatplot + facet_grid(id ~ .) + 
+  coord_fixed() +
+  theme_fonts() + 
   elec_zoom +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm")) +
-  plot_layout(widths = c(1, 2)) +
+  plot_layout(widths = c(1, 3)) +
   theme_fonts()
 
 p
 
-ggsave("heatplot-4.png", p, "png", path = "./figs/", dpi = 700, height = 25, unit = "cm")
+ggsave("heatplot-4-new.png", p, "png", path = "./figs/", dpi = 700, height = 25, width = 42, unit = "cm")
 
 ##----demography
 demography <- tibble(id = c(5,6, 7, 8), 
@@ -1376,10 +1377,13 @@ elec <- read_rds(here("paper/data/elec.rds")) %>%
 rdbl <- c("Weekday" = "#d7191c", "Weekend" = "#2c7bb6")
 
 elec <- elec %>% 
-  create_gran("hhour_day")
-
-p_cal_elec <- elec  %>% 
-  frame_calendar(x = hhour_day, y = kwh, date = date_time, nrow = 1) %>% 
+  mutate(
+    wday = wday(date, label = TRUE, week_start = 1),
+    weekday = if_else(wday %in% c("Sat", "Sun"), "Weekend", "Weekday")
+  )
+p_cal_elec <- elec %>% 
+  filter(id %in% c(2, 4)) %>% 
+  frame_calendar(x = time, y = kwh, date = date, nrow = 1) %>% 
   ggplot(aes(x = .time, y = .kwh, group = date)) +
   geom_line(aes(colour = as.factor(id)), size = 0.5) +
   scale_colour_brewer(name = "", palette = "Dark2", direction = 1) +

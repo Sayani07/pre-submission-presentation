@@ -553,8 +553,8 @@ background-size: contain
 ---
 #  Melbourne households example: compare households
 
-```{r,out.width="60%"}
-knitr::include_graphics("figs/heatplot-4.png")
+```{r,out.width="100%"}
+knitr::include_graphics("figs/heatplot-4-new.png")
 ```
 
 ---
