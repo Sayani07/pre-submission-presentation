@@ -17,7 +17,7 @@ output:
       - "assets/custom.css" # add your own CSS here!
       - "timeline.css"
     # [ "libs/myremark.css", "xaringan-themer.css" , "libs/font-awesome/css/fontawesome-all.css"]
-    self_contained: false
+    self_contained: true
     nature:
       ratio: 16:9
       highlightStyle: github
