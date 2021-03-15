@@ -202,7 +202,6 @@ class: top left
 
 ---
 
-
 # Project 2: Idea
 
 .left-column[
@@ -210,7 +209,7 @@ class: top left
 - Sample designs
 - Rank harmonies `\(a&lt;b&lt;c&lt;d\)`
 - Gestalt theory
-- within and between facet variation/distances
+- distance to compute within and between facet variation
 - define a threshold for significance
 ]
 
@@ -224,20 +223,44 @@ class: top left
 ]
 ---
 
-# Project 2: Notations
+# Project 2: Computation
+
+## Distance between distributions Jensen-Shannon distance
+
+`$$JSD(q_1||q_2) = \frac{1}{2}D(q_1||M) + \frac{1}{2}D(q_2||M)$$`
+where `\(M = \frac{q_1+q_2}{2}\)` and 
+`\(D(q_1||q_2) := \int^\infty_{-\infty} q_1(x)f(\frac{q_1(x)}{q_2(x)})\)` is the KL divergence between distributions `\(q_1\)` and `\(q_2\)`.  
+
+
+.smaller[
+.smaller[
+.smaller[
+.footnote[
+Menéndez, M. L., J. A. Pardo, L. Pardo, and M. C. Pardo. 1997. “The Jensen-Shannon Divergence.” Journal of the Franklin Institute 334 (2): 307–18.
+]
+]
+]
+]
+---
+
+# Project 2: Computation (continued)
+
+# Within and between facet distances
+
 &lt;img src="figs/dist_explain.png" width="2331" style="display: block; margin: auto;" /&gt;
 
-&lt;small&gt;
+.smaller[
 - two cyclic granularities `\(A\)` and `\(B\)` placed across x-axis and facet respectively. 
 - `\(A = \{ a_j: j = 1, 2, \dots, J\}\)` and `\(B = \{ b_k: k = 1, 2, \dots, K\}\)`
 - within-facet distances `\((a_{j}b_{k}, a_{j'}b_{k})\)`
 - between-facet distances `\((a_{j}b_{k}, a_{j}b_{k'})\)`
+]
+
 ---
 
+# Project 2: Computation (continued)
 
-# Project 2: Computation
-
-## Make asymmetrical distributed real world observed variables more treatable
+## Data pre-processing on asymmetrical distributed real world observed variables
 
 .smaller[
 The empirical **Normal Quantile Transform** involves the following steps:
@@ -256,31 +279,15 @@ Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Norma
 ]
 ]
 ]
-
 ---
+
 # Project 2: Computation (continued)
 
-## Computing distance between distributions using Jensen-Shannon distance
+## Algorithm for weighted pairwise distances (wpd)
 
-`$$JSD(q_1||q_2) = \frac{1}{2}D(q_1||M) + \frac{1}{2}D(q_2||M)$$`
-where `\(M = \frac{q_1+q_2}{2}\)` and 
-`\(D(q_1||q_2) := \int^\infty_{-\infty} q_1(x)f(\frac{q_1(x)}{q_2(x)})\)` is the KL divergence between distributions `\(q_1\)` and `\(q_2\)`.  
-
-
-.smaller[
-.smaller[
-.smaller[
-.footnote[
-Menéndez, M. L., J. A. Pardo, L. Pardo, and M. C. Pardo. 1997. “The Jensen-Shannon Divergence.” Journal of the Franklin Institute 334 (2): 307–18.
-]
-]
-]
-]
----
-
-# Project 2: Weighted pairwise distances (wpd)
 &lt;img src="figs/algorithm_revise.png" width="80%" style="display: block; margin: auto;" /&gt;
 ---
+
 # Project 2: Simulation setup
 
 .smaller[

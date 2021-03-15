@@ -1272,14 +1272,13 @@ knitr::include_graphics("figs/plot_final.png")
 
 #  p_final <- (p1 + p2)/(p3 + p4) + theme_fonts()
 #  p_final
-# ggsave("plot_final.png", p_final, "png", path = "./figs/", dpi= 300, height = 25, width = 44, unit = "cm")
+# ggsave("plot_final_scales-free.png", p_final, "png", path = "./figs/", dpi= 300, height = 25, width = 44, unit = "cm")
 
 # knitr::include_graphics("figs/plot_final.png")
 
 
 
 ## ----heatplot-new-4
-
 
 elec_sig_split <- read_rds("data/elec_sig_split.rds") %>% 
   filter(id %in% c("id 5", "id 6", "id 7", "id 8"))
@@ -1314,11 +1313,13 @@ heatplot <- elec_sig_split %>%
   theme(
     panel.background = element_rect(fill = "white", colour = "grey"),
     plot.margin = unit(c(1, -1, 1, 1), "cm")
-  )
+  )+ facet_grid(id ~ .) + 
+  coord_fixed() +
+  theme_fonts() 
 
 
 elec <- read_rds(here("data/elec_all-8.rds")) %>% 
-  dplyr::filter(date(reading_datetime) >= ymd("20190701"), date(reading_datetime) < ymd("20191231"), meter_id == 1) %>%
+  dplyr::filter(meter_id == 1) %>%
   select(-meter_id) %>%
   rename(
     "id" = "household_id",
@@ -1328,7 +1329,7 @@ elec <- read_rds(here("data/elec_all-8.rds")) %>%
 
 elec_zoom <- elec %>%
   as_tibble() %>%
-  dplyr::filter(date(date_time) > as.Date("2019-09-01") & date(date_time) < (as.Date("2019-09-30"))) %>%
+  #dplyr::filter(date(date_time) > as.Date("2019-09-01") & date(date_time) < (as.Date("2019-09-30"))) %>%
   ggplot(aes(x = date_time, y = kwh)) +
   # geom_point(size = 0.1, colour = "black", alpha = 0.3) +
   geom_line(size = 0.4, colour = "blue") +
@@ -1348,9 +1349,7 @@ elec_zoom <- elec %>%
     plot.margin = unit(c(1, 1, 1, -1), "cm")
   )
 
-p <- heatplot + facet_grid(id ~ .) + 
-  coord_fixed() +
-  theme_fonts() + 
+p <- heatplot +
   elec_zoom +
   theme(plot.margin = unit(c(0, 0, 0, 0), "cm")) +
   plot_layout(widths = c(1, 2)) +
@@ -1369,5 +1368,22 @@ demography <- tibble(id = c(5,6, 7, 8),
                      PhD_student = c( "yes", "yes", "yes", "no"))
 
 demography
-```
+
+##----calendar
+
+elec <- read_rds(here("paper/data/elec.rds")) %>% 
+  filter(date >= ymd("20180101"), date < ymd("20180701"))
+rdbl <- c("Weekday" = "#d7191c", "Weekend" = "#2c7bb6")
+
+elec <- elec %>% 
+  create_gran("hhour_day")
+
+p_cal_elec <- elec  %>% 
+  frame_calendar(x = hhour_day, y = kwh, date = date_time, nrow = 1) %>% 
+  ggplot(aes(x = .time, y = .kwh, group = date)) +
+  geom_line(aes(colour = as.factor(id)), size = 0.5) +
+  scale_colour_brewer(name = "", palette = "Dark2", direction = 1) +
+  facet_grid(id ~ ., labeller = label_both) +
+  theme(legend.position = "bottom")
+prettify(p_cal_elec, size = 2.5, label.padding = unit(0.1, "lines"))
 
