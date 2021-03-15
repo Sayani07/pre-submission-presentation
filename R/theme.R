@@ -46,3 +46,16 @@ theme_permutation <- function(){
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank()) 
 }
+
+theme_fonts <- function(){
+  theme(
+    axis.text = element_text(size = 18),
+    strip.text = element_text(size = 20,
+                              margin = margin()),
+    axis.title = element_text(size = 18),
+    legend.title = element_text(size = 18),
+    legend.text = element_text(size = 18),
+    legend.position = "bottom",
+    plot.title =  element_text(size = 18)
+  ) 
+}

@@ -283,7 +283,7 @@ $a \gets D_{null}$, $b\gets D_{var_f}$,  $c\gets D_{var_x}$, $d \gets D_{var_{al
 ---
 
 
-# Project 2: Computation (continued)
+# Project 2: Computation
 
 ## Make asymmetrical distributed real world observed variables more treatable
 
@@ -319,7 +319,7 @@ $D(q_1||q_2) := \int^\infty_{-\infty} q_1(x)f(\frac{q_1(x)}{q_2(x)})$ is the KL 
 .smaller[
 .smaller[
 .footnote[
-Bogner, K., F. Pappenberger, and H. L. Cloke. 2012. “Technical Note: The Normal Quantile Transformation and Its Application in a Flood Forecasting System.” Hydrology and Earth System Sciences 16 (4): 1085–94.
+Menéndez, M. L., J. A. Pardo, L. Pardo, and M. C. Pardo. 1997. “The Jensen-Shannon Divergence.” Journal of the Franklin Institute 334 (2): 307–18.
 ]
 ]
 ]
@@ -514,7 +514,7 @@ elec %>%
 ```
 <br>
 
-- There are $^{7} P_2 = 42$ pair of granularities to look at looking at two at a time.
+- There are $^{7} P_2 = 42$ pairs of granularities to look at looking at two at a time.
 - 42 visualizations to interpret?
 
 ---
@@ -538,19 +538,26 @@ elec %>%
 - Significant pairs differ across households
 ]
 ---
+background-image: url("figs/plot_final.png")
 
-#  Melbourne households example: validate one household
-
-```{r gravitas-new}
-knitr::include_graphics("figs/plot_final.png")
-```
-
+background-position: center
+background-size: contain
 
 ---
 #  Melbourne households example: compare households
 
 ```{r,out.width="70%"}
-knitr::include_graphics("figs/heatplot.png")
+knitr::include_graphics("figs/heatplot-4.png")
+```
+
+---
+#  Melbourne households example: compare households
+
+```{r heatplot-new}
+
+```
+
+```{r heatplot-only}
 ```
 
 ---
