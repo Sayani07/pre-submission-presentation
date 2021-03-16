@@ -69,7 +69,7 @@ library(xaringanthemer)
 ```
 
 
-background-image: url("figs/motivation2.png")
+background-image: url("figs/motivation3.png")
 
 background-position: center
 background-size: contain
