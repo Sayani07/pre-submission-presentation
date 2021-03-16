@@ -100,14 +100,18 @@ background-size: contain
 
 ---
 
-class:top, center
+class:top, left
 
 # Research theme and roadmap
 
+.smaller[
 .left-column[
+- multiple seasonal patterns
+- behavior from visible from linear representation of time
+- cyclic representation of time can indicate repetitive behavior
 - fine resolution data could be analyzed at any coarser temporal scales
 - application beyond smart meters
-- solutions to be developed for any temporal data observed more than once per year
+]
 ]
 .right-column[
 ```{r theme, out.width="80%"}
@@ -411,9 +415,8 @@ $y = a+b*log(z) + \epsilon \quad \epsilon \sim IID$
 - Response: $y = median(wpd)$
 - Linear predictor: $z = log(nx*nfacet)$
 - Distribution: Gamma
-- Link function (g): inverse
+- Link function: inverse
 - $E(y) = \mu$  
-- $g(\mu)=  1/\mu$  
 - $\hat \mu  = 1/(\hat a + \hat b log(z))$
 - Residuals: $y - \frac{1}{\hat a + \hat b*log(z)}$
 - $wpd_{norm} = Residuals$
@@ -476,8 +479,7 @@ where, $wpd_{perm}=\{w_{1,perm_{1}},w_{1,perm_{2}},\dots, w_{N, permM}\}$
 **<span style="color:black"> else**  _reject_  
 ]  
   
-- The threshold is defined for 99% but can be extended to define for 95% and 90% significance levels by choosing appropriate percentiles 
-
+- The threshold is defined for 99 percentile but can be extended to define for 95 and 90 percentile which will correspond to being significant at 1%, 5% and 10% levels
 ]
 ]
 ---
@@ -545,7 +547,7 @@ elec %>%
 - Significant pairs differ across households
 ]
 ---
-background-image: url("figs/plot_final.png")
+background-image: url("figs/plot_final4.png")
 
 background-position: center
 background-size: contain
